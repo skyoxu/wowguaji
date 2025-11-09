@@ -35,7 +35,7 @@ jobs:
           $ok = $false
           for ($i=1; $i -le 3 -and -not $ok; $i++) {
             foreach ($u in $urls) {
-              Write-Host "Attempt #$i: downloading $u"
+              Write-Host "Attempt #${i}: downloading $u"
               try { Invoke-WebRequest -UseBasicParsing -Uri $u -OutFile $zip; $ok = $true; break } catch { Write-Warning $_; Start-Sleep -Seconds (3*$i) }
             }
           }
@@ -59,7 +59,7 @@ jobs:
           $ok = $false
           for ($i=1; $i -le 3 -and -not $ok; $i++) {
             foreach ($u in $urls) {
-              Write-Host "Attempt #$i: downloading templates $u"
+              Write-Host "Attempt #${i}: downloading templates $u"
               try { Invoke-WebRequest -UseBasicParsing -Uri $u -OutFile $tpz; $ok = $true; break } catch { Write-Warning $_; Start-Sleep -Seconds (3*$i) }
             }
           }
