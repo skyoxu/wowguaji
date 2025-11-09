@@ -51,6 +51,8 @@ jobs:
           Invoke-WebRequest -UseBasicParsing -Uri $u -OutFile $tpz
           $temp = "godot/templates_unpacked"
           Expand-Archive $tpz -DestinationPath $temp -Force
+          $src = Join-Path $temp 'templates'
+          if (Test-Path $src) { $copyFrom = $src } else { $copyFrom = $temp }
           $verMono = "${env:GODOT_VERSION}.stable.mono"
           $ver = "${env:GODOT_VERSION}.stable"
           $dsts = @(
@@ -60,9 +62,9 @@ jobs:
             (Join-Path $env:APPDATA ("Godot/export_templates/$ver"))
           )
           New-Item -ItemType Directory -Force -Path $dsts | Out-Null
-          foreach ($d in $dsts) { Copy-Item -Recurse -Force "$temp/*" $d }
+          foreach ($d in $dsts) { Copy-Item -Recurse -Force "$copyFrom/*" $d }
           Write-Host ("Templates installed: " + ($dsts -join ', '))
-          $names = @('windows_release_x86_64.exe','windows_debug_x86_64.exe')
+          $names = @('windows_release_x86_64.exe','windows_debug_x86_64.exe','windows_release_x86_64_console.exe','windows_debug_x86_64_console.exe')
           $ok = $false
           foreach ($d in $dsts) {
             $hit = 0; foreach ($n in $names) { if (Test-Path (Join-Path $d $n)) { $hit++ } }
