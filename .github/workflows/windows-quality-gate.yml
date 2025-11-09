@@ -1,4 +1,4 @@
-name: Windows Quality Gate
+﻿name: Windows Quality Gate
 
 # Notes:
 # - Smoke markers recognized by scripts:

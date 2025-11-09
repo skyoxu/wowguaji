@@ -71,9 +71,22 @@ jobs:
           Copy-Item -Recurse -Force "$temp/*" $dst
           Write-Host "Export templates installed to $dst"
 
+      - name: Prewarm Godot C# build
+        shell: pwsh
+        run: |
+          $env:Path = "$HOME\.dotnet;" + $env:Path
+          & "$env:GODOT_BIN" --headless --path . --quit
+
+      - name: Build C# solutions
+        shell: pwsh
+        run: |
+          $env:Path = "$HOME\.dotnet;" + $env:Path
+          & "$env:GODOT_BIN" --headless --path . --build-solutions --quit
+
       - name: Export Windows EXE
         shell: pwsh
         run: |
+          $env:Path = "$HOME\.dotnet;" + $env:Path
           ./scripts/ci/export_windows.ps1 -GodotBin "$env:GODOT_BIN" -Output build/Game.exe
 
       - name: Upload artifacts
