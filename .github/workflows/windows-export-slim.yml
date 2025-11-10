@@ -14,8 +14,6 @@ jobs:
 
       - name: Setup .NET 8
         uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
       - name: Cache Godot zip
         uses: actions/cache@v4
         with:
@@ -27,8 +25,6 @@ jobs:
         with:
           path: godot/export_templates.tpz
           key: templates-${{ env.GODOT_VERSION }}-tpz
-        with:
-          dotnet-version: '8.0.x'
 
       - name: Pin .NET SDK/Runtime and export DOTNET_ROOT
         shell: pwsh
@@ -117,4 +113,5 @@ jobs:
           path: |
             build/Game.exe
             logs/ci/**
+
 
