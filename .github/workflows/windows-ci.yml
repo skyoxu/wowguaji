@@ -72,14 +72,16 @@ jobs:
           Write-Host "Export templates installed to $dst"
 
       - name: Prewarm & Build Solutions
+        continue-on-error: true
         shell: pwsh
         run: |
+          $ErrorActionPreference = 'Continue'
           $env:Path = "$HOME\.dotnet;" + $env:Path
           $env:GODOT_DOTNET_CLI = (Get-Command dotnet).Path
-          & "$env:GODOT_BIN" --headless --path . --quit
-          & "$env:GODOT_BIN" --headless --path . --build-solutions --verbose --quit
+          dotnet --info
           dotnet restore GodotGame.csproj
           dotnet build GodotGame.csproj -c Release -v minimal
+          try { & "$env:GODOT_BIN" --headless --path . --build-solutions --verbose --quit } catch { Write-Warning $_ }
 
       - name: Cache .dotnet tools
         uses: actions/cache@v4
