@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Data;
 using Game.Core.Ports;
 using Godot;
-using Godot.Collections;
 using Microsoft.Data.Sqlite;
 
 namespace Game.Godot.Adapters;
@@ -95,7 +94,7 @@ public partial class SqliteDataStore : Node, ISqlDatabase
         }
     }
 
-    public List<Dictionary<string, object?>> Query(string sql, params object[] parameters)
+    public System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object?>> Query(string sql, params object[] parameters)
     {
         if (_backend == Backend.Plugin)
         {
@@ -103,12 +102,12 @@ public partial class SqliteDataStore : Node, ISqlDatabase
             var ok = _pluginDb!.Call("Query", s).AsBool();
             if (!ok) throw new InvalidOperationException("SQL query failed (plugin)");
             var resultObj = _pluginDb.Get("QueryResult");
-            var arr = resultObj.As<Array>();
-            var list = new List<Dictionary<string, object?>>();
+            var arr = resultObj.As<Godot.Collections.Array>();
+            var list = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object?>>();
             foreach (var item in arr)
             {
-                var row = item.As<Dictionary>();
-                var dict = new Dictionary<string, object?>();
+                var row = item.As<Godot.Collections.Dictionary>();
+                var dict = new System.Collections.Generic.Dictionary<string, object?>();
                 foreach (var key in row.Keys)
                 {
                     var k = key.AsStringName();
@@ -122,10 +121,10 @@ public partial class SqliteDataStore : Node, ISqlDatabase
         {
             using var cmd = BuildCommand(sql, parameters);
             using var reader = cmd.ExecuteReader();
-            var list = new List<Dictionary<string, object?>>();
+            var list = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object?>>();
             while (reader.Read())
             {
-                var row = new Dictionary<string, object?>();
+                var row = new System.Collections.Generic.Dictionary<string, object?>();
                 for (int i = 0; i < reader.FieldCount; i++)
                 {
                     var name = reader.GetName(i);

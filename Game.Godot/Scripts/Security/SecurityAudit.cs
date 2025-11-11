@@ -33,14 +33,13 @@ public partial class SecurityAudit : Node
             GD.PushWarning($"[SecurityAudit] write failed: {ex.Message}");
         }
     }
-}
-
-static string GetAppNameSafe()
-{
-    try
+    private static string GetAppNameSafe()
     {
-        var v = ProjectSettings.GetSetting("application/config/name");
-        return v.VariantType == Variant.Type.Nil ? "GodotGame" : v.AsString();
+        try
+        {
+            var v = ProjectSettings.GetSetting("application/config/name");
+            return v.VariantType == Variant.Type.Nil ? "GodotGame" : v.AsString();
+        }
+        catch { return "GodotGame"; }
     }
-    catch { return "GodotGame"; }
 }
