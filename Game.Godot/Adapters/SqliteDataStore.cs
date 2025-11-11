@@ -102,11 +102,11 @@ public partial class SqliteDataStore : Node, ISqlDatabase
             var ok = _pluginDb!.Call("Query", s).AsBool();
             if (!ok) throw new InvalidOperationException("SQL query failed (plugin)");
             var resultObj = _pluginDb.Get("QueryResult");
-            var arr = resultObj.As<Godot.Collections.Array>();
+            var arr = resultObj.As<global::Godot.Collections.Array>();
             var list = new System.Collections.Generic.List<System.Collections.Generic.Dictionary<string, object?>>();
             foreach (var item in arr)
             {
-                var row = item.As<Godot.Collections.Dictionary>();
+                var row = item.As<global::Godot.Collections.Dictionary>();
                 var dict = new System.Collections.Generic.Dictionary<string, object?>();
                 foreach (var key in row.Keys)
                 {
@@ -211,8 +211,9 @@ public partial class SqliteDataStore : Node, ISqlDatabase
     {
         try
         {
-            var obj = ClassDB.Instantiate("SQLite") as GodotObject;
-            if (obj == null) return false;
+            var v = ClassDB.Instantiate("SQLite");
+            if (v.VariantType != Variant.Type.Object) return false;
+            var obj = v.As<GodotObject>();
             _pluginDb = obj;
             // Prefer setting Path then calling OpenDb, if exposed
             try { _pluginDb.Set("Path", absPath); } catch { }
