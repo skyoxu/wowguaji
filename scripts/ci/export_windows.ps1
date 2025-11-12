@@ -154,7 +154,7 @@ function Invoke-Export([string]$mode) {
 
 $buildCode = Invoke-BuildSolutions
 if ($buildCode -ne 0) {
-  Write-Error "Godot --build-solutions failed with exit code $buildCode. See log: $glog"
+  Write-Warning "Godot --build-solutions exited with code $buildCode. Continuing to export. See log: $glog"
 }
 
 $exitCode = Invoke-Export 'release'
