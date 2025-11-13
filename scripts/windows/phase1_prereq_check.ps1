@@ -18,12 +18,28 @@ function New-LogDir {
   return $BaseOut
 }
 
-function Test-ExeVersion {
-  Param([string]$Exe, [string]$Args = "--version")
+function Invoke-ExeCapture {
+  Param([string]$Exe, [string[]]$Args, [int]$TimeoutMs = 4000)
   try {
-    $p = Start-Process -FilePath $Exe -ArgumentList $Args -NoNewWindow -RedirectStandardOutput "STDOUT.txt" -RedirectStandardError "STDERR.txt" -PassThru -Wait
-    $out = Get-Content -Raw "STDOUT.txt"; $err = Get-Content -Raw "STDERR.txt"
-    Remove-Item -ErrorAction SilentlyContinue "STDOUT.txt","STDERR.txt"
+    $psi = New-Object System.Diagnostics.ProcessStartInfo
+    $psi.FileName = $Exe
+    $psi.Arguments = [string]::Join(' ', $Args)
+    $psi.RedirectStandardOutput = $true
+    $psi.RedirectStandardError = $true
+    $psi.UseShellExecute = $false
+    $psi.CreateNoWindow = $true
+    $p = New-Object System.Diagnostics.Process
+    $p.StartInfo = $psi
+    $null = $p.Start()
+    $outReader = $p.StandardOutput
+    $errReader = $p.StandardError
+    $waitOk = $p.WaitForExit($TimeoutMs)
+    if (-not $waitOk) {
+      try { $p.Kill() } catch {}
+      return @{ ok = $false; timeout = $true; stdout = $outReader.ReadToEnd(); stderr = $errReader.ReadToEnd() }
+    }
+    $out = $outReader.ReadToEnd()
+    $err = $errReader.ReadToEnd()
     return @{ ok = $true; code = $p.ExitCode; stdout = $out; stderr = $err }
   } catch {
     return @{ ok = $false; error = $_.Exception.Message }
@@ -80,12 +96,27 @@ $result.checks.python = @{ launcher = $pyLauncher; present = $py3Ok; version = $
 
 # 4) Godot
 $godotPath = Find-Godot -Hint $GodotBin
-$godotOk = $false; $godotVer = $null
+$godotOk = $false; $godotVer = $null; $godotProbe = @{}
 if ($godotPath) {
-  $gv = Test-ExeVersion -Exe $godotPath -Args "--version"
-  if ($gv.ok) { $godotVer = ($gv.stdout + " " + $gv.stderr).Trim(); if ($godotVer -match "4\.5") { $godotOk = $true } }
+  # Try multiple strategies to discover version
+  $probe1 = Invoke-ExeCapture -Exe $godotPath -Args @('--headless','--version','--quit') -TimeoutMs 3000
+  if (-not $probe1.ok -and -not $probe1.timeout) {
+    $probe2 = Invoke-ExeCapture -Exe $godotPath -Args @('--version','--quit') -TimeoutMs 3000
+  } else { $probe2 = @{ ok = $false } }
+  $vi = $null; try { $vi = (Get-Item $godotPath).VersionInfo } catch {}
+  $fileVer = $null; if ($vi) { if ($vi.ProductVersion) { $fileVer = $vi.ProductVersion } elseif ($vi.FileVersion) { $fileVer = $vi.FileVersion } }
+  $nameVer = $null; if ($godotPath -match 'v([0-9]+\.[0-9]+(\.[0-9]+)?)') { $nameVer = $matches[1] }
+
+  $joined = @()
+  if ($probe1.ok) { $joined += ($probe1.stdout + ' ' + $probe1.stderr) }
+  if ($probe2.ok) { $joined += ($probe2.stdout + ' ' + $probe2.stderr) }
+  if ($fileVer) { $joined += $fileVer }
+  if ($nameVer) { $joined += $nameVer }
+  $godotVer = ($joined -join ' ').Trim()
+  if ($godotVer -match '(^|\s)4\.5(\.|\s|$)') { $godotOk = $true }
+  $godotProbe = @{ p1 = $probe1; p2 = $probe2; fileVersion = $fileVer; nameVersion = $nameVer }
 }
-$result.checks.godot = @{ path = $godotPath; version = $godotVer; ok = $godotOk }
+$result.checks.godot = @{ path = $godotPath; version = $godotVer; ok = $godotOk; probe = $godotProbe }
 
 # 5) project.godot
 if ([string]::IsNullOrWhiteSpace($GodotProject)) { $GodotProject = Join-Path -Path $ProjectRoot -ChildPath 'project.godot' }
@@ -121,4 +152,3 @@ $result | ConvertTo-Json -Depth 8 | Out-File -Encoding utf8 $jsonPath
 
 Write-Output ("ENV_CHECK status={0} issues={1} out={2}" -f $status, $issues.Count, $OutDir)
 if ($status -eq 'fail') { exit 1 } else { exit 0 }
-
