@@ -1,3 +1,4 @@
+using System;
 using Game.Core.Domain;
 using Game.Core.Domain.ValueObjects;
 using Game.Core.Services;
@@ -18,7 +19,7 @@ public class CombatServiceTests
         var reduced = svc.CalculateDamage(baseFire, cfg);
         Assert.Equal(50, reduced);
 
-        var crit = new Damage(100, DamageType.Fire, isCritical: true);
+        var crit = new Damage(100, DamageType.Fire, IsCritical: true);
         var reducedCrit = svc.CalculateDamage(crit, cfg);
         Assert.Equal(100, reducedCrit); // 100 * 0.5 * 2.0
     }
@@ -42,4 +43,3 @@ public class CombatServiceTests
         Assert.Equal(75, p.Health.Current);
     }
 }
-

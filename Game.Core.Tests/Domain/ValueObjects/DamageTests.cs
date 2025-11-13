@@ -1,3 +1,4 @@
+using System;
 using Game.Core.Domain.ValueObjects;
 using Xunit;
 
@@ -10,11 +11,10 @@ public class DamageTests
     {
         var d1 = new Damage(-10, DamageType.Physical);
         var d2 = new Damage(0, DamageType.Fire);
-        var d3 = new Damage(5, DamageType.Ice, isCritical: true);
+        var d3 = new Damage(5, DamageType.Ice, IsCritical: true);
         Assert.Equal(0, d1.EffectiveAmount);
         Assert.Equal(0, d2.EffectiveAmount);
         Assert.Equal(5, d3.EffectiveAmount);
         Assert.True(d3.IsCritical);
     }
 }
-

@@ -1,6 +1,8 @@
+using System;
 using Game.Core.Contracts;
 using Game.Core.Services;
 using Xunit;
+using System.Threading.Tasks;
 
 namespace Game.Core.Tests.Services;
 
@@ -34,4 +36,3 @@ public class EventBusTests
         Assert.Equal(1, called);
     }
 }
-

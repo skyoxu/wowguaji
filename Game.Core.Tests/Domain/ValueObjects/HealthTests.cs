@@ -1,3 +1,4 @@
+using System;
 using Game.Core.Domain.ValueObjects;
 using Xunit;
 
@@ -34,4 +35,3 @@ public class HealthTests
         Assert.Throws<ArgumentOutOfRangeException>(() => h.TakeDamage(-1));
     }
 }
-
