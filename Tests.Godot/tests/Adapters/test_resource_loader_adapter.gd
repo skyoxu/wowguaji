@@ -1,10 +1,10 @@
-extends "res://addons/gdUnit4/src/GdUnitTestSuite.gd"
+﻿extends "res://addons/gdUnit4/src/GdUnitTestSuite.gd"
 
 var _loader: Node
 
 func before() -> void:
     _loader = load("res://Game.Godot/Adapters/ResourceLoaderAdapter.cs").new()
-    add_child_autofree(_loader)
+    add_child(auto_free(_loader))
 
 func after() -> void:
     _loader = null
@@ -21,3 +21,4 @@ func test_load_text_absolute_path_should_fail() -> void:
 func test_load_text_with_parent_traversal_should_fail() -> void:
     var txt := _loader.LoadText("res://../project.godot")
     assert_that(txt).is_null()
+
