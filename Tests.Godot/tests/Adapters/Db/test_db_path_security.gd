@@ -19,11 +19,13 @@ func test_try_open_absolute_path_should_fail() -> void:
     var p = "C:/temp/evil.db"
     var ok = db.TryOpen(p)
     assert_bool(ok).is_false()
-    assert_str(str(db.LastError)).to_lower().contains("user://")
+    # lower-case the source string before assertion, avoid calling to_lower() on assertion object
+    assert_str(str(db.LastError).to_lower()).contains("user://")
 
 func test_try_open_traversal_should_fail() -> void:
     var db = _db()
     var p = "user://../evil.db"
     var ok = db.TryOpen(p)
     assert_bool(ok).is_false()
-    assert_str(str(db.LastError)).to_lower().contains("not allowed")
+    # lower-case the source string before assertion, avoid calling to_lower() on assertion object
+    assert_str(str(db.LastError).to_lower()).contains("not allowed")
