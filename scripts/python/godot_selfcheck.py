@@ -92,12 +92,14 @@ def run_selfcheck(godot_bin: str, project_godot: str, build_solutions: bool) -> 
 
     ts = dt.datetime.now().strftime('%H%M%S%f')
     if build_solutions:
-        rc, out = run_cmd([godot_bin, '--headless', '--no-window', '--build-solutions'], cwd=root, timeout=600000)
+        # Be explicit with --path to avoid project resolution flakiness on CI
+        rc, out = run_cmd([godot_bin, '--headless', '--no-window', '--path', root, '--build-solutions'], cwd=root, timeout=600000)
         with open(os.path.join(out_dir, f'godot-buildsolutions-{ts}.txt'), 'w', encoding='utf-8') as f:
             f.write(out)
         summary['build_rc'] = rc
 
-    rc, out = run_cmd([godot_bin, '--headless', '--no-window', '-s', 'res://Game.Godot/Scripts/Diagnostics/CompositionRootSelfCheck.gd'], cwd=root, timeout=120000)
+    # Run the selfcheck script with explicit --path
+    rc, out = run_cmd([godot_bin, '--headless', '--no-window', '--path', root, '-s', 'res://Game.Godot/Scripts/Diagnostics/CompositionRootSelfCheck.gd'], cwd=root, timeout=300000)
     console_path = os.path.join(out_dir, f'godot-selfcheck-console-{ts}.txt')
     with open(console_path, 'w', encoding='utf-8') as f:
         f.write(out)

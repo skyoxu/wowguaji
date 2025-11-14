@@ -19,6 +19,23 @@ import sys
 from typing import List
 
 TEXT_EXT = {'.md','.txt','.json','.yml','.yaml','.xml','.cs','.csproj','.sln','.gd','.tscn','.tres','.gitattributes','.gitignore','.ps1','.py','.ini','.cfg','.toml'}
+# Explicit binary extensions to skip from UTF-8 validation
+BINARY_EXT = {
+    '.png','.jpg','.jpeg','.gif','.bmp','.ico','.webp',
+    '.ogg','.wav','.mp3','.mp4','.avi','.mov',
+    '.zip','.7z','.rar','.gz','.tar','.tgz',
+    '.dll','.exe','.pdb','.pck','.import','.ttf','.otf',
+    '.db','.sqlite','.sav'
+}
+
+# Exclude vendor/test asset folders and known binaries
+EXCLUDE_PATTERNS = [
+    'Tests.Godot/addons/gdUnit4/src/core/assets/',
+    'Tests.Godot/addons/gdUnit4/src/update/assets/',
+    'Tests.Godot/addons/gdUnit4/src/reporters/html/template/css/',
+    'Tests.Godot/addons/gdUnit4/src/ui/settings/',
+    'gitlog/export-logs.zip',
+]
 
 
 def run_cmd(args: List[str]) -> str:
@@ -40,12 +57,19 @@ def git_changed_today() -> List[str]:
 
 def is_text_file(path: str) -> bool:
     _, ext = os.path.splitext(path)
-    if ext.lower() in TEXT_EXT:
+    ext = ext.lower()
+    norm = path.replace('\\','/')
+    if any(p in norm for p in EXCLUDE_PATTERNS):
+        return False
+    if ext in BINARY_EXT:
+        return False
+    if ext in TEXT_EXT:
         return True
     # heuristic small files
     try:
         sz = os.path.getsize(path)
-        return sz < 5_000_000
+        # treat very small unknown files as text; larger files likely binary
+        return sz < 128 * 1024
     except Exception:
         return False
 
@@ -97,7 +121,11 @@ def main():
 
     results = []
     bad = []
+    skipped = 0
     for fpath in files:
+        if not is_text_file(fpath):
+            skipped += 1
+            continue
         r = check_utf8(fpath)
         results.append(r)
         if not r['utf8_ok']:
@@ -108,6 +136,7 @@ def main():
         'bad': len(bad),
         'bad_paths': [b['path'] for b in bad],
         'mojibake_paths': [r['path'] for r in results if r.get('mojibake_hits')],
+        'skipped': skipped,
         'generated': dt.datetime.now().isoformat(),
     }
 
