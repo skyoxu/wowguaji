@@ -13,9 +13,14 @@ func test_cross_restart_persists_rows() -> void:
     var db1 = _new_db("SqlDb1")
     var ok1 = db1.TryOpen(path)
     assert_bool(ok1).is_true()
-    # create temp table and insert one row
-    db1.Execute("CREATE TABLE IF NOT EXISTS ut_persist(id INTEGER PRIMARY KEY, v INTEGER);")
-    db1.Execute("INSERT INTO ut_persist(id,v) VALUES(1,123);")
+    # use repository bridge to persist a user row (schema via helper)
+    var helper = preload("res://Game.Godot/Adapters/Db/DbTestHelper.cs").new()
+    add_child(auto_free(helper))
+    helper.CreateSchema()
+    var bridge1 = preload("res://Game.Godot/Adapters/Db/RepositoryTestBridge.cs").new()
+    add_child(auto_free(bridge1))
+    var ok_ins = bridge1.UpsertUser("persist_user")
+    assert_bool(ok_ins).is_true()
     # close first instance
     db1.Close()
     await get_tree().process_frame
@@ -24,13 +29,7 @@ func test_cross_restart_persists_rows() -> void:
     var db2 = _new_db("SqlDb2")
     var ok2 = db2.TryOpen(path)
     assert_bool(ok2).is_true()
-    var rows = db2.Query("SELECT v FROM ut_persist WHERE id=@0;", 1)
-    # rows is an array-like collection; accept >=1 rows and contain 123 when stringified
-    assert_int(int(rows.size())).is_greater_or_equal(1)
-    var found = false
-    for r in rows:
-        var s = str(r)
-        if s.find("123") != -1:
-            found = true
-            break
-    assert_bool(found).is_true()
+    var bridge2 = preload("res://Game.Godot/Adapters/Db/RepositoryTestBridge.cs").new()
+    add_child(auto_free(bridge2))
+    var uname = bridge2.FindUser("persist_user")
+    assert_str(str(uname)).is_equal("persist_user")
