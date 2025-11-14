@@ -8,8 +8,9 @@ func _new_db(name: String) -> Node:
 
 func test_inventory_cross_restart_persists() -> void:
     var path = "user://utdb_%s/inv.db" % Time.get_unix_time_from_system()
-    var db1 = _new_db("SqlDb1")
-    var ok1 = db1.TryOpen(path)
+    # open DB as '/root/SqlDb' to match bridges
+    var db = _new_db("SqlDb")
+    var ok1 = db.TryOpen(path)
     assert_bool(ok1).is_true()
     var helper = preload("res://Game.Godot/Adapters/Db/DbTestHelper.cs").new()
     add_child(auto_free(helper))
@@ -17,11 +18,10 @@ func test_inventory_cross_restart_persists() -> void:
     var inv1 = preload("res://Game.Godot/Adapters/Db/InventoryRepoBridge.cs").new()
     add_child(auto_free(inv1))
     assert_bool(inv1.Add("potion", 2)).is_true()
-    db1.Close()
+    db.Close()
     await get_tree().process_frame
-
-    var db2 = _new_db("SqlDb2")
-    var ok2 = db2.TryOpen(path)
+    # reopen same node/path
+    var ok2 = db.TryOpen(path)
     assert_bool(ok2).is_true()
     var inv2 = preload("res://Game.Godot/Adapters/Db/InventoryRepoBridge.cs").new()
     add_child(auto_free(inv2))
@@ -32,4 +32,3 @@ func test_inventory_cross_restart_persists() -> void:
             found = true
             break
     assert_bool(found).is_true()
-

@@ -8,8 +8,8 @@ func _new_db(name: String) -> Node:
 
 func test_savegame_cross_restart_persists() -> void:
     var path = "user://utdb_%s/save.db" % Time.get_unix_time_from_system()
-    var db1 = _new_db("SqlDb1")
-    var ok1 = db1.TryOpen(path)
+    var db = _new_db("SqlDb")
+    var ok1 = db.TryOpen(path)
     assert_bool(ok1).is_true()
     # Ensure schema exists
     var helper = preload("res://Game.Godot/Adapters/Db/DbTestHelper.cs").new()
@@ -24,15 +24,13 @@ func test_savegame_cross_restart_persists() -> void:
     assert_that(uid).is_not_null()
     var json = '{"hp": 88, "ts": %d}' % Time.get_unix_time_from_system()
     assert_bool(bridge1.UpsertSave(uid, 1, json)).is_true()
-    db1.Close()
+    db.Close()
     await get_tree().process_frame
 
-    # Reopen and verify save persists
-    var db2 = _new_db("SqlDb2")
-    var ok2 = db2.TryOpen(path)
+    # Reopen and verify save persists using same node
+    var ok2 = db.TryOpen(path)
     assert_bool(ok2).is_true()
     var bridge2 = preload("res://Game.Godot/Adapters/Db/RepositoryTestBridge.cs").new()
     add_child(auto_free(bridge2))
     var got = bridge2.GetSaveData(uid, 1)
     assert_str(str(got)).contains("hp")
-
