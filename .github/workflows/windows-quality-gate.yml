@@ -104,8 +104,12 @@ jobs:
           dotnet restore GodotGame.csproj
           dotnet build GodotGame.csproj -c Release -v minimal
 
-      - name: Setup Python 3
-        uses: actions/setup-python@v5
+      
+      - name: Ensure GdUnit4 plugin
+        shell: pwsh
+        run: |
+          py -3 scripts/python/ensure_gdunit_plugin.py --project Tests.Godot --version v6.0.0
+          if ( -ne 0) { Write-Error 'Failed to ensure GdUnit4 plugin' }        uses: actions/setup-python@v5
         with:
           python-version: '3.x'
 
