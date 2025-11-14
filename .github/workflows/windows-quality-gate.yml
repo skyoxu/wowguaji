@@ -116,10 +116,22 @@ jobs:
         with:
           python-version: '3.x'
 
-      - name: CI pipeline (Python)
-        shell: pwsh
-        run: |
-          py -3 scripts/python/ci_pipeline.py all --solution Game.sln --configuration Debug --godot-bin "$env:GODOT_BIN" --build-solutions
+      
+      - name: Upload CI logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-logs
+          path: logs/ci/**
+          if-no-files-found: ignore
+
+      - name: Upload self-check logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selfcheck-logs
+          path: logs/e2e/**
+          if-no-files-found: ignore          py -3 scripts/python/ci_pipeline.py all --solution Game.sln --configuration Debug --godot-bin "$env:GODOT_BIN" --build-solutions
 
       - name: GdUnit4 tests (Python, soft gate)
         shell: pwsh
@@ -262,10 +274,22 @@ jobs:
           if (Test-Path 'Tests.Godot/addons/gdUnit4/bin/GdUnitCmdTool.gd') { Write-Host 'GDUNIT_PLUGIN_READY' } else { Write-Warning 'GDUNIT_PLUGIN_MISSING after ensure' }
           Get-ChildItem -Recurse -File 'Tests.Godot/addons/gdUnit4' -ErrorAction SilentlyContinue | Select-Object -First 10 FullName
 
-      - name: CI pipeline (Python)
-        shell: pwsh
-        run: |
-          py -3 scripts/python/ci_pipeline.py all --solution Game.sln --configuration Debug --godot-bin "$env:GODOT_BIN" --build-solutions
+      
+      - name: Upload CI logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-logs
+          path: logs/ci/**
+          if-no-files-found: ignore
+
+      - name: Upload self-check logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selfcheck-logs
+          path: logs/e2e/**
+          if-no-files-found: ignore          py -3 scripts/python/ci_pipeline.py all --solution Game.sln --configuration Debug --godot-bin "$env:GODOT_BIN" --build-solutions
 
       - name: GdUnit4 tests (Python, soft gate)
         shell: pwsh
@@ -328,10 +352,22 @@ jobs:
           if (Test-Path 'Tests.Godot/addons/gdUnit4/bin/GdUnitCmdTool.gd') { Write-Host 'GDUNIT_PLUGIN_READY' } else { Write-Warning 'GDUNIT_PLUGIN_MISSING after ensure' }
           Get-ChildItem -Recurse -File 'Tests.Godot/addons/gdUnit4' -ErrorAction SilentlyContinue | Select-Object -First 10 FullName
 
-      - name: CI pipeline (Python)
-        shell: pwsh
-        run: |
-          py -3 scripts/python/ci_pipeline.py all --solution Game.sln --configuration Debug --godot-bin "$env:GODOT_BIN" --build-solutions
+      
+      - name: Upload CI logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: ci-logs
+          path: logs/ci/**
+          if-no-files-found: ignore
+
+      - name: Upload self-check logs (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: selfcheck-logs
+          path: logs/e2e/**
+          if-no-files-found: ignore          py -3 scripts/python/ci_pipeline.py all --solution Game.sln --configuration Debug --godot-bin "$env:GODOT_BIN" --build-solutions
 
       - name: GdUnit4 tests (Python, soft gate)
         shell: pwsh
