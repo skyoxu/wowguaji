@@ -41,6 +41,11 @@ static func _copy_file(src: String, dst: String) -> bool:
 func test_backup_restore_savegame() -> void:
     var path = "user://utdb_%s/sg_bak.db" % Time.get_unix_time_from_system()
     var db = await _new_db("SqlDb")
+    var tries := 20
+    while not db.has_method("TryOpen") and tries > 0:
+        await get_tree().process_frame
+        tries -= 1
+    assert_bool(db.has_method("TryOpen")).is_true()
     var ok = db.TryOpen(path)
     assert_bool(ok).is_true()
     var helper = preload("res://Game.Godot/Adapters/Db/DbTestHelper.cs").new()
@@ -65,6 +70,11 @@ func test_backup_restore_savegame() -> void:
     assert_bool(_copy_file(path, backup_path)).is_true()
 
     # open from backup and verify
+    tries = 10
+    while not db.has_method("TryOpen") and tries > 0:
+        await get_tree().process_frame
+        tries -= 1
+    assert_bool(db.has_method("TryOpen")).is_true()
     var ok2 = db.TryOpen(backup_path)
     assert_bool(ok2).is_true()
     var bridge2 = preload("res://Game.Godot/Adapters/Db/RepositoryTestBridge.cs").new()
