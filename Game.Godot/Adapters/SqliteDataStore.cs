@@ -50,7 +50,7 @@ public partial class SqliteDataStore : Node, ISqlDatabase
         _backend = Backend.Managed;
         // Enable FK + WAL
         using var cmd = _conn.CreateCommand();
-        cmd.CommandText = "PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL;";
+        cmd.CommandText = "[dynamic_journal]";
         cmd.ExecuteNonQuery();
         GD.Print("[DB] backend=managed (Microsoft.Data.Sqlite)");
         if (isNew) TryInitSchema();
@@ -307,6 +307,7 @@ public partial class SqliteDataStore : Node, ISqlDatabase
         return cmd;
     }
 }
+
 
 
 
