@@ -52,6 +52,8 @@ func test_backup_restore_savegame() -> void:
     assert_bool(db.has_method("TryOpen")).is_true()
     var ok = db.TryOpen(path)
     assert_bool(ok).is_true()
+    if db.has_method("Execute"):
+        db.Execute("PRAGMA journal_mode=DELETE;")
     # Ensure schema exists and clean
     helper.CreateSchema()
     helper.ClearAll()
