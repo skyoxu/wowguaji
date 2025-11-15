@@ -36,7 +36,7 @@ func test_wal_backup_copy_and_reopen_has_same_data() -> void:
     var db = await _new_db("SqlDb")
     assert_bool(db.TryOpen(src_user)).is_true()
     helper.ExecSql("CREATE TABLE IF NOT EXISTS t(k TEXT PRIMARY KEY, v INTEGER);")
-    helper.ExecSql2("INSERT OR REPLACE INTO t(k,v) VALUES(@0,@1);", "alpha", 99)
+    helper.ExecSql("INSERT OR REPLACE INTO t(k,v) VALUES('alpha', 99);")
     await get_tree().process_frame
     var src_abs = _abs(src_user)
     var wal_abs = src_abs + "-wal"
