@@ -48,9 +48,15 @@ public partial class SqliteDataStore : Node, ISqlDatabase
         _conn = new SqliteConnection(cs);
         _conn.Open();
         _backend = Backend.Managed;
-        // Enable FK + WAL
+        // Enable FK + configurable journal mode (default WAL; override via GD_DB_JOURNAL=DELETE|WAL|TRUNCATE|MEMORY|PERSIST)
         using var cmd = _conn.CreateCommand();
-        cmd.CommandText = "[dynamic_journal]";
+        var journal = (System.Environment.GetEnvironmentVariable("GD_DB_JOURNAL") ?? "WAL").ToUpperInvariant();
+        switch (journal)
+        {
+            case "WAL": case "DELETE": case "TRUNCATE": case "MEMORY": case "PERSIST": break;
+            default: journal = "WAL"; break;
+        }
+        cmd.CommandText = $"PRAGMA foreign_keys=ON; PRAGMA journal_mode={journal}; PRAGMA synchronous=NORMAL;";
         cmd.ExecuteNonQuery();
         GD.Print("[DB] backend=managed (Microsoft.Data.Sqlite)");
         if (isNew) TryInitSchema();

@@ -8,6 +8,7 @@ public partial class DbTestHelper : Node
     public void ForceManaged()
     {
         System.Environment.SetEnvironmentVariable("GODOT_DB_BACKEND", "managed");
+        System.Environment.SetEnvironmentVariable("GD_DB_JOURNAL", "DELETE");
     }
 
     private SqliteDataStore GetDb()
@@ -33,4 +34,3 @@ public partial class DbTestHelper : Node
         try { db.Execute("DELETE FROM users;"); } catch { }
     }
 }
-
