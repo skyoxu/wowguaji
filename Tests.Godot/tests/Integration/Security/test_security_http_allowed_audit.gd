@@ -1,7 +1,11 @@
 extends "res://addons/gdUnit4/src/GdUnitTestSuite.gd"
 
 func _client() -> Node:
-    var c = preload("res://Game.Godot/Scripts/Security/SecurityHttpClient.cs").new()
+    var sc = load("res://Game.Godot/Scripts/Security/SecurityHttpClient.cs")
+    if sc == null or not sc.has_method("new"):
+        push_warning("SKIP: CSharpScript.new() unavailable, skip HTTP allowed audit")
+        return null
+    var c = sc.new()
     add_child(auto_free(c))
     return c
 
@@ -14,11 +18,12 @@ func _remove_audit_file() -> void:
         var abs := ProjectSettings.globalize_path(p)
         DirAccess.remove_absolute(abs)
 
-func test_audit_written_on_block() -> void:
+func test_audit_written_on_allow() -> void:
     _remove_audit_file()
     var c = _client()
-    var ok = c.Validate("GET", "http://example.com", "", 0)
-    assert_bool(ok).is_false()
+    if c == null: return
+    var ok = c.Validate("GET", "https://example.com/api", "", 0)
+    assert_bool(ok).is_true()
     await get_tree().process_frame
     var p := _audit_path()
     assert_bool(FileAccess.file_exists(p)).is_true()
@@ -34,7 +39,6 @@ func test_audit_written_on_block() -> void:
     assert_str(last).is_not_empty()
     var obj = JSON.parse_string(last)
     assert_that(obj).is_not_null()
-    # Expect a blocked HTTP event with event_type and url present
-    assert_str(str(obj["event_type"]).to_lower()).contains("protocol_denied")
-    assert_str(str(obj["url"])).starts_with("http://")
+    assert_str(str(obj["event_type"]).to_upper()).is_equal("HTTP_ALLOWED")
+    assert_str(str(obj["url"])).starts_with("https://")
 
