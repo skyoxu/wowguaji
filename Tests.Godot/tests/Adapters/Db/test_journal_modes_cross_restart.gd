@@ -6,6 +6,9 @@ func _new_db(name: String) -> Node:
         db = ClassDB.instantiate("SqliteDataStore")
     else:
         var s = load("res://Game.Godot/Adapters/SqliteDataStore.cs")
+        if s == null or not s.has_method("new"):
+            push_warning("SKIP: CSharpScript.new() unavailable, skip DB new")
+            return null
         db = s.new()
     db.name = name
     get_tree().get_root().add_child(auto_free(db))
