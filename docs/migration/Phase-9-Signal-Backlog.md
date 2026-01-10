@@ -7,7 +7,7 @@
 
 ---
 
-## B1：事件命名统一迁移（`game.*` → `core.*.*`）
+## B1：事件命名统一迁移（`game.*` -> `core.*.*`）
 
 - 现状：
   - 测试中仍存在早期事件命名，仅作为示例与兼容：
@@ -17,9 +17,9 @@
   - Main.gd 等运行时代码已采用新规范事件（例如 `core.score.updated`），旧事件只出现在测试中。
 - 目标：
   - 将上述旧事件类型统一迁移为新规范：
-    - `game.started`          → `core.game.started`
-    - `score.changed`         → `core.score.updated`
-    - `player.health.changed` → `core.player.health.updated`
+    - `game.started`          -> `core.game.started`
+    - `score.changed`         -> `core.score.updated`
+    - `player.health.changed` -> `core.player.health.updated`
   - 对于确有需要的示例/兼容场景，保留清晰注释，避免误用旧命名作为 SSoT。
 - 影响范围（示例）：
   - Game.Core.Tests/Engine/GameEngineCoreEventTests.cs

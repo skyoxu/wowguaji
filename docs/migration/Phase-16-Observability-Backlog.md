@@ -103,7 +103,7 @@
 ## 使用说明
 
 - 对于基于本模板创建的新项目：
-  - 在需要正式上线监控和发布健康门禁时，可以按 B1→B3 的顺序逐步启用 Sentry SDK、Observability Autoload 与 Release Health Gate；
+  - 在需要正式上线监控和发布健康门禁时，可以按 B1->B3 的顺序逐步启用 Sentry SDK、Observability Autoload 与 Release Health Gate；
   - 若对日志和隐私有更高要求，再按 B2/B4/B5 的顺序扩展 Game.Core 观测客户端、隐私文档与日志规范。
 
 - 对于模板本身：

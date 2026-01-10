@@ -1,4 +1,4 @@
-# Godot 迁移整体可行性评分汇总报告
+﻿# Godot 迁移整体可行性评分汇总报告
 
 > 报告时间: 2025-11-07  
 > 报告范围: Phase 1 ~ Phase 14 (完整迁移体系)  
@@ -12,7 +12,7 @@
 
 ### 整体评估
 
-【通过】LegacyProject → godotgame 技术栈迁移在架构、代码、工具、测试等全维度通过可行性验证
+【通过】LegacyProject -> wowguaji 技术栈迁移在架构、代码、工具、测试等全维度通过可行性验证
 
 **关键指标**:
 
@@ -141,7 +141,7 @@
 
 **关键优势**:
 - 等价于 LegacyDesktopShell ADR-0002 的安全模型
-- 防御深度: URL → 请求 → 文件 → 审计 → 合约
+- 防御深度: URL -> 请求 -> 文件 -> 审计 -> 合约
 - 审计日志可溯源，便于合规与事后分析
 - 0ms 开销的白名单检查 (正则预编译)
 
@@ -243,7 +243,7 @@ Week 12:   完整功能迁移 + 性能达标
 
 ### 完整性验证
 
-| 功能模块 | LegacyProject (原) | godotgame (新) | 迁移状态 | 验证 |
+| 功能模块 | LegacyProject (原) | wowguaji (新) | 迁移状态 | 验证 |
 |---------|-------------|------------|--------|------|
 | 菜单 UI | LegacyUIFramework + Tailwind | Godot Control | 迁移中 | 等功能 |
 | 游戏场景 | Legacy2DEngine 3 | Godot Scene Tree | 等待中 | 等功能 |
@@ -267,10 +267,10 @@ Week 12:   完整功能迁移 + 性能达标
 **CI/CD 流程变更**:
 ```
 原工作流 (LegacyBuildTool + LegacyDesktopShell):
-  NodePkg install → NodePkg run build → NodePkg test → LegacyDesktopShell 打包 → Sentry Release
+  NodePkg install -> NodePkg run build -> NodePkg test -> LegacyDesktopShell 打包 -> Sentry Release
 
 新工作流 (Godot + .NET):
-  dotnet restore → NodePkg install (工具) → guard.ps1 (质量检查) → godot --export → Sentry Release
+  dotnet restore -> NodePkg install (工具) -> guard.ps1 (质量检查) -> godot --export -> Sentry Release
 ```
 
 **关键变化**:
@@ -287,8 +287,8 @@ Week 12:   完整功能迁移 + 性能达标
 
 **开发循环变更**:
 ```
-原: NodePkg start → 浏览器 HMR → 修改代码 → 自动刷新 (秒级)
-新: godot --editor → Scene 编辑 → C# 代码修改 → 重新加载场景 (秒级)
+原: NodePkg start -> 浏览器 HMR -> 修改代码 -> 自动刷新 (秒级)
+新: godot --editor -> Scene 编辑 -> C# 代码修改 -> 重新加载场景 (秒级)
 
 预期影响: 开发体验相近，学习曲线 1-2 周
 ```
@@ -348,13 +348,13 @@ Week 12:   完整功能迁移 + 性能达标
 ### 黄金路线 (推荐) *
 
 ```
-Start → Phase 1-3 (环境) 
-     → Phase 4-6 (核心层, 并行 P13 准备)
-     → Phase 10-12 (测试框架)
-     ⤴ [并行] Phase 13 (CI 绿灯)
-     ⤴ [并行] Phase 14 (安全基线)
-     → Phase 7-9 (UI, 在 CI+安全 gate 保护下)
-     → Phase 15-22 (优化与发布)
+Start -> Phase 1-3 (环境) 
+     -> Phase 4-6 (核心层, 并行 P13 准备)
+     -> Phase 10-12 (测试框架)
+     [UP] [并行] Phase 13 (CI 绿灯)
+     [UP] [并行] Phase 14 (安全基线)
+     -> Phase 7-9 (UI, 在 CI+安全 gate 保护下)
+     -> Phase 15-22 (优化与发布)
      
 总耗时: 70-90 天
 总成本: 10-15 人天
@@ -364,13 +364,13 @@ Start → Phase 1-3 (环境)
 ### 保守路线 (备选)
 
 ```
-Start → Phase 1-3 (环境)
-     → Phase 4-6 (核心层)
-     → Phase 7-9 (UI)
-     → Phase 10-12 (测试)
-     → Phase 13 (CI 绿灯)
-     → Phase 14 (安全基线)
-     → Phase 15-22 (优化与发布)
+Start -> Phase 1-3 (环境)
+     -> Phase 4-6 (核心层)
+     -> Phase 7-9 (UI)
+     -> Phase 10-12 (测试)
+     -> Phase 13 (CI 绿灯)
+     -> Phase 14 (安全基线)
+     -> Phase 15-22 (优化与发布)
      
 总耗时: 90-110 天
 总成本: 15-20 人天
@@ -473,10 +473,11 @@ Start → Phase 1-3 (环境)
 ---
 
 > **最终结论**  
-> LegacyProject → godotgame 技术栈迁移已在架构、代码、工具、测试等全维度通过可行性验证。  
+> LegacyProject -> wowguaji 技术栈迁移已在架构、代码、工具、测试等全维度通过可行性验证。  
 > Phase 1-12 文档与代码示例可作为实施参考；Phase 13-14 已生产就绪。  
 > **推荐立即启动迁移，预期 70-90 天完成全部工作。**
 
 ---
 
 _报告生成工具: Claude Code | 版本: 1.0 | 最后更新: 2025-11-07_
+

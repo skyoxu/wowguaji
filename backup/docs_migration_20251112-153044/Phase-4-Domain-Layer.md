@@ -43,7 +43,7 @@ Priority 3 (复杂状态机)
 
 ---
 
-## TypeScript → C# 映射规则
+## TypeScript -> C# 映射规则
 
 ### 基础类型映射
 
@@ -719,4 +719,4 @@ if __name__ == '__main__':
 
 完成本阶段后，继续：
 
-➡️ [Phase-5-Adapter-Layer.md](Phase-5-Adapter-Layer.md) — Godot 适配层设计
+-> [Phase-5-Adapter-Layer.md](Phase-5-Adapter-Layer.md) — Godot 适配层设计

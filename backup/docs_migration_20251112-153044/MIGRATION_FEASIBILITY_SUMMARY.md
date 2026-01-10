@@ -12,7 +12,7 @@
 
 ### 整体评估
 
-【通过】vitegame → godotgame 技术栈迁移在架构、代码、工具、测试等全维度通过可行性验证
+【通过】vitegame -> godotgame 技术栈迁移在架构、代码、工具、测试等全维度通过可行性验证
 
 **关键指标**:
 
@@ -141,7 +141,7 @@
 
 **关键优势**:
 - 等价于 Electron ADR-0002 的安全模型
-- 防御深度: URL → 请求 → 文件 → 审计 → 合约
+- 防御深度: URL -> 请求 -> 文件 -> 审计 -> 合约
 - 审计日志可溯源，便于合规与事后分析
 - 0ms 开销的白名单检查 (正则预编译)
 
@@ -267,10 +267,10 @@ Week 12:   完整功能迁移 + 性能达标
 **CI/CD 流程变更**:
 ```
 原工作流 (Vite + Electron):
-  npm install → npm run build → npm test → Electron 打包 → Sentry Release
+  npm install -> npm run build -> npm test -> Electron 打包 -> Sentry Release
 
 新工作流 (Godot + .NET):
-  dotnet restore → npm install (工具) → guard.ps1 (质量检查) → godot --export → Sentry Release
+  dotnet restore -> npm install (工具) -> guard.ps1 (质量检查) -> godot --export -> Sentry Release
 ```
 
 **关键变化**:
@@ -287,8 +287,8 @@ Week 12:   完整功能迁移 + 性能达标
 
 **开发循环变更**:
 ```
-原: npm start → 浏览器 HMR → 修改代码 → 自动刷新 (秒级)
-新: godot --editor → Scene 编辑 → C# 代码修改 → 重新加载场景 (秒级)
+原: npm start -> 浏览器 HMR -> 修改代码 -> 自动刷新 (秒级)
+新: godot --editor -> Scene 编辑 -> C# 代码修改 -> 重新加载场景 (秒级)
 
 预期影响: 开发体验相近，学习曲线 1-2 周
 ```
@@ -348,13 +348,13 @@ Week 12:   完整功能迁移 + 性能达标
 ### 黄金路线 (推荐) *
 
 ```
-Start → Phase 1-3 (环境) 
-     → Phase 4-6 (核心层, 并行 P13 准备)
-     → Phase 10-12 (测试框架)
-     ⤴️ [并行] Phase 13 (CI 绿灯)
-     ⤴️ [并行] Phase 14 (安全基线)
-     → Phase 7-9 (UI, 在 CI+安全 gate 保护下)
-     → Phase 15-22 (优化与发布)
+Start -> Phase 1-3 (环境) 
+     -> Phase 4-6 (核心层, 并行 P13 准备)
+     -> Phase 10-12 (测试框架)
+     [UP] [并行] Phase 13 (CI 绿灯)
+     [UP] [并行] Phase 14 (安全基线)
+     -> Phase 7-9 (UI, 在 CI+安全 gate 保护下)
+     -> Phase 15-22 (优化与发布)
      
 总耗时: 70-90 天
 总成本: 10-15 人天
@@ -364,13 +364,13 @@ Start → Phase 1-3 (环境)
 ### 保守路线 (备选)
 
 ```
-Start → Phase 1-3 (环境)
-     → Phase 4-6 (核心层)
-     → Phase 7-9 (UI)
-     → Phase 10-12 (测试)
-     → Phase 13 (CI 绿灯)
-     → Phase 14 (安全基线)
-     → Phase 15-22 (优化与发布)
+Start -> Phase 1-3 (环境)
+     -> Phase 4-6 (核心层)
+     -> Phase 7-9 (UI)
+     -> Phase 10-12 (测试)
+     -> Phase 13 (CI 绿灯)
+     -> Phase 14 (安全基线)
+     -> Phase 15-22 (优化与发布)
      
 总耗时: 90-110 天
 总成本: 15-20 人天
@@ -381,7 +381,7 @@ Start → Phase 1-3 (环境)
 
 ## 十一、最终建议
 
-### 🎯 核心建议
+### [GOAL] 核心建议
 
 **立即启动迁移，优先级如下**:
 
@@ -420,7 +420,7 @@ Start → Phase 1-3 (环境)
 
 ---
 
-### 📊 预期成果
+### [REPORT] 预期成果
 
 **完成 Phase 13-14 后**:
 - CI 绿灯，10 项质量门禁自动化
@@ -473,7 +473,7 @@ Start → Phase 1-3 (环境)
 ---
 
 > **最终结论**  
-> vitegame → godotgame 技术栈迁移已在架构、代码、工具、测试等全维度通过可行性验证。  
+> vitegame -> godotgame 技术栈迁移已在架构、代码、工具、测试等全维度通过可行性验证。  
 > Phase 1-12 文档与代码示例可作为实施参考；Phase 13-14 已生产就绪。  
 > **推荐立即启动迁移，预期 70-90 天完成全部工作。**
 

@@ -1,4 +1,4 @@
-# Phase 11: 场景集成测试（GdUnit4）
+﻿# Phase 11: 场景集成测试（GdUnit4）
 
 **阶段目标**: 建立完整的 Godot 场景集成测试框架，验证游戏场景、UI 交互和 Signal 系统的正确性
 
@@ -19,7 +19,7 @@
 # scripts/install-gdunit4.ps1
 
 param(
-    [string]$ProjectRoot = "C:\buildgame\godotgame"
+    [string]$ProjectRoot = "C:\buildgame\wowguaji"
 )
 
 Write-Host "安装 GdUnit4..." -ForegroundColor Green
@@ -735,7 +735,7 @@ using System.Threading.Tasks;
 
 /// <summary>
 /// 完整游戏流程集成测试
-/// 从主菜单 → 游戏开始 → 击杀敌人 → 游戏结束
+/// 从主菜单 -> 游戏开始 -> 击杀敌人 -> 游戏结束
 /// </summary>
 [TestClass]
 public partial class FullGameFlowTest : GdUnitTestBase
@@ -892,7 +892,7 @@ Game.Godot/Tests/
 
 ```powershell
 param(
-    [string]$ProjectRoot = "C:\buildgame\godotgame",
+    [string]$ProjectRoot = "C:\buildgame\wowguaji",
     [switch]$OpenReport = $false,
     [string]$TestFilter = "*",
     [switch]$Headless = $false
@@ -1078,3 +1078,4 @@ if __name__ == '__main__':
 - 在 C# 测试中注入异常路径（场景加载失败/节点缺失/信号未触发）
 - 对“失败一次自动重试；仍失败则降级/返回主菜单”的流程进行断言
 - 将异常注入的结果写入报告，作为“场景测试通过率=100%”的前置门禁依据（与 Phase-13 聚合一致）
+

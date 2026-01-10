@@ -10,7 +10,7 @@
 
 - Quality Gate（pre-release check）
   - `./scripts/ci/quality_gate.ps1 -GodotBin "$env:GODOT_BIN" -WithExport -PerfP95Ms 20`
-  - Steps：dotnet tests → GdUnit4 tests → headless smoke → export → EXE smoke → perf budget（可选）
+  - Steps：dotnet tests -> GdUnit4 tests -> headless smoke -> export -> EXE smoke -> perf budget（可选）
 - Artifacts
   - EXE：`build/Game.exe`
   - Logs：`logs/ci/YYYYMMDD-HHMMSS/**`

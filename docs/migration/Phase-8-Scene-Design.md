@@ -1,4 +1,4 @@
-# Phase 8: Scene Tree 与 Node 设计
+﻿# Phase 8: Scene Tree 与 Node 设计
 
 > 状态: 设计阶段
 > 预估工时: 8-12 天
@@ -17,7 +17,7 @@
 
 ### Godot 场景树 vs LegacyUIFramework 组件树
 
-| 概念 | LegacyUIFramework (LegacyProject) | Godot (godotgame) |
+| 概念 | LegacyUIFramework (LegacyProject) | Godot (wowguaji) |
 |-----|-----------------|------------------|
 | 基本单元 | Component (函数/类) | Node (场景节点) |
 | 组织方式 | JSX 嵌套 | Scene Tree 树形结构 |
@@ -1102,7 +1102,7 @@ public partial class ExampleTest
 
 完成本阶段后，继续：
 
--> [Phase-9-Signal-System.md](Phase-9-Signal-System.md) — CloudEvents → Godot Signals 迁移
+-> [Phase-9-Signal-System.md](Phase-9-Signal-System.md) — CloudEvents -> Godot Signals 迁移
 
 ## Root 分层建议 / Root Layering
 
@@ -1221,4 +1221,5 @@ public partial class MyScreen : Control
 script = ExtResource("1")
 ```
 - 脚手架：`./scripts/scaffold/new_screen.ps1 -Name MyScreen`（已包含 Enter/Exit 钩子）。
+
 

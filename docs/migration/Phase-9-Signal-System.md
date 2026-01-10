@@ -1,4 +1,4 @@
-# Phase 9: CloudEvents → Godot Signals 迁移
+﻿# Phase 9: CloudEvents -> Godot Signals 迁移
 
 > 状态: 设计阶段
 > 预估工时: 5-7 天
@@ -9,7 +9,7 @@
 
 ## 目标
 
-将 LegacyProject 的 CloudEvents 事件系统迁移到 godotgame 的 Godot Signals，建立类型安全的信号架构与跨场景通信模式。
+将 LegacyProject 的 CloudEvents 事件系统迁移到 wowguaji 的 Godot Signals，建立类型安全的信号架构与跨场景通信模式。
 
 ---
 
@@ -96,7 +96,7 @@
 
 
 
-| 功能 | LegacyProject (CloudEvents) | godotgame (Godot Signals) |
+| 功能 | LegacyProject (CloudEvents) | wowguaji (Godot Signals) |
 |-----|----------------------|--------------------------|
 | 事件定义 | TypeScript 接口 + CloudEvent<T> | C# [Signal] delegate |
 | 事件发射 | eventBus.publish() | EmitSignal() |
@@ -390,7 +390,7 @@ public partial class HealthBarUI : Control
 
 ---
 
-## CloudEvents → Signals 迁移模式
+## CloudEvents -> Signals 迁移模式
 
 ### 模式 1: 简单事件迁移
 
@@ -414,7 +414,7 @@ eventBus.subscribe('app.game.coin.collected', (event) => {
 });
 ```
 
-**Godot Signals (godotgame)**:
+**Godot Signals (wowguaji)**:
 
 ```csharp
 // Game.Godot/Scripts/Coin.cs
@@ -503,7 +503,7 @@ eventBus.publish(createEnemyDefeatedEvent({
 }));
 ```
 
-**Godot Signals (godotgame)**:
+**Godot Signals (wowguaji)**:
 
 ```csharp
 // Game.Godot/Scripts/EnemyRewards.cs
@@ -618,7 +618,7 @@ globalEventBus.subscribe('app.game.state.changed', (event) => {
 });
 ```
 
-**Godot EventBus Autoload (godotgame)**:
+**Godot EventBus Autoload (wowguaji)**:
 
 ```csharp
 // Game.Godot/Autoloads/EventBus.cs
@@ -1189,7 +1189,7 @@ public partial class PlayerController : CharacterBody2D
     public delegate void DeathEventHandler();
 
     /// <summary>
-    /// 当玩家状态发生变化时发射（如 Idle → Running → Jumping）。
+    /// 当玩家状态发生变化时发射（如 Idle -> Running -> Jumping）。
     /// </summary>
     /// <param name="oldState">旧状态</param>
     /// <param name="newState">新状态</param>
@@ -1212,41 +1212,41 @@ public partial class PlayerController : CharacterBody2D
 
 ### 事件定义迁移
 
-- [ ] CloudEvents 类型定义 → [Signal] delegate 定义
-- [ ] CloudEvent<T> 数据结构 → Signal 参数列表
-- [ ] 事件工厂函数 → EmitSignal() 调用
-- [ ] 事件命名规范（app.entity.action → EntityActionEventHandler）
+- [ ] CloudEvents 类型定义 -> [Signal] delegate 定义
+- [ ] CloudEvent<T> 数据结构 -> Signal 参数列表
+- [ ] 事件工厂函数 -> EmitSignal() 调用
+- [ ] 事件命名规范（app.entity.action -> EntityActionEventHandler）
 
 ### 事件发射迁移
 
-- [ ] eventBus.publish() → EmitSignal(SignalName.XXX, ...)
-- [ ] 事件参数序列化 → 直接传递参数（或使用数据类）
-- [ ] 事件源 (source) → 隐式（通过发射节点）或显式传递
+- [ ] eventBus.publish() -> EmitSignal(SignalName.XXX, ...)
+- [ ] 事件参数序列化 -> 直接传递参数（或使用数据类）
+- [ ] 事件源 (source) -> 隐式（通过发射节点）或显式传递
 
 ### 事件订阅迁移
 
-- [ ] eventBus.subscribe() → signal += handler
-- [ ] 订阅取消 (unsubscribe) → signal -= handler
+- [ ] eventBus.subscribe() -> signal += handler
+- [ ] 订阅取消 (unsubscribe) -> signal -= handler
 - [ ] 订阅生命周期管理（_Ready 订阅，_ExitTree 取消）
 
 ### EventBus 迁移
 
-- [ ] 全局 EventBus → Autoload EventBus.cs
-- [ ] 跨场景事件 → EventBus.Instance.XXXChanged 信号
-- [ ] EventBus.publish/subscribe → EventBus.EmitSignal/Connect
+- [ ] 全局 EventBus -> Autoload EventBus.cs
+- [ ] 跨场景事件 -> EventBus.Instance.XXXChanged 信号
+- [ ] EventBus.publish/subscribe -> EventBus.EmitSignal/Connect
 
 ### 测试迁移
 
-- [ ] Jest 事件测试 → GdUnit4 GdUnitSignalSpy
-- [ ] 测试事件发射 → signal_spy.is_emitted()
-- [ ] 测试事件参数 → signal_spy.get_last_args()
-- [ ] xUnit 逻辑测试 → FakeSignalEmitter
+- [ ] Jest 事件测试 -> GdUnit4 GdUnitSignalSpy
+- [ ] 测试事件发射 -> signal_spy.is_emitted()
+- [ ] 测试事件参数 -> signal_spy.get_last_args()
+- [ ] xUnit 逻辑测试 -> FakeSignalEmitter
 
 ### 文档迁移
 
-- [ ] CloudEvents 契约文档 → Signal XML 文档注释
-- [ ] 事件参数说明 → <param> 标签
-- [ ] 使用示例 → <example> 标签
+- [ ] CloudEvents 契约文档 -> Signal XML 文档注释
+- [ ] 事件参数说明 -> <param> 标签
+- [ ] 使用示例 -> <example> 标签
 
 ---
 
@@ -1470,3 +1470,4 @@ jobs:
 完成本阶段后,继续:
 
 -> [Phase-10-Unit-Tests.md](Phase-10-Unit-Tests.md) — xUnit 单元测试迁移
+

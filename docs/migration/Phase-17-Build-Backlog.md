@@ -53,7 +53,7 @@
 - 蓝图目标：
   - 提供一条专门用于发布的 CI 工作流：
     - 触发条件：git tag push 或手动 dispatch；
-    - 步骤：生成版本元数据 → 调用 `scripts/build_windows.py` 导出/签名 → 上传 `Game.exe/.pck` 与版本信息到 GitHub Release；
+    - 步骤：生成版本元数据 -> 调用 `scripts/build_windows.py` 导出/签名 -> 上传 `Game.exe/.pck` 与版本信息到 GitHub Release；
     - 可选：在发布前调用 Release Health Gate（Phase‑16）与性能门禁（Phase‑15）。
 - 建议实现方式：
   - 新增 `.github/workflows/release-windows.yml`，只在 tag 分支上运行；
@@ -101,7 +101,7 @@
 
 - 对于基于本模板创建的新项目：
   - 模板提供的 `export_windows.ps1` + `smoke_exe.ps1` 已能满足“导出可运行 EXE + 基本冒烟”的最小需求；
-  - 当项目需要正式发布管道时，可按 B1→B3→B4/B2/B5 的顺序逐步启用 Python 构建脚本、Release 工作流与签名/多配置支持。
+  - 当项目需要正式发布管道时，可按 B1->B3->B4/B2/B5 的顺序逐步启用 Python 构建脚本、Release 工作流与签名/多配置支持。
 
 - 对于模板本身：
   - 当前 Phase 17 仅要求导出脚本与冒烟脚本在本地/CI 中可用，并在 Quickstart/Checklist 文档中提供清晰指引；

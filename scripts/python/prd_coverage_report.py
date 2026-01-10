@@ -6,7 +6,7 @@ Produce a soft PRD coverage report between:
 - .taskmaster/docs/prd-*.txt (PRD text files)
 - .taskmaster/tasks/tasks_back.json
 - .taskmaster/tasks/tasks_gameplay.json
-- .taskmaster/tasks/tasks_newguild.json
+- .taskmaster/tasks/tasks_wowguaji.json
 
 This script does NOT act as a CI gate. It generates a heuristic report
 showing, for each PRD file, roughly how many tasks appear to reference it
@@ -39,7 +39,7 @@ class PrdCoverage:
     tokens: List[str]
     back_tasks: int
     gameplay_tasks: int
-    newguild_tasks: int
+    wowguaji_tasks: int
 
 
 def load_tasks(path: Path) -> List[dict]:
@@ -64,7 +64,7 @@ def extract_tokens_from_prd_name(name: str) -> List[str]:
     # split by '-' and ignore very short/common tokens
     raw_tokens = stem.replace("_", "-").split("-")
     tokens: List[str] = []
-    stop = {"and", "the", "for", "with", "godot", "csharp", "newguild", "vitegame"}
+    stop = {"and", "the", "for", "with", "godot", "csharp", "wowguaji"}
     for tok in raw_tokens:
         tok = tok.strip().lower()
         if not tok:
@@ -104,7 +104,7 @@ def build_coverage() -> Dict[str, PrdCoverage]:
 
     tasks_back = load_tasks(TASKS_DIR / "tasks_back.json")
     tasks_gameplay = load_tasks(TASKS_DIR / "tasks_gameplay.json")
-    tasks_newguild = load_tasks(TASKS_DIR / "tasks_newguild.json")
+    tasks_wowguaji = load_tasks(TASKS_DIR / "tasks_wowguaji.json")
 
     coverage: Dict[str, PrdCoverage] = {}
 
@@ -113,13 +113,13 @@ def build_coverage() -> Dict[str, PrdCoverage]:
         tokens = extract_tokens_from_prd_name(name)
         back_count = count_tasks_referencing_tokens(tasks_back, tokens)
         gm_count = count_tasks_referencing_tokens(tasks_gameplay, tokens)
-        ng_count = count_tasks_referencing_tokens(tasks_newguild, tokens)
+        wg_count = count_tasks_referencing_tokens(tasks_wowguaji, tokens)
         coverage[name] = PrdCoverage(
             prd_file=name,
             tokens=tokens,
             back_tasks=back_count,
             gameplay_tasks=gm_count,
-            newguild_tasks=ng_count,
+            wowguaji_tasks=wg_count,
         )
 
     return coverage
@@ -146,7 +146,7 @@ def main() -> int:
     for name, cov in sorted(coverage.items()):
         print(
             f"- {name}: back={cov.back_tasks}, gameplay={cov.gameplay_tasks}, "
-            f"tasks_newguild={cov.newguild_tasks}, tokens={cov.tokens}"
+            f"tasks_wowguaji={cov.wowguaji_tasks}, tokens={cov.tokens}"
         )
 
     out_path = write_report(coverage, root)

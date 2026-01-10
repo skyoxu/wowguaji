@@ -32,7 +32,7 @@
 - 蓝图目标：
   - 提供一条可选的“回滚工作流”（例如 `.github/workflows/windows-rollback.yml`）：
     - 触发方式：手动 dispatch、Release Health Gate 失败后的后续 Job，或外部告警系统；
-    - 步骤：读取 Release Profile/版本元数据 → 选择目标 Rollback 版本 → 调用现有 Release 工作流或直接导出 → 标记 Problem 版本为 revoked（Sentry/GitHub 端）。
+    - 步骤：读取 Release Profile/版本元数据 -> 选择目标 Rollback 版本 -> 调用现有 Release 工作流或直接导出 -> 标记 Problem 版本为 revoked（Sentry/GitHub 端）。
 - 建议实现方式：
   - 在 Release 工作流的基础上，新增一个轻量的 rollback workflow，仅负责：
     - 选定要回滚到的 Release（如最近一个标记为 "stable" 的 tag）；
@@ -63,7 +63,7 @@
 
 - 对于基于本模板创建的新项目：
   - 初期可以依赖现有的 Windows CI/Quality Gate/Release 工作流与手工回滚流程，快速完成内部发布与基本监控；
-  - 当项目进入正式运营阶段、对稳定性要求较高时，可按 B1→B2→B3 的顺序逐步引入 Release Health 轮询、自动回滚 Job 与客户端 ReleaseManager。
+  - 当项目进入正式运营阶段、对稳定性要求较高时，可按 B1->B2->B3 的顺序逐步引入 Release Health 轮询、自动回滚 Job 与客户端 ReleaseManager。
 
 - 对于模板本身：
   - 当前 Phase 19 不要求引入 Sentry SDK 或自动回滚脚本，只需保证文档中描述的蓝图不会与实际实现相冲突；

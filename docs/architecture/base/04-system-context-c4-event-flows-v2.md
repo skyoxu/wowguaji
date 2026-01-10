@@ -71,7 +71,7 @@ public record DomainEvent(
   - `screen.<name>.<action>`：Screen 生命周期
   - `ui.menu.<action>`：UI 命令/交互
 
-## 4) 关键事件流（示例：按钮点击 → 领域事件 → Signal）
+## 4) 关键事件流（示例：按钮点击 -> 领域事件 -> Signal）
 
 ```mermaid
 sequenceDiagram

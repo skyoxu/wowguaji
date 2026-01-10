@@ -4,7 +4,7 @@ Sync and template-ize docs/workflows/acceptance-semantics-methodology.md from a 
 
 Goals:
 - Read/write using UTF-8 (avoid console encoding issues).
-- Remove sibling project semantics (e.g., "sanguo", "newguild") and domain-coupled examples.
+- Remove sibling project semantics (e.g., "wowguaji") and domain-coupled examples.
 - Keep paths and rule descriptions aligned with this template repo conventions.
 - Produce an audit report under logs/ci/<YYYY-MM-DD>/.
 
@@ -51,18 +51,15 @@ def _templateize(text: str) -> tuple[str, list[str]]:
     # 1) Remove sibling repo naming.
     # Keep scope tight: only replace obvious repo identifiers, not generic words.
     before = text
-    text = re.sub(r"(?i)\\bnewguild\\b", "本模板仓库", text)
-    text = re.sub(r"(?i)\\bsanguo\\b", "本模板仓库", text)
+    text = re.sub(r"(?i)\\bwowguaji\\b", "本模板仓库", text)
     if text != before:
         notes.append("replaced_sibling_repo_names")
 
     # 2) Replace domain-coupled examples with template-neutral examples.
     replacements = {
         "GuildCreated": "ExampleCreated",
-        "SanguoCityBought": "ExamplePurchased",
         "GuildId": "EntityId",
         "公会": "示例模块",
-        "三国": "示例模块",
     }
     for src, dst in replacements.items():
         if src in text:
@@ -80,10 +77,8 @@ def _templateize(text: str) -> tuple[str, list[str]]:
 def _assert_decoupled(text: str) -> list[str]:
     # Hard fail on obvious repo coupling.
     forbidden_patterns = [
-        r"(?i)\\bnewguild\\b",
-        r"(?i)\\bsanguo\\b",
-        r"\\bC:\\\\buildgame\\\\newguild\\b",
-        r"\\bC:\\\\buildgame\\\\sanguo\\b",
+        r"(?i)\\bwowguaji\\b",
+        r"\\bC:\\\\buildgame\\\\wowguaji\\b",
     ]
     hits: list[str] = []
     for pat in forbidden_patterns:
@@ -103,13 +98,13 @@ def main(argv: list[str] | None = None) -> int:
     )
     parser.add_argument(
         "--sibling",
-        default=r"C:\buildgame\newguild",
-        help=r"Sibling repo root (default: C:\buildgame\newguild)",
+        default=r"C:\buildgame\wowguaji",
+        help=r"Sibling repo root (default: C:\buildgame\wowguaji)",
     )
     parser.add_argument(
         "--fallback-sibling",
-        default=r"C:\buildgame\sanguo",
-        help=r"Fallback sibling repo root if the primary doc is missing/corrupted (default: C:\buildgame\sanguo)",
+        default=r"C:\buildgame\wowguaji",
+        help=r"Fallback sibling repo root if the primary doc is missing/corrupted (default: C:\buildgame\wowguaji)",
     )
     args = parser.parse_args(argv)
 

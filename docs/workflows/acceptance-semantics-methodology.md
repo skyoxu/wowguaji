@@ -28,7 +28,7 @@
 
 每个任务的 `acceptance[]` 至少应覆盖下列 3 类中的 2 类（越靠前越推荐）：
 
-1) **行为（Behavior）**：输入/条件 → 输出/副作用（含事件、状态变化）
+1) **行为（Behavior）**：输入/条件 -> 输出/副作用（含事件、状态变化）
 
 - 例：创建示例模块成功会发布 `ExampleCreated`，并把 `EntityId/CreatorId/CreatedAt` 写入状态。
 

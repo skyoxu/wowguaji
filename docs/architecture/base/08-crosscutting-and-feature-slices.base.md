@@ -14,7 +14,7 @@ last_generated: 2025-12-16
 ## 08.1 原则（Base vs Overlay）
 
 - Base：跨切面规则（安全、可观测、门禁、契约、命名、日志）与模板；禁止出现任何 `PRD_xxx` 实例化内容。
-- Overlay 08：以单个特性/用例为单位贯穿 Scenes → Adapters → Core → Storage 的一条链，并提供就地验收与 Test-Refs。
+- Overlay 08：以单个特性/用例为单位贯穿 Scenes -> Adapters -> Core -> Storage 的一条链，并提供就地验收与 Test-Refs。
 
 ## 08.2 契约（Contracts）规则（SSoT）
 

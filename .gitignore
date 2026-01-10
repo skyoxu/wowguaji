@@ -73,6 +73,9 @@ Thumbs.db
 # Common local user files
 *.user
 *.suo
+.claude/mcp.json
+.claude/settings.local.json
+.codex/
 .claude/settings.local.json.bak
 
 # Debug symbols/build outputs not meant for VCS

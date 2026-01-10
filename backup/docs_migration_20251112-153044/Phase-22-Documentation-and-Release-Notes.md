@@ -63,7 +63,7 @@
 ```
 ┌─────────────────────────────────────────────────────────┐
 │               Phase 22 文档分层架构                      │
-│  Layer 1: 高管摘要 → Layer 2: 技术文档 → Layer 3: 用户文档 │
+│  Layer 1: 高管摘要 -> Layer 2: 技术文档 -> Layer 3: 用户文档 │
 └──────────────────────┬──────────────────────────────────┘
                        │
         ┌──────────────▼────────────────┐
@@ -109,7 +109,7 @@
 ```
 ┌─────────────────────────────────────────────────────────┐
 │         Phase 22 文档生成与发布工作流                    │
-│  输入(Phase 1-21) → 整合 → 生成 → 审核 → 发布           │
+│  输入(Phase 1-21) -> 整合 -> 生成 -> 审核 -> 发布           │
 └──────────────────────┬──────────────────────────────────┘
                        │
         ┌──────────────▼────────────────┐
@@ -164,42 +164,42 @@ godotgame/
 │   │   ├── Phase-01-Prerequisites.md          # Phase 1-21 文档
 │   │   └── Phase-22-Documentation-and-Release-Notes.md  # 本文档
 │   │
-│   ├── release/                                ★ 发布文档
-│   │   ├── RELEASE_NOTES.md                   ★ 最终发布说明
-│   │   ├── CHANGELOG.md                       ★ 变更日志(自动生成)
-│   │   ├── MIGRATION_SUMMARY.md               ★ 迁移摘要
-│   │   └── KNOWN_ISSUES.md                    ★ 已知问题清单
+│   ├── release/                                * 发布文档
+│   │   ├── RELEASE_NOTES.md                   * 最终发布说明
+│   │   ├── CHANGELOG.md                       * 变更日志(自动生成)
+│   │   ├── MIGRATION_SUMMARY.md               * 迁移摘要
+│   │   └── KNOWN_ISSUES.md                    * 已知问题清单
 │   │
-│   ├── user/                                   ★ 用户文档
-│   │   ├── USER_MANUAL.md                     ★ 用户手册
-│   │   ├── QUICK_START.md                     ★ 快速入门
-│   │   ├── FAQ.md                             ★ 常见问题
-│   │   └── TROUBLESHOOTING.md                 ★ 故障排除
+│   ├── user/                                   * 用户文档
+│   │   ├── USER_MANUAL.md                     * 用户手册
+│   │   ├── QUICK_START.md                     * 快速入门
+│   │   ├── FAQ.md                             * 常见问题
+│   │   └── TROUBLESHOOTING.md                 * 故障排除
 │   │
-│   ├── technical/                              ★ 技术文档
-│   │   ├── ARCHITECTURE.md                    ★ 架构文档(整合)
-│   │   ├── API_REFERENCE.md                   ★ API 参考(自动生成)
-│   │   ├── OPERATIONS_MANUAL.md               ★ 运维手册
-│   │   └── DEVELOPMENT_GUIDE.md               ★ 开发指南
+│   ├── technical/                              * 技术文档
+│   │   ├── ARCHITECTURE.md                    * 架构文档(整合)
+│   │   ├── API_REFERENCE.md                   * API 参考(自动生成)
+│   │   ├── OPERATIONS_MANUAL.md               * 运维手册
+│   │   └── DEVELOPMENT_GUIDE.md               * 开发指南
 │   │
-│   ├── executive/                              ★ 高管文档
-│   │   ├── EXECUTIVE_SUMMARY.md               ★ 高管摘要
-│   │   ├── MIGRATION_REPORT.md                ★ 迁移完成报告
-│   │   └── ROI_ANALYSIS.md                    ★ ROI 分析
+│   ├── executive/                              * 高管文档
+│   │   ├── EXECUTIVE_SUMMARY.md               * 高管摘要
+│   │   ├── MIGRATION_REPORT.md                * 迁移完成报告
+│   │   └── ROI_ANALYSIS.md                    * ROI 分析
 │   │
-│   └── templates/                              ★ 文档模板
-│       ├── release-notes-template.md          ★ 发布说明模板
-│       └── changelog-template.md              ★ 变更日志模板
+│   └── templates/                              * 文档模板
+│       ├── release-notes-template.md          * 发布说明模板
+│       └── changelog-template.md              * 变更日志模板
 │
 ├── scripts/
-│   ├── generate_release_notes.py              ★ 发布说明生成器
-│   ├── generate_changelog.py                  ★ 变更日志生成器
-│   ├── generate_api_docs.py                   ★ API 文档生成器
-│   └── validate_documentation.py              ★ 文档完整性验证
+│   ├── generate_release_notes.py              * 发布说明生成器
+│   ├── generate_changelog.py                  * 变更日志生成器
+│   ├── generate_api_docs.py                   * API 文档生成器
+│   └── validate_documentation.py              * 文档完整性验证
 │
 └── .taskmaster/
     └── tasks/
-        └── task-22.md                          ★ Phase 22 任务跟踪
+        └── task-22.md                          * Phase 22 任务跟踪
 ```
 
 ---
@@ -445,8 +445,8 @@ class ReleaseNotesGenerator:
         release_notes = f"""# Release Notes: godotgame v{version}
 
 > 发布日期: {now}
-> 项目: vitegame → godotgame 迁移
-> 类型: 完整技术栈替换(Electron + Phaser → Godot 4.5 + C#)
+> 项目: vitegame -> godotgame 迁移
+> 类型: 完整技术栈替换(Electron + Phaser -> Godot 4.5 + C#)
 
 ---
 
@@ -457,10 +457,10 @@ class ReleaseNotesGenerator:
 ### 核心成果
 
 - [OK] **功能完整性**: {acceptance_data['passed']}/{acceptance_data['total_tests']} 功能测试通过({acceptance_data['passed']/max(acceptance_data['total_tests'],1)*100:.1f}%)
-- ⚡ **性能提升**: 启动时间↓{performance_data['startup_improvement']:.1f}%,帧时间↓{performance_data['frame_time_improvement']:.1f}%,内存↓{performance_data['memory_improvement']:.1f}%
-- 🏗️ **架构现代化**: 基于 Godot Scene Tree 与端口适配器模式
-- 🔒 **安全基线**: Godot 安全白名单 + Sentry 集成 + Release Health 门禁
-- 📊 **可观测性**: 结构化日志 + Crash-Free Sessions 监控 + 性能追踪
+- [FAST] **性能提升**: 启动时间↓{performance_data['startup_improvement']:.1f}%,帧时间↓{performance_data['frame_time_improvement']:.1f}%,内存↓{performance_data['memory_improvement']:.1f}%
+- [ARCH] **架构现代化**: 基于 Godot Scene Tree 与端口适配器模式
+- [LOCK] **安全基线**: Godot 安全白名单 + Sentry 集成 + Release Health 门禁
+- [REPORT] **可观测性**: 结构化日志 + Crash-Free Sessions 监控 + 性能追踪
 
 ---
 
@@ -482,7 +482,7 @@ class ReleaseNotesGenerator:
 
 ### 发布管理
 
-- **分阶段发布**: Canary → Beta → Stable 三阶段渐进式发布
+- **分阶段发布**: Canary -> Beta -> Stable 三阶段渐进式发布
 - **Release Health 门禁**: Crash-Free Sessions ≥99.5% 强制阈值
 - **应急回滚**: 自动触发 + 版本堆栈管理
 
@@ -530,7 +530,7 @@ class ReleaseNotesGenerator:
 
 ### 优化措施
 
-- **代码优化**: GDScript 热路径迁移至 C#,算法复杂度优化(O(n²) → O(n log n))
+- **代码优化**: GDScript 热路径迁移至 C#,算法复杂度优化(O(n²) -> O(n log n))
 - **资源优化**: 纹理 VRAM 压缩(ASTC/ETC2),音频格式优化(OGG Vorbis)
 - **渲染优化**: Culling(视锥体剔除),Batching(MultiMesh 批处理),LOD(细节层次)
 - **I/O 优化**: SQLite WAL 模式 + 批量操作,数据库查询索引优化
@@ -591,9 +591,9 @@ class ReleaseNotesGenerator:
 - Phase 6: SQLite 数据层迁移
 
 ### 第三阶段:UI 与场景迁移(Phase 7-9)
-- Phase 7: React → Godot Control 迁移
+- Phase 7: React -> Godot Control 迁移
 - Phase 8: 场景树与节点设计
-- Phase 9: CloudEvents → Signals 迁移
+- Phase 9: CloudEvents -> Signals 迁移
 
 ### 第四阶段:测试体系重建(Phase 10-12)
 - Phase 10: xUnit 单元测试迁移
@@ -658,7 +658,7 @@ class ReleaseNotesGenerator:
 
 3. **数据导入**(可选):导入 vitegame 的游戏进度
    - 启动 godotgame
-   - 进入"设置" → "数据迁移"
+   - 进入"设置" -> "数据迁移"
    - 选择 vitegame 导出的数据文件
    - 点击"导入"
 
@@ -912,7 +912,7 @@ class ChangelogGenerator:
 
         entry = f"## [v{version}] - {today}\n\n"
 
-        # 映射:类型 → Keep a Changelog 标准标题
+        # 映射:类型 -> Keep a Changelog 标准标题
         category_map = {
             "feat": "Added",
             "fix": "Fixed",
@@ -1180,7 +1180,7 @@ class DocumentationValidator:
         print("文档完整性验证结果")
         print("="*60)
 
-        print(f"\n📊 文档覆盖率: {results['coverage_percent']:.1f}%")
+        print(f"\n[REPORT] 文档覆盖率: {results['coverage_percent']:.1f}%")
 
         if results["missing_docs"]:
             print(f"\nFAIL 缺失文档 ({len(results['missing_docs'])}个):")
@@ -1245,7 +1245,7 @@ if __name__ == "__main__":
 # Release Notes: godotgame v${VERSION}
 
 > 发布日期: ${DATE}
-> 项目: vitegame → godotgame 迁移
+> 项目: vitegame -> godotgame 迁移
 > 类型: ${RELEASE_TYPE}
 
 ---
@@ -1257,10 +1257,10 @@ if __name__ == "__main__":
 ### 核心成果
 
 - [OK] **功能完整性**: ${FEATURE_COMPLETENESS}
-- ⚡ **性能提升**: ${PERFORMANCE_IMPROVEMENTS}
-- 🏗️ **架构现代化**: ${ARCHITECTURE_UPDATES}
-- 🔒 **安全基线**: ${SECURITY_UPDATES}
-- 📊 **可观测性**: ${OBSERVABILITY_UPDATES}
+- [FAST] **性能提升**: ${PERFORMANCE_IMPROVEMENTS}
+- [ARCH] **架构现代化**: ${ARCHITECTURE_UPDATES}
+- [LOCK] **安全基线**: ${SECURITY_UPDATES}
+- [REPORT] **可观测性**: ${OBSERVABILITY_UPDATES}
 
 ---
 
@@ -1399,9 +1399,9 @@ ${ACKNOWLEDGEMENTS}
 ```python
 # generate_release_notes.py 中
 acceptance_data = self._load_acceptance_report()
-# → 提取功能测试通过率
-# → 提取功能模块对标状态
-# → 生成功能对标表格
+# -> 提取功能测试通过率
+# -> 提取功能模块对标状态
+# -> 生成功能对标表格
 ```
 
 ### 5.2 与 Phase 21(性能优化)集成
@@ -1416,9 +1416,9 @@ acceptance_data = self._load_acceptance_report()
 ```python
 # generate_release_notes.py 中
 performance_data = self._load_performance_report()
-# → 提取启动时间/帧时间/内存改进百分比
-# → 生成性能对比表格
-# → 列出优化措施
+# -> 提取启动时间/帧时间/内存改进百分比
+# -> 生成性能对比表格
+# -> 列出优化措施
 ```
 
 ### 5.3 与 Phase 17-18(构建与发布)集成
@@ -1478,7 +1478,7 @@ jobs:
 ```
 ┌─────────────────────────────────────────────────────────┐
 │            文档审核与发布工作流                          │
-│  草稿 → 技术审核 → 业务审核 → 法务审核 → 最终签核 → 发布 │
+│  草稿 -> 技术审核 -> 业务审核 -> 法务审核 -> 最终签核 -> 发布 │
 └──────────────────────┬──────────────────────────────────┘
                        │
         ┌──────────────▼────────────────┐
@@ -1622,7 +1622,7 @@ jobs:
 | Phase 1-19(准备+核心+UI+测试+质量) | ← 输入 | 所有 Phase 文档作为发布说明的源材料 |
 | Phase 20(功能验收测试) | ← 输入 | 验收报告提供功能对标数据 |
 | Phase 21(性能优化) | ← 输入 | 性能报告提供性能改进数据 |
-| 后续版本(v1.1.0+) | → 持续 | 文档维护流程支持后续版本迭代 |
+| 后续版本(v1.1.0+) | -> 持续 | 文档维护流程支持后续版本迭代 |
 
 ---
 

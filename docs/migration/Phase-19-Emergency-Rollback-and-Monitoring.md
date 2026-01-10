@@ -1,4 +1,4 @@
-# Phase 19: 应急回滚与监控
+﻿# Phase 19: 应急回滚与监控
 
 > **核心目标**：实现自动化回滚机制与发布健康监控，当生产版本出现重大问题时能够快速回滚至前一稳定版本。
 > **工作量**：2-3 人天
@@ -19,17 +19,17 @@
 - 无自动触发机制，需人工判断和执行
 
 **缺陷**：
-- 响应时间慢（发现问题 → 手动操作 → 用户获得新版本，通常 >30 分钟）
+- 响应时间慢（发现问题 -> 手动操作 -> 用户获得新版本，通常 >30 分钟）
 - 容易遗漏（取决于人工操作）
 - 无主动监控告警
 - 版本回滚链不清晰（用户可能回滚到更旧的有问题版本）
 
-### 新版（godotgame）回滚机遇与挑战
+### 新版（wowguaji）回滚机遇与挑战
 
 **机遇**：
 - Phase 16 提供 Release Health API（实时 Crash-Free Sessions 查询）
 - Phase 17 提供 git tag 版本管理和构建元数据
-- Phase 18 提供清晰的版本链（Canary → Beta → Stable）
+- Phase 18 提供清晰的版本链（Canary -> Beta -> Stable）
 - Sentry 支持发布状态管理（active / revoked / pre-released）
 
 **挑战**：
@@ -37,7 +37,7 @@
 | 挑战 | 原因 | Godot 解决方案 |
 |-----|-----|-----------:|
 | 自动触发条件 | 何时判断版本"有问题" | Crash-Free Sessions 下降 >5% 或 Error Rate 上升 >0.5% |
-| 版本链回滚 | Canary → Beta → Stable，反向时应回滚到哪个版本 | 维护稳定版本堆栈，最多回滚 3 层 |
+| 版本链回滚 | Canary -> Beta -> Stable，反向时应回滚到哪个版本 | 维护稳定版本堆栈，最多回滚 3 层 |
 | 用户无缝体验 | 用户如何知晓需要更新 | ReleaseManager.cs 检查版本撤销状态，条件提示 |
 | 误判防护 | 避免因临时抖动而误触发回滚 | 两级告警（warning @ -3%, critical @ -5%）+ 人工确认 |
 | 审计与追溯 | 回滚决策的可追溯性 | Sentry + GitHub Actions + 本地日志完整记录 |
@@ -48,7 +48,7 @@
 2. **风险隔离**：Problem 版本标记为 revoked，防止新用户继续安装
 3. **用户信心**：应用能够自我修复，减少用户困扰
 4. **数据保留**：回滚前后的完整审计日志，便于事后分析和根本原因分析（RCA）
-5. **分阶段保护**：Canary 问题 → 停止向 Beta 晋升；Beta 问题 → 停止向 Stable 发布
+5. **分阶段保护**：Canary 问题 -> 停止向 Beta 晋升；Beta 问题 -> 停止向 Stable 发布
 
 ---
 
@@ -56,7 +56,7 @@
 
 ### 2.0 Godot+C# 变体（当前模板状态）
 
-> 本节描述的是 **当前 godotgame 模板在“回滚与监控”方面的实际能力**。上文中的自动化回滚流程（Sentry Release Health 轮询、标记 revoked、ReleaseManager.cs 等）仍处于蓝图阶段，对应工作统一收敛到 Phase-19 Backlog。
+> 本节描述的是 **当前 wowguaji 模板在“回滚与监控”方面的实际能力**。上文中的自动化回滚流程（Sentry Release Health 轮询、标记 revoked、ReleaseManager.cs 等）仍处于蓝图阶段，对应工作统一收敛到 Phase-19 Backlog。
 
 - 现有能力：
   - 质量门禁与导出：
@@ -140,8 +140,8 @@
                       │   Active    │  (可用于下载/自动更新)
                       │             │
                       │ Canary      │
-                      │ → Beta      │
-                      │ → Stable    │
+                      │ -> Beta      │
+                      │ -> Stable    │
                       └──────┬──────┘
                              │
               ┌──────────────┼──────────────┐
@@ -174,18 +174,18 @@ v1.3.5 (superseded)        ← 最旧备选（不再自动回滚到此）
 
 回滚链（自动遍历）：
 IF v1.5.0 is revoked:
-  → Activate v1.4.2
+  -> Activate v1.4.2
   IF v1.4.2 also crashes:
-    → Activate v1.4.1
+    -> Activate v1.4.1
   IF all recent versions crash:
-    → Manual intervention required
-    → Revert to last known stable branch
+    -> Manual intervention required
+    -> Revert to last known stable branch
 ```
 
 ### 2.5 目录结构
 
 ```
-godotgame/
+wowguaji/
 ├── src/
 │   ├── Game.Core/
 │   │   └── Release/
@@ -455,7 +455,7 @@ on:
   workflow_dispatch:
     inputs:
       release_version:
-        description: 'Release to monitor (e.g., godotgame@1.0.0)'
+        description: 'Release to monitor (e.g., wowguaji@1.0.0)'
         required: false
       environment:
         description: 'Environment'
@@ -485,7 +485,7 @@ jobs:
         id: health
         run: |
           python scripts/monitor_release_health.py \
-            --release "${{ github.event.inputs.release_version || 'godotgame@latest' }}" \
+            --release "${{ github.event.inputs.release_version || 'wowguaji@latest' }}" \
             --environment "${{ github.event.inputs.environment || 'production' }}" \
             --output health-report.json
 
@@ -873,7 +873,7 @@ public partial class ExampleTest
 ```bash
 # 1. 本地模拟回滚检查
 python scripts/monitor_release_health.py \
-  --release godotgame@1.0.0 \
+  --release wowguaji@1.0.0 \
   --environment production \
   --simulate-crash-drop
 
@@ -886,13 +886,13 @@ python scripts/monitor_release_health.py \
 # 3. 检查回滚安全性
 python scripts/trigger_rollback.py \
   --analyze \
-  --release godotgame@1.0.0 \
-  --candidate godotgame@0.9.5
+  --release wowguaji@1.0.0 \
+  --candidate wowguaji@0.9.5
 
 # 4. 执行回滚（本地模拟）
 python scripts/trigger_rollback.py \
   --revoke \
-  --release godotgame@1.0.0 \
+  --release wowguaji@1.0.0 \
   --dry-run
 ```
 
@@ -918,7 +918,7 @@ public class ObservabilityClient
     // 新增方法：记录回滚事件
     public void RecordRollbackEvent(string revokedRelease, string candidateRelease, string reason)
     {
-        _sentryHub.CaptureMessage($"Rollback: {revokedRelease} → {candidateRelease}", SentryLevel.Warning);
+        _sentryHub.CaptureMessage($"Rollback: {revokedRelease} -> {candidateRelease}", SentryLevel.Warning);
     }
 }
 ```
@@ -965,7 +965,7 @@ def should_promote_to_next_stage(current_version, current_env):
 |-----|-----|-------|
 | 假阳性触发（临时抖动导致误回滚） | 中 | 设置两级告警（warning @ -3%, critical @ -5%），人工确认机制 |
 | 回滚后问题仍存（前一版本也有问题） | 高 | 维护版本堆栈，最多回滚 3 层；如全部失败，转向人工干预 |
-| 用户体验中断（应用突然要求更新） | 中 | 渐进式提示（应用内横幅 → 对话框 → 强制更新），仅在下次启动时生效 |
+| 用户体验中断（应用突然要求更新） | 中 | 渐进式提示（应用内横幅 -> 对话框 -> 强制更新），仅在下次启动时生效 |
 | 数据一致性问题（版本不兼容导致数据损坏） | 高 | ReleaseManager.cs 检查版本兼容性，禁止回滚到不兼容版本 |
 | 监控系统故障导致无法检测问题 | 中 | 人工 Sentry Dashboard 监控、Slack 告警、邮件通知（多层次）|
 | 回滚链中断（所有候选版本均不安全） | 高 | 立即触发 SEV-1 告警，通知团队，可能需要紧急补丁发布 |
@@ -1052,3 +1052,4 @@ def should_promote_to_next_stage(current_version, current_env):
 **验证状态**：架构清晰 | 代码完整 | 工作流就绪 | 集成点明确 | 应急流程完善
 **推荐评分**：90/100（应急回滚体系完备，轻微改进空间：多地区回滚、自动告警聚合）
 **实施优先级**：High（发布后 24 小时内必需）
+

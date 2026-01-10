@@ -187,7 +187,7 @@ public sealed class SqliteDataStore : Node, IDataStore
 - Settings 的持久化 SSoT：`ConfigFile`（`user://settings.cfg`）；
 - DB 中的 `settings` 表为历史兼容保留，不作为权威来源；
 - SettingsPanel 在 Godot 运行时：
-  - Save：收集 UI 控件值 → 写 ConfigFile → 即时应用音量/语言等；
+  - Save：收集 UI 控件值 -> 写 ConfigFile -> 即时应用音量/语言等；
   - Load：优先从 ConfigFile 读；如首次运行且 ConfigFile 不存在，则尝试从 DB 读一次，再写入 ConfigFile；
 - 相关实现由 Game.Godot/Scripts/UI/SettingsPanel.cs 与 UI 测试负责，本章不展开。
 

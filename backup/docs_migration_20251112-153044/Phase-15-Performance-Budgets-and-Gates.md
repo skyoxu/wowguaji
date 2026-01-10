@@ -476,7 +476,7 @@ public partial class ExampleTest
    uname -a
    ```
 
-2. **鍐峰惎鍔ㄩ噰闆?*锛?0 娆★級
+2. **鍐峰惎鍔ㄩ噰闆?*锛?0 娆*級
    ```bash
    # 鍒涘缓涓存椂鐢ㄦ埛鐩綍
    mkdir -p test_profiles
@@ -488,16 +488,16 @@ public partial class ExampleTest
    done
    ```
 
-3. **鑿滃崟鍦烘櫙甯ф椂闂?*锛? 娆★級
+3. **鑿滃崟鍦烘櫙甯ф椂闂?*锛? 娆*級
    ```bash
    godot --headless --scene MainMenuUI.tscn > reports/menu_run_1.json
-   # 閲嶅 5 娆★紝鍚堝苟缁撴灉
+   # 閲嶅 5 娆*紝鍚堝苟缁撴灉
    ```
 
-4. **娓告垙鍦烘櫙甯ф椂闂?*锛? 娆★級
+4. **娓告垙鍦烘櫙甯ф椂闂?*锛? 娆*級
    ```bash
    godot --headless --scene GameScene.tscn > reports/game_run_1.json
-   # 閲嶅 3 娆★紝鍚堝苟缁撴灉
+   # 閲嶅 3 娆*紝鍚堝苟缁撴灉
    ```
 
 5. **鏁版嵁搴撴煡璇㈠熀鍑?*

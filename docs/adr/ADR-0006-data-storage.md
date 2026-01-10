@@ -18,7 +18,7 @@ impact-scope:
   - Game.Godot/Adapters/Security/
   - Tests.Godot/tests/Adapters/Db/
 tech-tags: [godot, sqlite, configfile, persistence, storage]
-depends-on: [ADR-0002, ADR-0005]
+depends-on: [ADR-0019, ADR-0005]
 depended-by: [ADR-0023]
 test-coverage: Tests.Godot/tests/Adapters/Db/*.gd
 monitoring-metrics: [implementation_coverage, db_path_security, persistence_stability]
@@ -33,11 +33,11 @@ supersedes: []
 
 ## Context
 
-本模板的运行时代码从 LegacyProject（LegacyDesktopShell + LegacyUIFramework + SQLite + Node 脚本）迁移到 godotgame（Godot 4.5 + C#）。原有 ADR‑0006 主要描述了 Node 侧 SQLite+WAL 策略，与当前 Godot 变体的实现存在以下差异：
+本模板的运行时代码从 LegacyProject（LegacyDesktopShell + LegacyUIFramework + SQLite + Node 脚本）迁移到 wowguaji（Godot 4.5 + C#）。原有 ADR‑0006 主要描述了 Node 侧 SQLite+WAL 策略，与当前 Godot 变体的实现存在以下差异：
 
 - **平台差异**：现为 Windows-only，运行在 Godot 4.5 .NET runtime 上，不再依赖 Node/LegacyDesktopShell 环境。
 - **后端差异**：DB 访问通过 C# 适配器（`SqliteDataStore` + 具体仓储），测试中统一使用 `Microsoft.Data.Sqlite` 作为 managed provider；godot-sqlite 作为可选 GDExtension，而不是唯一实现。
-- **路径与安全**：Godot 的安全基线（见 ADR‑0002、Godot 安全章节）要求：
+- **路径与安全**：Godot 的安全基线（见 ADR-0019 与安全章节）要求：
   - 仅允许对 `user://` 写入；
   - 只从 `res://` 读取资源；
   - 严格禁止绝对路径与目录穿越；
@@ -71,7 +71,7 @@ supersedes: []
   - 任意违规尝试均返回 false 并写入审计日志。
 - 资源访问只允许 `res://`：
   - Schema 脚本、迁移脚本、测试用资源路径仅以 `res://` 引用，禁止 `file://`、绝对路径或混用；
-  - 与 ADR‑0002 安全基线保持一致。
+  - 与 ADR-0019 安全基线保持一致。
 - 审计与日志：
   - `SqliteDataStore` 在 Open/Execute/Query 失败时写入 `logs/ci/YYYY-MM-DD/security-audit.jsonl`；
   - 日志字段至少包含 `{ ts, action, reason, target, caller }`，便于 CI 与本地排查。
@@ -80,20 +80,20 @@ supersedes: []
 
 - 核心仓储（如 SaveGame/Inventory/User）通过显式事务保护批量写入：
   - `DbTestHelper` 提供 `Begin/Commit/Rollback` 帮助方法；
-  - 测试用桥接类（`RepositoryTestBridge`, `InventoryRepoBridge` 等）用于在 GdUnit4 用例中验证“抛错 → 事务回滚，数据不被污染”。
+  - 测试用桥接类（`RepositoryTestBridge`, `InventoryRepoBridge` 等）用于在 GdUnit4 用例中验证“抛错 -> 事务回滚，数据不被污染”。
 - 跨重启场景：
   - SaveGame：写入后关闭 DB，再用新连接打开，验证存档仍可读；
   - Inventory：批量替换和增删操作后，关闭再打开，验证集合内容一致；
   - 相关用例在 Tests.Godot 中作为 DB 持久化的软门禁。
 
-4. **Settings 迁移策略（DB → ConfigFile，一次性）**
+4. **Settings 迁移策略（DB -> ConfigFile，一次性）**
 
 - 为了与旧 schema 兼容，`settings` 表仍保留，但仅用于“迁移源”：
   - SettingsPanel 在加载时先尝试从 ConfigFile 读取；
   - 如 ConfigFile 不存在或缺少 Settings 字段，则尝试从 DB `settings` 表读取一次，并写回 ConfigFile；
   - 迁移成功后，后续运行均以 ConfigFile 为准，不再回写 DB。
 - 文档层面：
-  - CH05/CH06 与迁移文档中，所有“Settings → DB”的旧描述标记为 Deprecated，并指向本 ADR；
+  - CH05/CH06 与迁移文档中，所有“Settings -> DB”的旧描述标记为 Deprecated，并指向本 ADR；
   - 新增 Settings 相关用例与代码一律以 ConfigFile 方案为主线。
 
 5. **WAL / 日志模式选择（管理化简版）**
@@ -138,7 +138,7 @@ supersedes: []
 
 - CH 章节：CH05、CH06、CH11（数据模型、运行时视图、技术债）
 - 相关 ADR：
-  - ADR-0002（安全基线）
+  - ADR-0019（安全基线）
   - ADR-0005（质量门禁）
   - ADR-0006 Godot Data Storage Addendum（偏好设置使用 ConfigFile）
   - ADR-0023（Settings SSoT = ConfigFile）

@@ -1,4 +1,4 @@
-# Phase 1: 环境准备与工具安装
+﻿# Phase 1: 环境准备与工具安装
 
 > 状态: 准备阶段
 > 预估工时: 1-2 天
@@ -43,7 +43,7 @@ godot --version
 - [ ] `godot --version` 显示正确版本
 - [ ] `godot --headless --version` headless 模式可用
 - [ ] Godot Editor 可正常启动
-- [ ] C# 项目模板可创建（Editor → New Project → C#）
+- [ ] C# 项目模板可创建（Editor -> New Project -> C#）
 
 #### 2. .NET 8 SDK
 
@@ -118,7 +118,7 @@ py -3 -m pip install pyyaml requests jsonschema
 winget install JetBrains.Rider
 
 # 安装 Godot 插件
-# Rider → Settings → Plugins → Marketplace → 搜索 "Godot"
+# Rider -> Settings -> Plugins -> Marketplace -> 搜索 "Godot"
 ```
 
 **验证清单**:
@@ -244,7 +244,7 @@ sentry-cli login
 1. **自动安装（推荐）**:
 ```powershell
 # 在 Godot Editor 中
-# Editor → Manage Export Templates → Download and Install
+# Editor -> Manage Export Templates -> Download and Install
 ```
 
 2. **手动安装**:
@@ -256,7 +256,7 @@ dir $env:APPDATA\Godot\export_templates\4.5.x.stable.mono\
 ```
 
 **验证清单**:
-- [ ] Godot Editor → Export → 显示 Windows Desktop 可用
+- [ ] Godot Editor -> Export -> 显示 Windows Desktop 可用
 - [ ] 可成功导出一个空项目为 .exe
 
 ---
@@ -291,7 +291,7 @@ LegacyProject/                      # 保持现有结构不变
 │   │   └── ...
 │   └── adr/                   # 将新增 ADR-0018~0022
 │
-godotgame/                     # 新建：Godot 项目根目录
+wowguaji/                     # 新建：Godot 项目根目录
 ├── project.godot              # Godot 项目配置
 ├── Game.Core/                 # C# 纯逻辑库
 │   ├── Game.Core.csproj
@@ -311,10 +311,10 @@ godotgame/                     # 新建：Godot 项目根目录
 
 **执行步骤**:
 ```powershell
-# 在 LegacyProject 同级创建 godotgame
+# 在 LegacyProject 同级创建 wowguaji
 cd C:\buildgame
-mkdir godotgame
-cd godotgame
+mkdir wowguaji
+cd wowguaji
 
 # 初始化 Git（暂不关联远程仓库）
 git init
@@ -478,7 +478,7 @@ git config --global i18n.logoutputencoding utf-8
 - [ ] dotnet test 可运行 xUnit 测试
 - [ ] Godot Export Templates 可导出 Windows .exe
 - [ ] Git 分支 `migration/godot-csharp` 已创建
-- [ ] 目录结构 `godotgame/` 已初始化
+- [ ] 目录结构 `wowguaji/` 已初始化
 
 ---
 
@@ -487,3 +487,4 @@ git config --global i18n.logoutputencoding utf-8
 完成本阶段后，继续：
 
 -> [Phase-2-ADR-Updates.md](Phase-2-ADR-Updates.md) — ADR 更新与新增
+

@@ -1,4 +1,4 @@
-# Phase 6: SQLite 数据层迁移
+﻿# Phase 6: SQLite 数据层迁移
 
 > 状态: 实施阶段
 > 预估工时: 5-7 天
@@ -9,13 +9,13 @@
 
 ## 目标
 
-将 LegacyProject 的 better-sqlite3 数据库迁移到 godotgame 的 godot-sqlite，建立类型安全的仓储层和迁移系统。
+将 LegacyProject 的 better-sqlite3 数据库迁移到 wowguaji 的 godot-sqlite，建立类型安全的仓储层和迁移系统。
 
 ---
 
 ## 技术栈对比
 
-| 功能 | LegacyProject (Node.js) | godotgame (Godot) |
+| 功能 | LegacyProject (Node.js) | wowguaji (Godot) |
 |-----|-------------------|------------------|
 | 库 | better-sqlite3 | godot-sqlite (GDNative) |
 | 初始化 | `new Database('game.db')` | `SQLite.new() + open_db()` |
@@ -69,7 +69,7 @@ CREATE TABLE schema_version (
 );
 ```
 
-### 目标 Schema (godotgame)
+### 目标 Schema (wowguaji)
 
 保持相同结构，但添加：
 
@@ -345,7 +345,7 @@ public class SqliteDataStore : IDataStore
     }
 
     /// <summary>
-    /// PascalCase → snake_case
+    /// PascalCase -> snake_case
     /// </summary>
     private string ToSnakeCase(string input)
     {
@@ -1152,4 +1152,5 @@ jobs:
 
 完成本阶段后，继续：
 
--> [Phase-7-UI-Migration.md](Phase-7-UI-Migration.md) — LegacyUIFramework → Godot Control 迁移
+-> [Phase-7-UI-Migration.md](Phase-7-UI-Migration.md) — LegacyUIFramework -> Godot Control 迁移
+

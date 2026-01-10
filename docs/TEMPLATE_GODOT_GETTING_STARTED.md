@@ -1,5 +1,5 @@
 # Godot+C# 模板：快速开始（Windows-only）
-  > 本文件是 `godotgame` 仓库的通用「上手模板」，用于指导从本项目派生的新游戏在 Windows 上完成首次运行、测试与导出。
+  > 本文件是 `wowguaji` 仓库的通用「上手模板」，用于指导从本项目派生的新游戏在 Windows 上完成首次运行、测试与导出。
   > 所有中文内容均使用 UTF-8 编码；若在终端中出现乱码，请以 VS Code 等编辑器并显式选择 UTF-8 查看。
 
   ---
@@ -52,7 +52,7 @@
 
   1. 在仓库根目录打开 PowerShell：
 
-     cd C:\buildgame\godotgame  # 或你的派生项目路径
+     cd C:\buildgame\wowguaji  # 或你的派生项目路径
      $env:GODOT_BIN = "C:\Godot\Godot_v4.5.1-stable_mono_win64.exe"
   2. 使用内置导出脚本生成 EXE：
 
@@ -77,7 +77,7 @@
 
   领域层逻辑放在 Game.Core/，通过 Game.Core.Tests/ 做 xUnit 单元测试（ADR-0005/0006）：
 
-  cd C:\buildgame\godotgame
+  cd C:\buildgame\wowguaji
 
   # 运行所有单元测试
   dotnet test --collect:"XPlat Code Coverage"
@@ -100,7 +100,7 @@
 
   本模板提供统一的 Python 封装脚本：
 
-  cd C:\buildgame\godotgame
+  cd C:\buildgame\wowguaji
 
   # 准备 GdUnit4 测试工程（一次性或按需执行）
   py -3 scripts/python/prepare_gd_tests.py --project Tests.Godot --runtime Game.Godot

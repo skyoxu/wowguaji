@@ -65,9 +65,9 @@ GdUnit4（Game.Godot）：
 **进度对标**
 
 vs Electron/Playwright 方案：
-- 运行时：30-60s → 2-5s（快 10-20 倍）
-- CI 友好度：需 X11 → 完全 Headless
-- 信号测试：间接 → 直接（Signal.connect）
+- 运行时：30-60s -> 2-5s（快 10-20 倍）
+- CI 友好度：需 X11 -> 完全 Headless
+- 信号测试：间接 -> 直接（Signal.connect）
 
 ---
 
@@ -127,19 +127,19 @@ vs Electron/Playwright 方案：
 
 | 项目 | 现状 | 行动 |
 |------|------|------|
-| Godot 4.5 .NET | ❓ 需确认 | 下载安装 .NET 版（非标准版） |
-| 项目初始化 | ❓ 需确认 | godot --headless --editor |
-| addons 目录 | ❓ 需确认 | mkdir -p Game.Godot/addons |
-| Tests 目录 | ❓ 需确认 | 创建 Game.Godot/Tests/Scenes |
-| MainScene.tscn | ❓ Phase 8 | 菜单场景 |
-| GameScene.tscn | ❓ Phase 8 | 游戏场景 |
+| Godot 4.5 .NET | [?] 需确认 | 下载安装 .NET 版（非标准版） |
+| 项目初始化 | [?] 需确认 | godot --headless --editor |
+| addons 目录 | [?] 需确认 | mkdir -p Game.Godot/addons |
+| Tests 目录 | [?] 需确认 | 创建 Game.Godot/Tests/Scenes |
+| MainScene.tscn | [?] Phase 8 | 菜单场景 |
+| GameScene.tscn | [?] Phase 8 | 游戏场景 |
 
 ### SHOULD（建议）
 
 | 项目 | 现状 | 依赖 |
 |------|------|------|
-| xUnit 项目 | ❓ 需创建 | dotnet new xunit |
-| C# 适配器 | ❓ Phase 5 | GodotTimeAdapter 等 |
+| xUnit 项目 | [?] 需创建 | dotnet new xunit |
+| C# 适配器 | [?] Phase 5 | GodotTimeAdapter 等 |
 | GitHub Actions | 已有 | .github/workflows/ |
 
 ---

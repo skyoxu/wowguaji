@@ -74,7 +74,7 @@
 
 - 对于基于本模板创建的新项目：
   - 初期可以仅使用 Quality Gate + smoke + FeatureFlags 的最小策略，不必启用渠道级分层或 Sentry 驱动门禁；
-  - 当项目需要严肃的灰度发布与回滚策略时，可按 B1→B2→B3 的顺序逐步引入渠道、Release Profile 与 Release Health Gate。
+  - 当项目需要严肃的灰度发布与回滚策略时，可按 B1->B2->B3 的顺序逐步引入渠道、Release Profile 与 Release Health Gate。
 
 - 对于模板本身：
   - 当前 Phase 18 仅要求 Quality Gate 流程完整、FeatureFlags 可用、Release Notes 脚本能生成模板；

@@ -338,10 +338,10 @@ stateDiagram-v2
     emergency --> critical : 连续120帧<20ms AND tp95<60ms
     critical --> degraded : 连续60帧<18ms AND tp95<45ms
     degraded --> normal : 连续30帧<16ms AND tp95<30ms
-    state normal : 🟢 60FPS稳定，全特效渲染，完整UI响应
-    state degraded : 🟡 降低特效质量，减少动画帧率，启用背压控制
-    state critical : 🟠 禁用非关键动画，简化渲染管线，积极GC管理
-    state emergency : 🔴 基础2D渲染，冻结耗时系统，最小功能维持
+    state normal : O 60FPS稳定，全特效渲染，完整UI响应
+    state degraded : O 降低特效质量，减少动画帧率，启用背压控制
+    state critical : O 禁用非关键动画，简化渲染管线，积极GC管理
+    state emergency : O 基础2D渲染，冻结耗时系统，最小功能维持
 ```
 
 ### 紧急降级与恢复序列（C4动态图）
@@ -353,7 +353,7 @@ C4Dynamic
     Container(statemachine, "状态机", "PerformanceStateMachine")
     Container(engines, "渲染引擎", "Phaser+React")
     System_Ext(sentry, "Sentry SDK")
-    Rel(monitor, statemachine, 1, "ft:35ms→emergency", "evaluateTransition()")
+    Rel(monitor, statemachine, 1, "ft:35ms->emergency", "evaluateTransition()")
     Rel(statemachine, engines, 2, "enableEmergencyMode()", "禁用特效+动画")
     Rel(statemachine, sentry, 3, "degradeEvent", "记录性能事件")
 ```
@@ -657,12 +657,12 @@ export class ObservabilityDegradationBridge {
 
 | 图表类型        | 场景覆盖     | 编号序列 | Base-Clean合规 | 渲染验证   |
 | --------------- | ------------ | -------- | -------------- | ---------- |
-| C4容器图        | 静态架构     | N/A      | ✅占位符       | ✅Mermaid  |
-| C4动态图-冷启动 | 初始化序列   | 1-7      | ✅占位符       | ✅Mermaid  |
-| C4动态图-背压   | 高压输入处理 | 1-7      | ✅占位符       | ✅Mermaid  |
-| C4动态图-降级   | 紧急恢复     | 1-8      | ✅占位符       | ✅Mermaid  |
-| Mermaid状态图   | 四态转换     | 状态节点 | ✅阈值一致     | ✅语法正确 |
-| Mermaid时序图   | 背压回路     | 时序步骤 | ✅技术无关     | ✅语法正确 |
+| C4容器图        | 静态架构     | N/A      | [OK]占位符       | [OK]Mermaid  |
+| C4动态图-冷启动 | 初始化序列   | 1-7      | [OK]占位符       | [OK]Mermaid  |
+| C4动态图-背压   | 高压输入处理 | 1-7      | [OK]占位符       | [OK]Mermaid  |
+| C4动态图-降级   | 紧急恢复     | 1-8      | [OK]占位符       | [OK]Mermaid  |
+| Mermaid状态图   | 四态转换     | 状态节点 | [OK]阈值一致     | [OK]语法正确 |
+| Mermaid时序图   | 背压回路     | 时序步骤 | [OK]技术无关     | [OK]语法正确 |
 
 ---
 
@@ -797,7 +797,7 @@ export function createFrameBudget(): FrameBudget {
 
 **Base-Clean 2.1评分提升**：
 
-- 原版V2：19/23分 → 补充C4图表后：23/23分（满分）
+- 原版V2：19/23分 -> 补充C4图表后：23/23分（满分）
 - C4容器图：静态架构清晰 (+2分)
 - C4动态图×3：运行时场景完整 (+2分)
 - Mermaid补充图表：技术细节丰富 (+0分，已包含在技术深度中)

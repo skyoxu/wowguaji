@@ -1099,7 +1099,7 @@ public partial class ExampleTest
 
 瀹屾垚鏈樁娈靛悗锛岀户缁細
 
-鉃★笍 [Phase-9-Signal-System.md](Phase-9-Signal-System.md) 鈥?CloudEvents 鈫?Godot Signals 杩佺Щ
+鉃*笍 [Phase-9-Signal-System.md](Phase-9-Signal-System.md) 鈥?CloudEvents 鈫?Godot Signals 杩佺Щ
 
 ## Root 分层建议 / Root Layering
 

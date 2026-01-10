@@ -7,7 +7,7 @@
 - 分支包含工作流：`.github/workflows/windows-release.yml`（本模板已提供）。
 
 ## 操作步骤 / Steps
-1) 打开仓库 → Actions → 选择 “Windows Release (Manual)”。
+1) 打开仓库 -> Actions -> 选择 “Windows Release (Manual)”。
 2) 点击 “Run workflow”。无需参数（默认使用 Godot 4.5.1‑mono）。
 3) 等待 Job 完成（约 1–3 分钟，视机器与网络）。
 4) 在工作流页面底部 “Artifacts” 下载 `windows-release` 压缩包：

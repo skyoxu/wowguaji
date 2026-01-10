@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
-Sanitize docs by removing/replacing emoji/dingbat symbols.
+Sanitize docs by removing/replacing emoji/dingbat/pictographic symbols.
 
 Why:
 - Repo policy forbids emoji characters in all files.
-- Some historical docs used icons (✅ ⚠️ ⭐ etc) which break this policy.
+- Some historical docs used pictographic symbols which break this policy.
 
 This script scans .md/.txt files under a root directory and applies a
 deterministic replacement mapping, writing a JSON report under:
@@ -21,10 +21,9 @@ import argparse
 import datetime as dt
 import io
 import json
-import os
 from collections import Counter
 from pathlib import Path
-from typing import Dict, Iterable, List, Tuple
+from typing import Dict, List, Tuple
 
 
 # Basic emoji/symbol ranges (not exhaustive; intended for policy enforcement).
@@ -41,11 +40,22 @@ RANGES: List[Tuple[int, int]] = [
     (0x2700, 0x27BF),
 ]
 
+# Extra codepoints that show up in this repo and are treated as pictographic.
+EXTRA_CODEPOINTS = {
+    0x2192,  # RIGHTWARDS ARROW
+    0x2194,  # LEFT RIGHT ARROW
+    0x23F3,  # HOURGLASS
+    0x23F8,  # PAUSE BUTTON
+    0x2934,  # ARROW POINTING RIGHTWARDS THEN CURVING UPWARDS
+}
+
 VS16 = 0xFE0F  # Variation Selector-16
 
 
 def is_emoji(cp: int) -> bool:
     if cp == VS16:
+        return True
+    if cp in EXTRA_CODEPOINTS:
         return True
     return any(a <= cp <= b for a, b in RANGES)
 
@@ -53,38 +63,45 @@ def is_emoji(cp: int) -> bool:
 # Deterministic replacements (ASCII-only).
 REPLACE_CP: Dict[int, str] = {
     VS16: "",
-    0x2605: "*",  # ★
-    0x2606: "*",  # ☆
-    0x26AB: "-",  # ⚫
-    0x26AA: "-",  # ⚪
-    0x2705: "[OK]",  # ✅
-    0x2713: "[OK]",  # ✓
-    0x274C: "[X]",  # ❌
-    0x2753: "[?]",  # ❓
-    0x26A0: "[WARN]",  # ⚠
-    0x26A1: "[FAST]",  # ⚡
-    0x27A1: "->",  # ➡
-    0x1F4CA: "[REPORT]",  # 📊
-    0x1F4C8: "[TREND]",  # 📈
-    0x1F6A8: "[ALERT]",  # 🚨
-    0x1F680: "[RELEASE]",  # 🚀
-    0x1F512: "[LOCK]",  # 🔒
-    0x1F511: "[KEY]",  # 🔑
-    0x1F504: "[SYNC]",  # 🔄
-    0x1F3AF: "[GOAL]",  # 🎯
-    0x1F3D7: "[ARCH]",  # 🏗
-    0x1F9EA: "[TEST]",  # 🧪
-    0x1F916: "[AI]",  # 🤖
-    0x1F4BB: "[DEV]",  # 💻
-    0x1F4CB: "[CHECKLIST]",  # 📋
-    0x1F517: "[LINK]",  # 🔗
-    0x1F4C1: "[DIR]",  # 📁
-    0x1F4DE: "[CONTACT]",  # 📞
-    0x1F4AF: "[100]",  # 💯
-    0x1F534: "O",  # 🔴
-    0x1F7E0: "O",  # 🟠
-    0x1F7E1: "O",  # 🟡
-    0x1F7E2: "O",  # 🟢
+    0x2192: "->",
+    0x2194: "<->",
+    0x23F3: "[PENDING]",
+    0x23F8: "[PAUSE]",
+    0x2934: "[UP]",
+    0x2605: "*",
+    0x2606: "*",
+    0x26AB: "-",
+    0x26AA: "-",
+    0x2609: "[SUN]",
+    0x2705: "[OK]",
+    0x2713: "[OK]",
+    0x274C: "[X]",
+    0x2753: "[?]",
+    0x26A0: "[WARN]",
+    0x26A1: "[FAST]",
+    0x27A1: "->",
+    0x1F4CA: "[REPORT]",
+    0x1F4C8: "[TREND]",
+    0x1F6A8: "[ALERT]",
+    0x1F680: "[RELEASE]",
+    0x1F512: "[LOCK]",
+    0x1F511: "[KEY]",
+    0x1F504: "[SYNC]",
+    0x1F3AF: "[GOAL]",
+    0x1F3D7: "[ARCH]",
+    0x1F9EA: "[TEST]",
+    0x1F916: "[AI]",
+    0x1F9ED: "[COMPASS]",
+    0x1F4BB: "[DEV]",
+    0x1F4CB: "[CHECKLIST]",
+    0x1F517: "[LINK]",
+    0x1F4C1: "[DIR]",
+    0x1F4DE: "[CONTACT]",
+    0x1F4AF: "[100]",
+    0x1F534: "O",
+    0x1F7E0: "O",
+    0x1F7E1: "O",
+    0x1F7E2: "O",
 }
 
 
@@ -116,7 +133,6 @@ def sanitize_text(text: str) -> tuple[str, Counter, Counter]:
             repl_counts[cp] += 1
             out_parts.append(repl)
         else:
-            # Unknown emoji/symbol codepoint: remove but report.
             unknown_counts[cp] += 1
     return "".join(out_parts), repl_counts, unknown_counts
 
@@ -178,7 +194,11 @@ def main() -> int:
     with io.open(out_path, "w", encoding="utf-8") as f:
         json.dump(report, f, ensure_ascii=False, indent=2)
 
-    print(f"EMOJI_SANITIZE scanned={report['scanned_files']} hit_files={report['hit_files']} total_hits={report['total_hits']} write={report['write']} out={out_path}")
+    print(
+        "EMOJI_SANITIZE "
+        f"scanned={report['scanned_files']} hit_files={report['hit_files']} "
+        f"total_hits={report['total_hits']} write={report['write']} out={out_path}"
+    )
     if unknown_total:
         print("EMOJI_SANITIZE unknown codepoints detected; update mapping if needed.")
         return 2
@@ -187,4 +207,3 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
-

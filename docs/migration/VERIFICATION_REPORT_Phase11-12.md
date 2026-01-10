@@ -1,4 +1,4 @@
-# 验证报告：Phase 11-12 Godot 项目可行性检查
+﻿# 验证报告：Phase 11-12 Godot 项目可行性检查
 
 **报告时间**: 2025-11-07  
 **验证范围**: Phase 11（GdUnit4 + xUnit 双轨场景测试）+ Phase 12（Headless 冒烟测试）  
@@ -65,9 +65,9 @@ GdUnit4（Game.Godot）：
 **进度对标**
 
 vs LegacyDesktopShell/LegacyE2ERunner 方案：
-- 运行时：30-60s → 2-5s（快 10-20 倍）
-- CI 友好度：需 X11 → 完全 Headless
-- 信号测试：间接 → 直接（Signal.connect）
+- 运行时：30-60s -> 2-5s（快 10-20 倍）
+- CI 友好度：需 X11 -> 完全 Headless
+- 信号测试：间接 -> 直接（Signal.connect）
 
 ---
 
@@ -153,13 +153,13 @@ godot --version    # 4.5+ .NET
 dotnet --version   # 8.x+
 
 # 创建项目
-mkdir C:\buildgame\godotgame
-godot --path C:\buildgame\godotgame --headless --editor
+mkdir C:\buildgame\wowguaji
+godot --path C:\buildgame\wowguaji --headless --editor
 ```
 
 ### 第 3 天：GdUnit4 安装
 ```powershell
-.\scripts\install-gut.ps1 -ProjectRoot "C:\buildgame\godotgame"
+.\scripts\install-gut.ps1 -ProjectRoot "C:\buildgame\wowguaji"
 # 验证：ls addons\gut\plugin.cfg
 ```
 
@@ -185,7 +185,7 @@ public partial class ExampleTest
 
 ### 第 6 天：首次冒烟测试
 ```bash
-godot --path "C:\buildgame\godotgame" --headless --scene "res://Tests/SmokeTestRunner.tscn"
+godot --path "C:\buildgame\wowguaji" --headless --scene "res://Tests/SmokeTestRunner.tscn"
 # 预期：7/7 PASS，<2min
 ```
 
@@ -246,3 +246,4 @@ Phase 11-12 框架科学可行，无技术障碍
 
 **验证完成**: 2025-11-07  
 **验证等级**: ***** (5/5)
+

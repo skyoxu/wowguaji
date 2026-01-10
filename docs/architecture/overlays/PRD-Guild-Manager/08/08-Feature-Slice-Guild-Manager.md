@@ -1,34 +1,36 @@
 ---
 PRD-ID: PRD-Guild-Manager
-Title: 功能纵切 — 公会管理器
+Title: 功能纵切 - 公会管理器
 Status: Active
 ADR-Refs:
+  - ADR-0019
   - ADR-0004
   - ADR-0005
-Test-Refs:
-  - tests/unit/guild-manager/guild-core.spec.ts
-  - tests/unit/guild-manager/raid-system.spec.ts
-  - tests/unit/guild-manager/member-management.spec.ts
-  - tests/unit/guild-manager/world-generation.spec.ts
-  - tests/e2e/guild-manager/full-workflow.spec.ts
-  - tests/e2e/ci/doc-sync-workflow.spec.ts
-  - tests/unit/scripts/ci/validate-doc-sync.test.mjs
+  - ADR-0003
+Test-Refs: []
 ---
 
-本页仅作为“功能纵切（08 章）”对“公会管理器”模块的实现约束与测试挂钩索引：
+本页是 wowguaji 的 08 章功能纵切文档，用于约束“公会管理器”模块的边界、契约与验收挂钩。
 
-- 阈值/策略/门禁等跨切面口径仅“引用”Base 与 ADR，不在 08 复制：
-  - 安全与 LegacyDesktopShell 基线：参见 CH02 与 ADR‑0002
-  - 事件/契约统一：参见 CH01/CH03 与 ADR‑0004
-  - 质量门禁/发布健康与性能预算：参见 CH03 与 ADR‑0005、ADR‑0015
-- 具体事件/DTO 与端口定义一律以 `src/shared/contracts/**` 为 SSoT；08 仅登记功能影响与测试范围。
-- 测试入口按 Test‑Refs 落地（LegacyUnitTestRunner/LegacyE2ERunner），CI 会据此做就地验收与追溯。
+约束：
+
+- 跨切面口径只引用 Base/ADR，不在本页复制阈值或策略
+  - 目标与约束（CH01）：`docs/architecture/base/01-introduction-and-goals-v2.md`
+  - 安全基线：见 `docs/architecture/base/02-security-baseline-godot-v2.md` 与 ADR-0019
+  - 可观测性与日志（CH03）：`docs/architecture/base/03-observability-sentry-logging-v2.md` 与 ADR-0003
+  - 事件/契约：见 ADR-0004；契约 SSoT 落盘在 `Game.Core/Contracts/**`
+  - 门禁：见 ADR-0005
+- 本模块的 C# 契约与事件类型不得引用 Godot API（可单测）
+- 场景与 Glue 逻辑只放在 Godot 层；核心规则放在 Game.Core
 
 功能范围要点（示例）：
 
-- 公会核心：建团/解散/权限角色
-- 活动系统：团队副本/匹配与结算流程
-- 成员管理：邀请/审批/踢出与日志
-- 世界生成：关卡种子与资源刷新（如有）
+- 公会核心：创建/解散/权限角色
+- 成员管理：邀请/审批/踢出/角色变更
+- 活动系统：团队活动/结算（如有）
 
-注：如本模块引入新的事件或契约，请先更新 `src/shared/contracts/**`，再在 Overlay/08 以“引用”方式登记变更，并补充/更新 Test‑Refs。
+测试与验收：
+
+- xUnit：覆盖核心规则、状态机、DTO 映射（建议落在 `Game.Core.Tests/**`）
+- GdUnit4：覆盖关键场景加载、Signals 连通与最小可玩闭环（建议落在 `Tests.Godot/**`）
+- Test-Refs 只能列出仓库内真实存在的测试文件；不存在的路径不得写入本页 Front-Matter

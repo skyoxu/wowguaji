@@ -1,4 +1,4 @@
-# Phase 16: 可观测性与 Sentry 集成
+﻿# Phase 16: 可观测性与 Sentry 集成
 
 > **核心目标**：完整集成 Sentry Godot SDK，建立发布健康门禁，实现结构化日志与错误追踪的自动化体系。
 > **工作量**：4-5 人天
@@ -23,7 +23,7 @@
 - Crash-Free Sessions ≥ 99.5%（发布门禁）
 - Error Rate ≤ 0.1%（告警阈值）
 
-### 新版（godotgame）可观测性机遇与挑战
+### 新版（wowguaji）可观测性机遇与挑战
 
 **机遇**：
 - Godot 4.5 官方支持 Sentry SDK（Native C#）
@@ -44,7 +44,7 @@
 
 1. **快速问题定位**：错误发生时自动捕获堆栈、设备信息、用户操作链路
 2. **质量门禁**：Crash-Free Sessions 与 Release Health 阻断不合格版本发布
-3. **用户体验洞察**：性能数据 + 错误率 + 会话长度 → 发现产品瓶颈
+3. **用户体验洞察**：性能数据 + 错误率 + 会话长度 -> 发现产品瓶颈
 4. **事后追责**：完整的 Breadcrumb + Session 重现用户行为
 
 ---
@@ -124,7 +124,7 @@
 
 ### 2.3 Godot+C# 变体（当前模板实现）
 
-> 本节描述的是 **当前 godotgame 模板已落地的可观测性与审计能力**。上文和后文中涉及的 Observability.cs、Sentry SDK、Release Health Gate 仍处于蓝图阶段，对应工作全部登记在 Phase-16 Backlog 中。
+> 本节描述的是 **当前 wowguaji 模板已落地的可观测性与审计能力**。上文和后文中涉及的 Observability.cs、Sentry SDK、Release Health Gate 仍处于蓝图阶段，对应工作全部登记在 Phase-16 Backlog 中。
 
 - 日志与审计现状：
   - C# 领域日志接口：`Game.Core/Ports/ILogger.cs`；
@@ -190,7 +190,7 @@
 ### 3.2 目录结构
 
 ```
-godotgame/
+wowguaji/
 ├── src/
 │   ├── Game.Core/
 │   │   ├── Observability/
@@ -267,7 +267,7 @@ namespace Game.Core.Observability
                 // 基本配置
                 options.Dsn = _config.SentryDsn;
                 options.Environment = _config.Environment; // "dev" | "staging" | "prod"
-                options.Release = _config.Release; // e.g., "godotgame@1.0.0+build.123"
+                options.Release = _config.Release; // e.g., "wowguaji@1.0.0+build.123"
 
                 // 会话追踪（Release Health）
                 options.AutoSessionTracking = true;
@@ -453,7 +453,7 @@ namespace Game.Core.Observability
     {
         public string SentryDsn { get; set; }
         public string Environment { get; set; } // "dev" | "staging" | "prod"
-        public string Release { get; set; } // e.g., "godotgame@1.0.0+build.123"
+        public string Release { get; set; } // e.g., "wowguaji@1.0.0+build.123"
 
         // 采样率（0.0-1.0）
         public double SessionSampleRate { get; set; } = 1.0; // Dev: 1.0, Prod: 0.1
@@ -475,7 +475,7 @@ namespace Game.Core.Observability
 {
   "dsn": "https://examplePublicKey@o0.ingest.sentry.io/0",
   "environment": "dev",
-  "release": "godotgame@0.1.0+local",
+  "release": "wowguaji@0.1.0+local",
   "sessionSampleRate": 1.0,
   "tracesSampleRate": 0.1,
   "breadcrumbs": true
@@ -886,9 +886,9 @@ on:
   workflow_dispatch:
     inputs:
       release_version:
-        description: 'Release version to check (e.g., godotgame@1.0.0)'
+        description: 'Release version to check (e.g., wowguaji@1.0.0)'
         required: true
-        default: 'godotgame@1.0.0'
+        default: 'wowguaji@1.0.0'
       environment:
         description: 'Sentry environment'
         required: true
@@ -958,7 +958,7 @@ jobs:
 
 {
   "scripts": {
-    "test:observability": "python scripts/release_health_gate.py --release godotgame@dev --environment dev",
+    "test:observability": "python scripts/release_health_gate.py --release wowguaji@dev --environment dev",
     "observability:flush": "dotnet test src/Game.Core.Tests/Observability.Tests.cs",
     "sentry:sourcemaps": "python scripts/upload_sourcemaps.py",
     "release:create": "python scripts/generate_release_metadata.py --version $npm_package_version"
@@ -1168,9 +1168,9 @@ options.BeforeSend = (sentryEvent, hint) =>
 | 阶段 | 关联 | 说明 |
 |-----|-----|------|
 | Phase 15（性能预算） | ← 数据来源 | 性能指标上报给 Sentry |
-| Phase 17（构建系统） | → 前置条件 | Release 元数据需在构建脚本生成 |
-| Phase 18（分阶段发布） | ↔ 集成 | Canary → Beta → Stable 各阶段的 Release Health 管理 |
-| Phase 19（应急回滚） | ↔ 触发器 | Crash-Free 下降触发自动回滚 |
+| Phase 17（构建系统） | -> 前置条件 | Release 元数据需在构建脚本生成 |
+| Phase 18（分阶段发布） | <-> 集成 | Canary -> Beta -> Stable 各阶段的 Release Health 管理 |
+| Phase 19（应急回滚） | <-> 触发器 | Crash-Free 下降触发自动回滚 |
 | Phase 20（功能验收） | ← 洞察 | 功能验收的错误率与崩溃数据来自 Sentry |
 
 ---
@@ -1238,19 +1238,19 @@ options.BeforeSend = (sentryEvent, hint) =>
 # 1. 创建 Sentry 账户（https://sentry.io）
 # 2. 创建 Organization: godot-game
 # 3. 创建 Projects:
-#    - godotgame-dev (environment: dev)
-#    - godotgame-staging (environment: staging)
-#    - godotgame-prod (environment: production)
+#    - wowguaji-dev (environment: dev)
+#    - wowguaji-staging (environment: staging)
+#    - wowguaji-prod (environment: production)
 
 # 4. 获取 DSN（每个项目）
 # Example: https://key@sentry.io/projectid
 
-# 5. 生成 Auth Token（Organization Settings → Auth Tokens）
+# 5. 生成 Auth Token（Organization Settings -> Auth Tokens）
 # Scope: project:releases, organization:read
 
 # 6. 保存为 GitHub Secrets:
 export SENTRY_ORG=godot-game
-export SENTRY_PROJECT=godotgame-prod
+export SENTRY_PROJECT=wowguaji-prod
 export SENTRY_AUTH_TOKEN=<token>
 ```
 
@@ -1305,3 +1305,4 @@ _offlineQueue.FlushQueue(_observabilityClient);
 **实施优先级**：High（发布门禁必需）
 
 > 提示：与 Phase-13（质量门禁）/Phase-15（性能门禁）对接——可将 Release Health 指标与 perf.json、场景测试结果（gdunit4-report.xml/json）一并纳入门禁聚合，统一在 quality_gates.py 中判定通过/失败。
+

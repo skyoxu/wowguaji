@@ -12,7 +12,7 @@
 
 ### GitHub Actions（Dry Run）
 - 直接使用工作流：`.github/workflows/windows-smoke-dry-run.yml`
-- 步骤：Checkout → Setup .NET → 下载 Godot .NET → 运行 GdUnit4 → Headless 冒烟（无导出）
+- 步骤：Checkout -> Setup .NET -> 下载 Godot .NET -> 运行 GdUnit4 -> Headless 冒烟（无导出）
 
 ## 导出 EXE 冒烟（Windows‑only）
 

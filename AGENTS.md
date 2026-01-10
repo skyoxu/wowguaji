@@ -16,7 +16,7 @@ This file provides guidance to Codex Cli when working with code in this reposito
 ## 设计原则：
 
 - 本项目是 Windows only 的 Godot + C# 游戏模板，开箱即用、可复制。以下规范用于保障一致性与可维护性。
-- AI 优先 + arc42/C4 思维：按 不可回退 → 跨切面 → 运行时骨干 → 功能纵切 顺序
+- AI 优先 + arc42/C4 思维：按 不可回退 -> 跨切面 -> 运行时骨干 -> 功能纵切 顺序
 - 删除无用代码，修改功能不保留旧的兼容性代码
 - **完整实现**，禁止MVP/占位/TODO，必须完整可运行
 
@@ -26,7 +26,7 @@ This file provides guidance to Codex Cli when working with code in this reposito
 - **ADR**：Architecture Decision Record；**Accepted** 的 ADR 代表当前有效口径。
 - **SSoT**：Single Source of Truth；01/02/03 章统一口径（NFR/SLO、安全、可观测性）。
 - **Upstream**: BMAD v6 produces PRD + Architecture (arc42 overlays; CH01/CH03 at minimum; ADR-0001…0005 adopted, more as needed).
-- **Planning**: Taskmaster converts **PRD → Tasks** with back-links to ADR/CH/Overlay.
+- **Planning**: Taskmaster converts **PRD -> Tasks** with back-links to ADR/CH/Overlay.
 
 ## 0.1 New Session Quick Reference
 
@@ -34,22 +34,21 @@ This file provides guidance to Codex Cli when working with code in this reposito
 
 1. **This file** (`AGENTS.md`) - You're already here [OK]
 2. **Project indexes** - Context entry points:
-   - `architecture_base.index` - Architecture docs (CH01-CH12 + ADRs)
-   - `prd_chunks.index` - PRD fragments index
-   - `shards/flattened-adr.xml` - All ADRs in single XML
-   - `shards/flattened-prd.xml` - All PRD in single XML
+   - `docs/PROJECT_DOCUMENTATION_INDEX.md` - 文档入口索引（建议从这里开始）
+   - `docs/architecture/base/00-README.md` - Base 架构骨干导航
+   - `docs/architecture/ADR_INDEX_GODOT.md` - ADR 索引
 3. **Test framework** - `docs/testing-framework.md` (critical for TDD)
 
 **File locations quick reference:**
-- PRD input: `.taskmaster/docs/prd.txt` (auto-generated from prd_chunks)
+- PRD docs: `docs/prd/*.md`
 - ADRs: `docs/adr/ADR-*.md` (21 files)
 - Architecture: `docs/architecture/base/*.md` (CH01-CH12)
-- Tasks: `tasks/tasks.json` (Taskmaster output)
+- Tasks (optional): `.taskmaster/tasks/*.json` (initialized by you)
 - Logs: `logs/**` (Security/E2E/Unit/Perf audit trails)
 
 **Typical workflow:**
-- **Taskmaster**: `npx task-master parse-prd .taskmaster/docs/prd.txt -n 30`
-- **Validate**: `py -3 scripts/python/validate_task_links.py`
+- **Validate links**: `py -3 scripts/python/task_links_validate.py`
+- **Quality gates**: `py -3 scripts/python/quality_gates.py --typecheck --lint --unit --scene --security --perf`
 
 ---
 
@@ -86,8 +85,7 @@ This is a **production-ready Godot 4.5.1 project template** designed for rapid g
 - `docs/adr/` - ADR文件目录
 - `docs/architecture/base/` - 综合技术文档清洁版本
 - `docs/architecture/overlays/<PRD-ID>/` - 综合技术文档对应<PRD-ID>版本
-- `docs/prd/prd_chunks/ + prd_chunks.index`- prd分片及索引
-- `architecture_base.index` - 综合技术文档清洁版本的索引
+- `docs/prd/` - PRD 文档目录
 
 ### Base / Overlay 目录约定
 
@@ -118,7 +116,6 @@ docs/
 ### 默认 ADR 映射（可扩展）
 
 - **ADR-0001-tech-stack**：技术栈选型
-- **ADR-0002-legacy-desktop-shell-security-baseline**：旧桌面壳安全基线（历史；已被 ADR-0019 替代）
 - **ADR-0019-godot-security-baseline**：Godot 安全基线（当前有效）
 - **ADR-0003-observability-release-health**：可观测性和发布健康 (Sentry, 崩溃率阈值, 结构化日志)
 - **ADR-0004-event-bus-and-contracts**：事件总线和契约 (CloudEvents, 类型定义, 端口适配)
@@ -147,9 +144,9 @@ docs/
 
 ### PR 模板要求（最少需要在 `.github/PULL_REQUEST_TEMPLATE.md` 勾选）
 
-- [ ] 更新/新增 `src/shared/contracts/**` 的接口/类型/事件
-- [ ] 更新/新增 `tests/unit/**`与 `tests/e2e/**`
-- [ ] 涉及 PRD：Front‑Matter 的 `Test-Refs` 指向相应用例。
+- [ ] 更新/新增 `Game.Core/Contracts/**` 的接口/类型/事件
+- [ ] 更新/新增 `Game.Core.Tests/**`（xUnit）与 `Tests.Godot/**`（GdUnit4 / headless）
+- [ ] 涉及 PRD：Front-Matter 的 `Test-Refs` 指向相应用例。
 - [ ] 变更口径/阈值/契约：已新增或 _Supersede_ 对应 ADR 并在 PR 描述中引用。
 - [ ] 附上 **E2E 可玩度冒烟** 的运行链接/截图
 - [ ] 附上 **Sonar Quality Gate** 结果链接（新代码绿灯）
@@ -163,7 +160,7 @@ docs/
 - 需要新增 ADR 时，自动生成 `docs/adr/ADR-xxxx-<slug>.md` 的 _Proposed_ 草案并提示审阅。
 
 > **备注**：本 Rulebook 与项目中的脚本/模板、Base/Overlay 结构**强关联**。请保持这些文件存在且更新：  
-> `scripts/scan_electron_safety.mjs` · `scripts/quality_gates.mjs` · `scripts/verify_base_clean.mjs` · `.github/PULL_REQUEST_TEMPLATE.md` · `docs/architecture/base/08-功能纵切-template.md`。
+> `scripts/python/quality_gates.py` · `scripts/ci/verify_base_clean.ps1` · `scripts/python/security_soft_scan.py` · `.github/PULL_REQUEST_TEMPLATE.md` · `docs/architecture/base/08-crosscutting-and-feature-slices.base.md`。
 
 ---
 
@@ -222,28 +219,26 @@ This template comes pre-configured with the following technology stack:
 
 1. 你会在对话输出完毕后选择适当的时机向用户提出询问，例如是否需要添加后端能力，是否打开预览，是否需要部署等
 2. 交互式反馈规则：在需求不明确时主动与用户对话澄清，优先使用自动化工具 interactiveDialog 完成配置。执行高风险操作前必须使用 interactiveDialog 获得用户确认。保持消息简洁并用ASCII标记状态。
-3. **Test-driven development must** - Never disable tests, fix them
+3. **Test-driven development must** - Never disable tests, fix them
 
 ## 1 Context Discipline (RAG Rules)
 
 1. **凡会落地为代码/测试的改动，必须引用 ≥ 1 条 _Accepted_ ADR。**  
    若改动改变阈值/契约/安全口径：**新增 ADR** 或 **以 `Superseded(ADR-xxxx)` 替代旧 ADR**。
 
-- Local sessions: prefer `codex --add-dir shards` to reference `@shards/*` paths directly.
 
 2. **08 章（功能纵切）只放在 overlays**：
-   - base 仅保留 `08-功能纵切-template.md` 模板与写作约束；**禁止**在 base 写任何具体模块内容。
+   - base 仅保留 `docs/architecture/base/08-crosscutting-and-feature-slices.base.md` 写作约束；**禁止**在 base 写任何具体模块内容。
    - 08 章**引用** 01/02/03 的口径，**禁止复制阈值/策略**到 08 章正文。事件命名规则：
-     `\${DOMAIN_PREFIX}.<entity>.<action>`；接口/DTO 统一落盘到 `src/shared/contracts/**`。
-3. Use **only**: `@architecture_base.index`, `@prd_chunks.index`, `@shards/flattened-prd.xml`, `@shards/flattened-adr.xml` for overlay‑related work. Do **not** rescan `docs/` or rebuild flattened XML.
-4. Overlays: write to `docs/architecture/overlays/<PRD-ID>/08/`. 08章只写**功能纵切**（实体/事件/SLI/门禁/验收/测试占位）；跨切面规则仍在 Base/ADR。
+     `\${DOMAIN_PREFIX}.<entity>.<action>`；接口/DTO 统一落盘到 `Game.Core/Contracts/**`。
+3. Overlays: write to `docs/architecture/overlays/<PRD-ID>/08/`. 08章只写**功能纵切**（实体/事件/SLI/门禁/验收/测试占位）；跨切面规则仍在 Base/ADR。
 
 ---
 
 ## 3 Engineering Workstyle
 
 - Small, green steps; learn from existing code; pragmatic choices; clarity over cleverness.
-- TDD‑leaning flow: Understand → Test (red) → Implement (green) → Refactor → Commit (explain **why**, link ADR/CH/Issue/Task).
+- TDD-leaning flow: Understand -> Test (red) -> Implement (green) -> Refactor -> Commit (explain **why**, link ADR/CH/Issue/Task).
 - When stuck (max 3 attempts): log failures; list 2–3 alternatives; question abstraction/scope; try the simpler path.
 - 单个脚本文件不得超过400行，如果实在无法进行功能切割，需要说明理由并征得同意后，再继续创建脚本
 
@@ -276,15 +271,15 @@ This template comes pre-configured with the following technology stack:
     - OS.execute 与权限
         - 默认禁用 OS.execute（或仅开发态开启并严审计）；CI/headless 下摄像头/麦克风/文件选择默认拒绝。
     - 遥测与隐私
-        - 在最早 Autoload 初始化 Sentry Godot SDK；开启 Releases + Sessions 统计 Crash‑Free；敏感字段 SDK 端脱敏；结构化日志采样。
+        - 在最早 Autoload 初始化 Sentry Godot SDK；开启 Releases + Sessions 统计 Crash-Free；敏感字段 SDK 端脱敏；结构化日志采样。
     - 配置开关
         - GD_SECURE_MODE=1、ALLOWED_EXTERNAL_HOSTS=<csv>、GD_OFFLINE_MODE=0/1、SECURITY_TEST_MODE=1。
     - 安全烟测（CI 最小集）
         - 外链 allow/deny/invalid 三态 + 审计文件存在；网络白名单验证；user:// 写入成功、绝对/越权写入拒绝；权限在 headless 下默认拒绝。
 
-### 发布健康门禁（Crash‑Free SSoT）
-- 启用 Sentry Releases + Sessions 以计算 Crash‑Free Sessions/Users。
-- 门禁阈值（默认）：24h Crash‑Free Sessions ≥ 99.5% 方可扩大/发布（可用环境变量覆盖，如 `RELEASE_CRASHFREE_THRESHOLD=99.5`）。
+### 发布健康门禁（Crash-Free SSoT）
+- 启用 Sentry Releases + Sessions 以计算 Crash-Free Sessions/Users。
+- 门禁阈值（默认）：24h Crash-Free Sessions ≥ 99.5% 方可扩大/发布（可用环境变量覆盖，如 `RELEASE_CRASHFREE_THRESHOLD=99.5`）。
 - 校验位置：CI 作业“release-health”（读取 Sentry 历史窗口，比较阈值）。
 - 产出：见 6.3 日志与工件（release-health.json）。
 
@@ -438,10 +433,10 @@ This template comes pre-configured with the following technology stack:
   - godot-e2e（Smoke/Security/Perf，headless）
   - dotnet-unit（Core contracts & units with coverage gate）
 - task-links-validate（ADR/CH/Overlay 回链校验，Python JSONSchema）
-  - release-health（Sentry Crash‑Free 门禁）
+  - release-health（Sentry Crash-Free 门禁）
   -（可选）superclaude-review（AI review notes 存在）
 - Pipeline（顺序）
-  - typecheck → lint → unit → e2e → task link validation → release‑health → package
+  - typecheck -> lint -> unit -> e2e -> task link validation -> release-health -> package
 - 合并准则
   - 仅当以上 Required checks 全绿方可合并
   - 受保护分支需启用 “Require status checks”
@@ -460,11 +455,11 @@ This template comes pre-configured with the following technology stack:
   - 冒烟/安全/性能（软门）：py -3 scripts/python/godot_tests.py --headless --suite smoke,security,perf
   - 产出：见 6.3（e2e/**、security-audit.jsonl、JUnit/XML）
   - 通过标准：
-    - Smoke：启动→主场景可见→关键 Signals→退出
+    - Smoke：启动->主场景可见->关键 Signals->退出
     - Security：外链/网络/文件/权限 allow/deny/invalid 与审计一致
     - Perf：启动 ≤3s、P95 逻辑帧耗时 ≤16.6ms（软门，可在性能分支设硬门）
 - task-links-validate（Windows，Python JSONSchema）
-  - 校验 ADR/CH/Overlay 回链与 Front‑Matter：py -3 scripts/python/task_links_validate.py
+  - 校验 ADR/CH/Overlay 回链与 Front-Matter：py -3 scripts/python/task_links_validate.py
   - 产出：见 6.3（task-links.json）
 - release-health（Windows）
   - 读取 Sentry Releases + Sessions（门禁阈值与判定口径见“5 发布健康门禁”）
@@ -594,9 +589,9 @@ project_root/
 │   └── Interfaces/         # Contracts for Godot adapters
 ├── Game.Core.Tests/        # xUnit unit tests (coverage gate, see 6.2)
 ├── Adapters/               # Godot API integration layer
-│   ├── TimeAdapter.cs      # ITime → Godot Time API
-│   ├── InputAdapter.cs     # IInput → Godot Input API
-│   └── ResourceAdapter.cs  # IResourceLoader → Godot ResourceLoader
+│   ├── TimeAdapter.cs      # ITime -> Godot Time API
+│   ├── InputAdapter.cs     # IInput -> Godot Input API
+│   └── ResourceAdapter.cs  # IResourceLoader -> Godot ResourceLoader
 ├── scenes/                 # Game scenes organized by feature
 ├── scripts/                # Godot-attached scripts (minimal logic)
 ├── assets/                 # Art, audio, fonts

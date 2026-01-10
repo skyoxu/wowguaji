@@ -1,4 +1,4 @@
-﻿# Phase 9: Signal System / 信号系统规范（CloudEvents → Godot Signals）
+﻿# Phase 9: Signal System / 信号系统规范（CloudEvents -> Godot Signals）
 
 > 状态: 模板规范（最小集已落地）`n> 前置: Phase 1-8 完成
 > 状态: 模板规范（最小集已落地）`n> 前置: Phase 1-8 完成
@@ -1368,7 +1368,7 @@ jobs:
 
 瀹屾垚鏈樁娈靛悗,缁х画:
 
-鉃★笍 [Phase-10-Unit-Tests.md](Phase-10-Unit-Tests.md) 鈥?xUnit 鍗曞厓娴嬭瘯杩佺Щ
+鉃*笍 [Phase-10-Unit-Tests.md](Phase-10-Unit-Tests.md) 鈥?xUnit 鍗曞厓娴嬭瘯杩佺Щ
 
 
 
@@ -1390,11 +1390,11 @@ jobs:
 
 ## 测试建议 / Testing
 
-- 连接→触发→断言；`queue_free`→再触发→不抛错/不泄漏；必要时采用 Headless 模式
+- 连接->触发->断言；`queue_free`->再触发->不抛错/不泄漏；必要时采用 Headless 模式
 
 
 ## 示例 / Examples
 
 - 组件：`Game.Godot/Examples/Components/EventListenerPanel.tscn`（继承 ControlWithSignals，Enter() 订阅 EventBus）
-- 测试：`tests/UI/SignalScope_Tests.gd`（发布事件 → 断言收到 → 释放 → 再发布不报错）
+- 测试：`tests/UI/SignalScope_Tests.gd`（发布事件 -> 断言收到 -> 释放 -> 再发布不报错）
 

@@ -1,4 +1,4 @@
-# Phase 3: Godot 项目结构设计
+﻿# Phase 3: Godot 项目结构设计
 
 > 状态: 设计阶段
 > 预估工时: 1 天
@@ -16,7 +16,7 @@
 ## 项目根目录结构
 
 ```
-godotgame/                              # 新项目根目录
+wowguaji/                              # 新项目根目录
 ├── .git/                               # Git 仓库
 ├── .gitignore                          # Git 忽略规则
 ├── .gitattributes                      # Git 文件属性
@@ -537,7 +537,7 @@ dist/
 # 项目初始化脚本
 
 param(
-    [string]$ProjectRoot = "C:\buildgame\godotgame"
+    [string]$ProjectRoot = "C:\buildgame\wowguaji"
 )
 
 Write-Host "开始初始化 Godot 项目..." -ForegroundColor Green
@@ -628,7 +628,7 @@ Write-Host "3. 将 Game.Godot.csproj 添加到 Game.sln" -ForegroundColor White
 **执行初始化**:
 
 ```powershell
-pwsh scripts/init-godot-project.ps1 -ProjectRoot "C:\buildgame\godotgame"
+pwsh scripts/init-godot-project.ps1 -ProjectRoot "C:\buildgame\wowguaji"
 ```
 
 ---

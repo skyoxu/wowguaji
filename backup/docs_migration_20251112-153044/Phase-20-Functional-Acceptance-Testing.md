@@ -22,7 +22,7 @@
 - 音效与背景音乐
 
 **UI 功能模块**：
-- 菜单导航（主菜单 → 游戏 → 暂停 → 结束）
+- 菜单导航（主菜单 -> 游戏 -> 暂停 -> 结束）
 - 设置面板（音量、图形、语言）
 - 本地化支持（多语言界面文本）
 - 游戏中 HUD（生命值、分数、计时器）
@@ -33,7 +33,7 @@
 - 自动保存与手动保存机制
 
 **通信与事件**：
-- EventBus（Phaser ↔ React 通信）
+- EventBus（Phaser <-> React 通信）
 - CloudEvents 标准契约
 - 信号系统（菜单点击、游戏事件）
 
@@ -165,7 +165,7 @@
         ┌────────────▼────────────────┐
         │  验收完成 [OK]                 │
         │  功能完整性验证通过          │
-        │  → Phase 21 性能优化         │
+        │  -> Phase 21 性能优化         │
         └────────────────────────────┘
 ```
 
@@ -174,31 +174,31 @@
 ```
 godotgame/
 ├── tests/
-│   ├── acceptance/                           ★ 功能验收测试
-│   │   ├── feature-mapping-tests.cs          ★ 功能对标测试 (xUnit)
-│   │   ├── game-mechanics.test.cs            ★ 游戏机制测试 (GdUnit4)
-│   │   ├── ui-behavior.test.cs               ★ UI 行为测试
-│   │   ├── data-integrity.test.cs            ★ 数据完整性测试
-│   │   └── performance-baseline.test.cs      ★ 性能基线对标
+│   ├── acceptance/                           * 功能验收测试
+│   │   ├── feature-mapping-tests.cs          * 功能对标测试 (xUnit)
+│   │   ├── game-mechanics.test.cs            * 游戏机制测试 (GdUnit4)
+│   │   ├── ui-behavior.test.cs               * UI 行为测试
+│   │   ├── data-integrity.test.cs            * 数据完整性测试
+│   │   └── performance-baseline.test.cs      * 性能基线对标
 │   │
 │   └── e2e/
-│       ├── smoke-tests.playwright.ts         ★ 冒烟测试脚本
-│       └── user-flow-tests.playwright.ts     ★ 用户流程测试
+│       ├── smoke-tests.playwright.ts         * 冒烟测试脚本
+│       └── user-flow-tests.playwright.ts     * 用户流程测试
 │
 ├── docs/
-│   ├── feature-parity-checklist.md           ★ 功能对标清单
-│   ├── test-plan.md                          ★ 测试计划书
-│   ├── acceptance-report.md                  ★ 验收报告
-│   └── known-issues.md                       ★ 已知问题与优先级
+│   ├── feature-parity-checklist.md           * 功能对标清单
+│   ├── test-plan.md                          * 测试计划书
+│   ├── acceptance-report.md                  * 验收报告
+│   └── known-issues.md                       * 已知问题与优先级
 │
 ├── scripts/
-│   ├── run-acceptance-tests.py               ★ 验收测试驱动脚本
-│   ├── generate-acceptance-report.py         ★ 报告生成脚本
-│   └── data-migration-validate.py            ★ 数据迁移验证脚本
+│   ├── run-acceptance-tests.py               * 验收测试驱动脚本
+│   ├── generate-acceptance-report.py         * 报告生成脚本
+│   └── data-migration-validate.py            * 数据迁移验证脚本
 │
 └── .taskmaster/
     └── tasks/
-        └── task-20.md                        ★ Phase 20 任务跟踪
+        └── task-20.md                        * Phase 20 任务跟踪
 ```
 
 ---
@@ -834,7 +834,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 显示"设置"按钮
   - [ ] 显示"退出"按钮
   - [ ] 按钮点击可正常响应
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **设置菜单**
@@ -842,7 +842,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 语言选择正常切换
   - [ ] 显卡质量选择可用
   - [ ] 设置更改可保存
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 ### 游戏场景
@@ -852,7 +852,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 关卡环境完整呈现
   - [ ] 初始 NPC/敌人正确生成
   - [ ] 玩家角色正确位置生成
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 加载时间: ____ ms
   - 备注: _____________
 
@@ -860,11 +860,11 @@ test.describe('Smoke Tests - Game Playability', () => {
 
 - [ ] **移动系统**
   - [ ] 向左移动（← / A 键）
-  - [ ] 向右移动（→ / D 键）
+  - [ ] 向右移动（-> / D 键）
   - [ ] 向上移动（↑ / W 键，如适用）
   - [ ] 向下移动（↓ / S 键，如适用）
   - [ ] 移动速度与 vitegame 一致
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **跳跃系统**
@@ -872,7 +872,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 只能在地面跳跃
   - [ ] 跳跃高度与 vitegame 一致
   - [ ] 重力加速度正确
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **攻击系统**
@@ -880,7 +880,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 攻击有冷却时间
   - [ ] 攻击判定范围正确
   - [ ] 敌人可被击伤
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 ### 敌人系统
@@ -889,7 +889,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] Level 1 生成正确数量敌人
   - [ ] 敌人位置与关卡设计一致
   - [ ] 敌人类型多样化
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **敌人 AI**
@@ -897,7 +897,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 敌人检测到玩家后会追击
   - [ ] 敌人会攻击玩家
   - [ ] AI 行为与 vitegame 一致
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 ### 物理系统
@@ -907,14 +907,14 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 玩家与墙壁碰撞
   - [ ] 玩家与敌人碰撞
   - [ ] 攻击与敌人碰撞检测
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **重力系统**
   - [ ] 重力加速度正确
   - [ ] 玩家掉落行为正确
   - [ ] 坠落伤害逻辑正确
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 ### 胜利/失败
@@ -924,7 +924,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 显示胜利画面
   - [ ] 显示完成时间与分数
   - [ ] 显示"继续"按钮
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **失败条件**
@@ -932,7 +932,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 显示失败画面
   - [ ] 显示"重新开始"按钮
   - [ ] 显示"返回菜单"按钮
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 ### 音效系统
@@ -941,7 +941,7 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 主菜单有背景音乐
   - [ ] 游戏场景有背景音乐
   - [ ] 音乐循环播放
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **音效效果**
@@ -950,13 +950,13 @@ test.describe('Smoke Tests - Game Playability', () => {
   - [ ] 攻击声效
   - [ ] 敌人死亡声效
   - [ ] 胜利/失败音效
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **音量控制**
   - [ ] 设置中可调整主音量
   - [ ] 可单独调整 BGM 和 SFX 音量
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 ### 本地化
@@ -964,14 +964,14 @@ test.describe('Smoke Tests - Game Playability', () => {
 - [ ] **英文支持**
   - [ ] 所有菜单文本为英文
   - [ ] 所有 UI 提示为英文
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **中文支持**
   - [ ] 所有菜单文本为中文
   - [ ] 所有 UI 提示为中文
   - [ ] 中文字体正确显示
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 ## 数据系统
@@ -981,51 +981,51 @@ test.describe('Smoke Tests - Game Playability', () => {
 - [ ] **自动保存**
   - [ ] 关卡完成后自动保存
   - [ ] 定时自动保存（每 5 分钟）
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **手动保存**
   - [ ] 可在暂停菜单保存
   - [ ] 保存成功提示
   - [ ] 保存文件完整有效
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **读档功能**
   - [ ] 可加载已保存的进度
   - [ ] 进度数据完整性
   - [ ] 加载后游戏状态正确
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 ### 用户设置持久化
 
 - [ ] **音量设置**
   - [ ] 设置后下次启动保持
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **语言设置**
   - [ ] 设置后下次启动保持
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 - [ ] **图形质量设置**
   - [ ] 设置后下次启动保持
-  - 状态: ⚫ Pending |  In Progress |  Completed
+  - 状态: - Pending |  In Progress |  Completed
   - 备注: _____________
 
 ## 性能指标
 
 | 指标 | vitegame 基线 | godotgame 目标 | 实际值 | 状态 |
 |------|-------------|--------------|-------|------|
-| 启动时间 | <2.0s | <2.5s | ____ | ⚪ |
-| 场景加载 | <1.0s | <1.2s | ____ | ⚪ |
-| FPS | 60 | 60 | ____ | ⚪ |
-| 峰值内存 | ~200MB | <250MB | ____ | ⚪ |
-| 空闲 CPU | <25% | <30% | ____ | ⚪ |
+| 启动时间 | <2.0s | <2.5s | ____ | - |
+| 场景加载 | <1.0s | <1.2s | ____ | - |
+| FPS | 60 | 60 | ____ | - |
+| 峰值内存 | ~200MB | <250MB | ____ | - |
+| 空闲 CPU | <25% | <30% | ____ | - |
 
-**图例**: ⚪ 待测 |  进行中 |  通过 |  失败
+**图例**: - 待测 |  进行中 |  通过 |  失败
 
 ---
 
@@ -1063,7 +1063,7 @@ P2 缺陷可在 Phase 21 中作为优化任务处理
 
 ---
 
-> **最终状态**: ⚫ Pending |  In Progress |  Completed
+> **最终状态**: - Pending |  In Progress |  Completed
 ```
 
 ### 3.4 run-acceptance-tests.py（验收测试驱动脚本）

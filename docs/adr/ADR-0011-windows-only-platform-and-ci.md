@@ -13,12 +13,12 @@ impact-scope:
   - scripts/release/**
   - build/**
 verification:
-  - path: .github/workflows/validate-workflows.yml
-    assert: 所有 Job 在 windows-latest + pwsh 下运行；Bash 仅步骤级声明
-  - path: scripts/ci/workflow-shell-guard.mjs
-    assert: 校验 defaults.run.shell= pwsh 且无未声明的 POSIX 语法误用
-  - path: .github/workflows/ci.yml
-    assert: 关键 Job 明确 runs-on: windows-latest
+  - path: scripts/ci/lint_workflows.ps1
+    assert: 校验 workflows 基本结构；所有 Job 使用 windows-latest；禁止 shell 非 pwsh
+  - path: .github/workflows/windows-quality-gate.yml
+    assert: 质量门禁 Job 在 windows-latest 上运行，所有 run 步骤显式 shell: pwsh
+  - path: .github/workflows/windows-release.yml
+    assert: 发布 Job 在 windows-latest 上运行，且无 bash/跨平台 runner
 monitoring-metrics:
   - ci_compliance_rate
   - gate_pass_rate
@@ -34,11 +34,10 @@ monitoring-metrics:
 
 - 平台范围：Windows-only（运行时与分发）；跨平台目标废止。
 - CI 运行器：默认 `runs-on: windows-latest`。
-- Shell 策略：Job 级统一 `defaults.run.shell: pwsh`；不得在未声明 `shell: bash` 的情况下使用 POSIX 语法。
-- 例外管理：确需 Bash 的第三方 Action 可步骤级 `shell: bash`，并在 PR 说明中标注原因；不得隐式依赖 Bash 默认。
+- Shell 策略：所有 `run:` 步骤显式 `shell: pwsh`（或使用 Job 级 `defaults.run.shell: pwsh`）；禁止使用 `shell: bash` 等非 pwsh shell。
 - 控制流：通知与旁路步骤使用步骤级 `if:` 与必要的 `continue-on-error`，替代脚本内判空。
-- 守卫：在工作流校验任务中扫描 `.github/workflows`，发现未声明 Bash 却使用 POSIX `if [ ... ]` 或随意 `shell: bash` 即失败；该 Job 作为分支保护的必需检查。
-- 日志：所有 CI/脚本输出写入 `logs/YYYYMMDD/<module>/` 以便取证与审计。
+- 守卫：`scripts/ci/lint_workflows.ps1` 作为基础静态检查，禁止非 Windows runner 与非 pwsh shell；质量门禁脚本负责把输出落盘到 `logs/ci/<YYYY-MM-DD>/`。
+- 日志：所有 CI/脚本输出写入 `logs/**`（SSoT 见 `docs/architecture/base/03-observability-sentry-logging-v2.md` 与 `AGENTS.md` 6.3）以便取证与审计。
 
 ## Consequences
 
@@ -52,7 +51,8 @@ monitoring-metrics:
 
 ## Compliance Checklist
 
-- [ ] 所有 Windows Job 顶层 `defaults.run.shell: pwsh`。
-- [ ] Bash 片段显式步骤 `shell: bash` 且在步骤/注释中记录理由。
+- [ ] 所有 Job `runs-on: windows-latest`。
+- [ ] 所有 `run:` 步骤显式 `shell: pwsh`（或 Job 级 `defaults.run.shell: pwsh`）。
+- [ ] 不存在 `shell: bash` / 其他 shell。
 - [ ] 回滚与通知步骤：使用 `if:` 判空；失败不拖垮主流程（必要时 `continue-on-error`）。
-- [ ] `validate-workflows` 校验通过，并纳入分支保护。
+- [ ] `scripts/ci/lint_workflows.ps1` 校验通过，并纳入分支保护（如有）。

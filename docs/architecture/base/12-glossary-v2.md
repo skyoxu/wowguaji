@@ -99,29 +99,8 @@ function validateI18nConsistency<T extends Record<string, GlossaryTerm>>(
 }
 ```
 
-## 工程化校验脚本
+## 工程化校验（说明）
 
-```js
-// scripts/validate-glossary.mjs
-import {
-  GlossaryTerms,
-  detectDuplicates,
-  validateI18nConsistency,
-} from '../src/shared/contracts/glossary.js';
-import { readFileSync } from 'fs';
+本模板不再维护旧技术栈下的术语表自动校验脚本。
 
-const i18nKeys = JSON.parse(readFileSync('src/i18n/keys.json', 'utf8'));
-const terms = Object.values(GlossaryTerms);
-const duplicates = detectDuplicates(terms);
-const i18nIssues = validateI18nConsistency(GlossaryTerms, i18nKeys);
-
-if (duplicates.duplicates.length || duplicates.aliases.length) {
-  console.error('[X] 发现重复术语:', duplicates);
-  process.exit(1);
-}
-if (i18nIssues.missing.length || i18nIssues.invalid.length) {
-  console.error('[X] i18n不一致:', i18nIssues);
-  process.exit(1);
-}
-console.log(`[OK] 词汇表校验通过 (${terms.length}个术语)`);
-```
+当前术语表以本章 Markdown 为准；如需把“术语/别名/i18nKey”等内容落盘到代码层并纳入门禁，请以 `Game.Core/Contracts/**` 为唯一口径，并在 `Game.Core.Tests/**` 添加对应单测后再接入质量门禁脚本。

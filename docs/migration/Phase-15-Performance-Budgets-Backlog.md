@@ -82,7 +82,7 @@
   - Phase‑15 蓝图中提到的独立性能门禁工作流（例如 `.github/workflows/performance-gates.yml`）尚未创建。
 - 蓝图目标：
   - 为需要更严格性能管控的项目提供一条单独的 CI 工作流：
-    - 只运行性能相关脚本（PerfTracker 采集 → performance_gates.py 聚合 → 报告上传）；
+    - 只运行性能相关脚本（PerfTracker 采集 -> performance_gates.py 聚合 -> 报告上传）；
     - 不与常规构建/测试步骤混在一起，便于在特定分支或定时任务中执行。
 - 建议实现方式：
   - 新增 `.github/workflows/performance-gates.yml`，调用 Godot Headless + PerfTracker 采集 + `scripts/python/performance_gates.py` 判定；
@@ -95,7 +95,7 @@
 
 - 对于基于本模板创建的新项目：
   - 优先使用现有的 Godot PerfTracker + `[PERF]` 标记 + `check_perf_budget.ps1` 作为基础性能门禁；
-  - 当项目对性能有更高要求时，再按 B1→B2→B3/B4 的顺序逐步启用 Game.Core 性能库、baseline 对比与历史报告。
+  - 当项目对性能有更高要求时，再按 B1->B2->B3/B4 的顺序逐步启用 Game.Core 性能库、baseline 对比与历史报告。
 
 - 对于模板本身：
   - 当前 Phase 15 仅要求控制台 `[PERF] p95_ms=...` 标记与 `check_perf_budget.ps1` 能够协同工作，提供一条简洁可用的性能回归守门；

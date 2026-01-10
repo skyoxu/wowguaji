@@ -1111,7 +1111,7 @@ jobs:
 ## 涓嬩竴姝?
 瀹屾垚鏈樁娈靛悗锛岀户缁細
 
-鉃★笍 [Phase-7-UI-Migration.md](Phase-7-UI-Migration.md) 鈥?React 鈫?Godot Control 杩佺Щ
+鉃*笍 [Phase-7-UI-Migration.md](Phase-7-UI-Migration.md) 鈥?React 鈫?Godot Control 杩佺Щ
 
 ### Autoload 与仓储使用 / Autoload & Repositories
 

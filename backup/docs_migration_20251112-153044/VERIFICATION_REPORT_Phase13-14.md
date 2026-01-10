@@ -93,7 +93,7 @@ Phase 13-14 架构设计完整、可行、生产就绪
 ```
 Security.cs (中央守卫, Autoload)
 ├─ Domain 1: URL Whitelist
-│  ├─ is_url_allowed(url) → bool
+│  ├─ is_url_allowed(url) -> bool
 │  ├─ add_url_to_whitelist(domain, protocols, paths)
 │  └─ Regex: ^(https?)://([^/]+)(/.*)?$
 │
@@ -104,7 +104,7 @@ Security.cs (中央守卫, Autoload)
 │  └─ Content-Type: required for POST
 │
 ├─ Domain 3: Filesystem Protection
-│  ├─ open_file_secure(path, mode) → FileAccess
+│  ├─ open_file_secure(path, mode) -> FileAccess
 │  ├─ Allowed: res:// (read), user:// (write)
 │  ├─ Block: ../ traversal, absolute paths
 │  └─ Platform: Windows path detection

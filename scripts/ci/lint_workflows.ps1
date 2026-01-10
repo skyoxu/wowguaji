@@ -8,6 +8,35 @@ function Test-WorkflowFile($path) {
   if (-not ($lines -match '^on:')) { $errors += "missing 'on:' block" }
   if (-not ($lines -match '^jobs:')) { $errors += "missing 'jobs:' block" }
 
+  $runsOnLines = @()
+  for ($i=0; $i -lt $lines.Count; $i++) {
+    $l = $lines[$i]
+    if ($l -match '^\s+runs-on:\s*(.+?)\s*$') {
+      $runsOnLines += @{ Line = $i + 1; Value = $matches[1].Trim().Trim('"').Trim("'") }
+    }
+  }
+  if ($runsOnLines.Count -eq 0) {
+    $errors += "missing 'runs-on: windows-latest' in jobs"
+  } else {
+    foreach ($ro in $runsOnLines) {
+      if ($ro.Value -ne 'windows-latest') { $errors += "non-windows runner detected (line $($ro.Line)): runs-on: $($ro.Value)" }
+    }
+  }
+
+  $shellLines = @()
+  for ($i=0; $i -lt $lines.Count; $i++) {
+    $l = $lines[$i]
+    if ($l -match '^\s+shell:\s*(.+?)\s*$') {
+      $shellLines += @{ Line = $i + 1; Value = $matches[1].Trim().Trim('"').Trim("'") }
+    }
+  }
+  foreach ($sh in $shellLines) {
+    if ($sh.Value -ne 'pwsh') { $errors += "non-pwsh shell detected (line $($sh.Line)): shell: $($sh.Value)" }
+  }
+  if (($lines -match '^\s+run:\s*') -and -not ($lines -match '^\s+shell:\s*pwsh\s*$')) {
+    $errors += "missing 'shell: pwsh' for run steps (require explicit shell per step or job-level defaults)"
+  }
+
   for ($i=0; $i -lt $lines.Count; $i++) {
     $l = $lines[$i]
     if ($l -match '^\s+with:\s*$') {

@@ -181,15 +181,9 @@ Test-Path .claude/settings.local.json
 
 ## 权限说明
 
-`settings.local.json` 已配置以下权限：
+本仓库不提交项目级 `.claude/settings.local.json` / `.claude/mcp.json`，避免覆盖你的用户级配置导致 MCP/权限失效。
 
-- **Skills**: test-driven-development, systematic-debugging
-- **MCP 工具**: serena, context7, task-master-ai
-- **Git 操作**: push, pr create, merge, add, commit
-- **测试工具**: dotnet test, py 脚本
-- **SuperClaude 命令**: /sc:build, /sc:test, /sc:help, /sc:git
-- **验收命令**: /acceptance-check
-- **Coverage 门禁**: 支持环境变量和 override 机制
+如需配置权限与 MCP，请在用户级配置中维护，并保持与仓库的 Windows-only + Godot+C# 口径一致。
 
 ## 最佳实践
 
@@ -199,8 +193,7 @@ Test-Path .claude/settings.local.json
 - 发布前质量守门
 
 ## 更新日志
-
-- 2025-12-11: 从 newguild 项目迁移配置
-  - 添加 2 个项目特定 Subagents
-  - 添加 /acceptance-check 命令
-  - 合并权限配置（从 17 条扩展到 84 条）
+ 
+- 2026-01-10: 清理项目级 Claude 配置
+  - 移除仓库内的 `.claude/settings.local.json` 与 `.claude/mcp.json`
+  - 统一改为使用用户级配置，降低“项目级覆盖导致 MCP 失效”的概率

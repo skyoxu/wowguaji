@@ -1,13 +1,13 @@
 ---
 PRD-ID: PRD-Guild-Manager
-Title: 08 章功能纵切索引（契约与测试对齐）
+Title: 08 章功能纵切索引
 Arch-Refs: [CH01, CH03]
 Updated: true
 ---
 
-本目录聚合本次契约变更的功能纵切页面与对应测试引用（仅引用 01/02/03 章口径，不在此复制阈值/策略）。
+本目录聚合本 PRD 的功能纵切页面与验收清单。
 
-- 预加载白名单（Preload Whitelist） — 见 `08-Contracts-Preload-Whitelist.md`
-- CloudEvent 契约 — 见 `08-Contracts-CloudEvent.md`
-- 公会管理事件（Guild Manager Events）— 见 `08-Contracts-Guild-Manager-Events.md`
-- 质量指标（Quality Metrics）— 见 `08-Contracts-Quality-Metrics.md`
+说明：契约 SSoT 已统一收敛为 `Game.Core/Contracts/**`（C#），本目录不再维护旧前端/旧桌面壳语境下的 TypeScript 契约页。
+
+- 功能纵切：`08-Feature-Slice-Guild-Manager.md`
+- 验收清单：`ACCEPTANCE_CHECKLIST.md`

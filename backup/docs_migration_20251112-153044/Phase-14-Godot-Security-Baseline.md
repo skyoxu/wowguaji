@@ -2,7 +2,7 @@
 
 > **鏍稿績鐩爣**锛氬疄鐜颁笌 Electron ADR-0002 绛変环鐨?Godot 瀹夊叏鍩虹嚎锛屽缓绔?URL 鐧藉悕鍗曘€丠TTPRequest 绾︽潫銆佹枃浠剁郴缁熶繚鎶ゃ€佸璁℃棩蹇楃殑瀹屾暣浣撶郴銆? 
 > **宸ヤ綔閲?*锛?-7 浜哄ぉ  
-> **渚濊禆**锛歅hase 8锛堝満鏅璁★級銆丳hase 12锛圚eadless 娴嬭瘯锛? 
+> **渚濊禆**锛歅hase 8锛堝満鏅璁*級銆丳hase 12锛圚eadless 娴嬭瘯锛? 
 > **浜や粯鐗?*锛歋ecurity.cs Autoload + 8+ 涓?GdUnit4 娴嬭瘯 + ADR-0018 鑽夋 + CI 闆嗘垚  
 > **楠屾敹鏍囧噯**锛氭湰鍦?`npm run test:security` 閫氳繃 + 瀹夊叏瀹¤ JSONL 鐢熸垚
 
@@ -514,7 +514,7 @@ public partial class Security : Node
 - 鍦ㄥ彂甯冨墠鐢熸垚鏍￠獙鍜屾竻鍗曪紙SHA256锛夛紝鍦ㄥ彂甯冭鏄庝腑鎻愪緵涓嬭浇涓庢牎楠屾寚寮曪紱
 - CI 涓皢绛惧悕鏃ュ織涓庢牎楠屽拰钀界洏 `logs/ci/YYYY-MM-DD/security/`锛屽綊妗ｄ笌闂ㄧ涓€鍚屼繚瀛樸€?
 ### 4.2 鏂囦欢绯荤粺涓?SQLite 鏉冮檺
-- 浠呭湪 `user://` 涓嬭鍐欒繍琛屾椂鏁版嵁锛宍res://` 涓ユ牸鍙锛?- SQLite 鏁版嵁搴撴枃浠跺缓璁斁缃簬 `user://data/`锛岃褰曟枃浠舵潈闄愮瓥鐣ヤ笌杞浆锛圵AL 妯″紡銆佸浠界洰褰曪級锛?- 鏃ュ織涓庡璁★紙JSONL锛夎矾寰勭粺涓€涓?`user://logs/<module>/`锛岄伩鍏嶅啓鍏ユ湭鐭ヤ綅缃紱
+- 浠呭湪 `user://` 涓嬭鍐欒繍琛屾椂鏁版嵁锛宍res://` 涓ユ牸鍙锛?- SQLite 鏁版嵁搴撴枃浠跺缓璁斁缃簬 `user://data/`锛岃褰曟枃浠舵潈闄愮瓥鐣ヤ笌杞浆锛圵AL 妯″紡銆佸浠界洰褰曪級锛?- 鏃ュ織涓庡璁*紙JSONL锛夎矾寰勭粺涓€涓?`user://logs/<module>/`锛岄伩鍏嶅啓鍏ユ湭鐭ヤ綅缃紱
 - 绂佹浠ョ粷瀵硅矾寰勮闂郴缁熺洰褰曪紱鍦ㄥ璁′腑璁板綍鎷掔粷鍘熷洜涓庤皟鐢ㄦ簮銆?
 ### 4.3 鍙嶅皠/鍔ㄦ€佸姞杞介檺鍒?- 绂佹浠庝笉鍙椾俊浠讳綅缃姩鎬佸姞杞?DLL/鑴氭湰锛圙DNative/Reflection 鍙楅檺锛夛紱
 - 鍦ㄤ唬鐮佸璁¤剼鏈腑鎵弿楂樺嵄 API锛堝弽灏勮皟鐢?DllImport/Process.Start 绛夛級锛?- 灏嗏€滃畨鍏ㄥ璁¤剼鏈€濊緭鍑鸿惤鐩樹负 `logs/ci/YYYY-MM-DD/security/security-audit.json`锛屼綔涓?Phase-13 鍙€夐棬绂佹潵婧愶紙閿欒鏁?0锛夈€?
@@ -1000,7 +1000,7 @@ exit 0
 
 - **ADR-0002**锛欵lectron 瀹夊叏鍩虹嚎锛堝師鐗堝鏍囷級
 - **ADR-0003**锛氬彲瑙傛祴鎬т笌瀹¤鏃ュ織
-- **Phase 8**锛氬満鏅璁★紙Signal 瀹氫箟锛?
+- **Phase 8**锛氬満鏅璁*紙Signal 瀹氫箟锛?
 - **Phase 12**锛欻eadless 娴嬭瘯妗嗘灦
 - **Phase 13**锛氳川閲忛棬绂佽剼鏈紙GATE-10 瀹¤鏃ュ織楠岃瘉锛?
 - **Godot 鏂囨。**锛歔FileAccess](https://docs.godotengine.org/en/stable/classes/class_fileaccess.html)銆乕HTTPRequest](https://docs.godotengine.org/en/stable/classes/class_httprequest.html)銆乕Signal](https://docs.godotengine.org/en/stable/tutorials/step_by_step/signals.html)

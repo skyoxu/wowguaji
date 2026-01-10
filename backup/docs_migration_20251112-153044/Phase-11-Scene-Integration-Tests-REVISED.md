@@ -4,7 +4,7 @@
 
 **宸ヤ綔閲?*: 8-10 浜哄ぉ  
 **椋庨櫓绛夌骇**: 浣庯紙GdUnit4 杞婚噺锛寈Unit 绀惧尯鎴愮啛锛? 
-**渚濊禆**: Phase 8锛堝満鏅璁★級銆丳hase 10锛坸Unit 鍗曞厓娴嬭瘯锛? 
+**渚濊禆**: Phase 8锛堝満鏅璁*級銆丳hase 10锛坸Unit 鍗曞厓娴嬭瘯锛? 
 **鍚庣画渚濊禆**: Phase 12锛圗2E Headless 鍐掔儫娴嬭瘯锛?
 
 ---
@@ -654,6 +654,6 @@ Notes:
 - Tests avoid demo scenes and are headless-friendly.
 - Example UI tests remain guarded by `TEMPLATE_DEMO=1` and are optional.
 
-- Screen navigation: `tests/Integration/Screen_Navigation_Tests.gd`（切换 Settings ↔ Start）
-- MainMenu → ScreenRoot: `tests/Integration/MainMenu_Start_Navigation_Tests.gd`（Play 导航至 Start/Demo Screen）
+- Screen navigation: `tests/Integration/Screen_Navigation_Tests.gd`（切换 Settings <-> Start）
+- MainMenu -> ScreenRoot: `tests/Integration/MainMenu_Start_Navigation_Tests.gd`（Play 导航至 Start/Demo Screen）
 - ScreenNavigator 错误路径与过渡：`tests/Integration/ScreenNavigator_Tests.gd`（无效路径返回 false；淡入淡出遮罩拦截输入后清理）

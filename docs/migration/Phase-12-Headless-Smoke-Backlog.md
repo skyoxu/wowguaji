@@ -18,7 +18,7 @@
   - 当前 Headless 冒烟由 PowerShell 脚本 `scripts/ci/smoke_headless.ps1` 驱动：
     - 参数：`-GodotBin`、`-Scene`（默认 Main.tscn）、`-TimeoutSec`、`-ProjectPath`；
     - 日志输出：`logs/ci/<ts>/smoke/headless.*.log`；
-    - 判定逻辑：优先 `[TEMPLATE_SMOKE_READY]` → 其次 `[DB] opened` → 否则任意输出视为通过。
+    - 判定逻辑：优先 `[TEMPLATE_SMOKE_READY]` -> 其次 `[DB] opened` -> 否则任意输出视为通过。
   - CI 中的 dry run 工作流（`.github/workflows/windows-smoke-dry-run.yml`）已调用该脚本，
     且你在项目中偏好“Python 脚本优先”。
 
@@ -46,9 +46,9 @@
 
 - 现状：
   - `scripts/ci/smoke_headless.ps1` 当前的判定逻辑为：
-    1. 日志中包含 `[TEMPLATE_SMOKE_READY]` → SMOKE PASS（marker）；
-    2. 否则若包含 `[DB] opened` → SMOKE PASS（db opened）；
-    3. 否则只要有任意输出 → SMOKE PASS（any output）；
+    1. 日志中包含 `[TEMPLATE_SMOKE_READY]` -> SMOKE PASS（marker）；
+    2. 否则若包含 `[DB] opened` -> SMOKE PASS（db opened）；
+    3. 否则只要有任意输出 -> SMOKE PASS（any output）；
     4. 无输出时仅记录警告并 `exit 0`，视为“模板级宽松判定”。
   - 该逻辑适合模板初期，但对后续实际项目来说偏松，可能掩盖启动问题（例如仅打印错误日志也算“有输出”）。
 

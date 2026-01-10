@@ -19,7 +19,7 @@
 - 无自动触发机制，需人工判断和执行
 
 **缺陷**：
-- 响应时间慢（发现问题 → 手动操作 → 用户获得新版本，通常 >30 分钟）
+- 响应时间慢（发现问题 -> 手动操作 -> 用户获得新版本，通常 >30 分钟）
 - 容易遗漏（取决于人工操作）
 - 无主动监控告警
 - 版本回滚链不清晰（用户可能回滚到更旧的有问题版本）
@@ -29,7 +29,7 @@
 **机遇**：
 - Phase 16 提供 Release Health API（实时 Crash-Free Sessions 查询）
 - Phase 17 提供 git tag 版本管理和构建元数据
-- Phase 18 提供清晰的版本链（Canary → Beta → Stable）
+- Phase 18 提供清晰的版本链（Canary -> Beta -> Stable）
 - Sentry 支持发布状态管理（active / revoked / pre-released）
 
 **挑战**：
@@ -37,7 +37,7 @@
 | 挑战 | 原因 | Godot 解决方案 |
 |-----|-----|-----------:|
 | 自动触发条件 | 何时判断版本"有问题" | Crash-Free Sessions 下降 >5% 或 Error Rate 上升 >0.5% |
-| 版本链回滚 | Canary → Beta → Stable，反向时应回滚到哪个版本 | 维护稳定版本堆栈，最多回滚 3 层 |
+| 版本链回滚 | Canary -> Beta -> Stable，反向时应回滚到哪个版本 | 维护稳定版本堆栈，最多回滚 3 层 |
 | 用户无缝体验 | 用户如何知晓需要更新 | ReleaseManager.cs 检查版本撤销状态，条件提示 |
 | 误判防护 | 避免因临时抖动而误触发回滚 | 两级告警（warning @ -3%, critical @ -5%）+ 人工确认 |
 | 审计与追溯 | 回滚决策的可追溯性 | Sentry + GitHub Actions + 本地日志完整记录 |
@@ -48,7 +48,7 @@
 2. **风险隔离**：Problem 版本标记为 revoked，防止新用户继续安装
 3. **用户信心**：应用能够自我修复，减少用户困扰
 4. **数据保留**：回滚前后的完整审计日志，便于事后分析和根本原因分析（RCA）
-5. **分阶段保护**：Canary 问题 → 停止向 Beta 晋升；Beta 问题 → 停止向 Stable 发布
+5. **分阶段保护**：Canary 问题 -> 停止向 Beta 晋升；Beta 问题 -> 停止向 Stable 发布
 
 ---
 
@@ -121,8 +121,8 @@
                       │   Active    │  (可用于下载/自动更新)
                       │             │
                       │ Canary      │
-                      │ → Beta      │
-                      │ → Stable    │
+                      │ -> Beta      │
+                      │ -> Stable    │
                       └──────┬──────┘
                              │
               ┌──────────────┼──────────────┐
@@ -155,12 +155,12 @@ v1.3.5 (superseded)        ← 最旧备选（不再自动回滚到此）
 
 回滚链（自动遍历）：
 IF v1.5.0 is revoked:
-  → Activate v1.4.2
+  -> Activate v1.4.2
   IF v1.4.2 also crashes:
-    → Activate v1.4.1
+    -> Activate v1.4.1
   IF all recent versions crash:
-    → Manual intervention required
-    → Revert to last known stable branch
+    -> Manual intervention required
+    -> Revert to last known stable branch
 ```
 
 ### 2.5 目录结构
@@ -170,30 +170,30 @@ godotgame/
 ├── src/
 │   ├── Game.Core/
 │   │   └── Release/
-│   │       ├── ReleaseManager.cs              ★ 版本管理与状态检查
-│   │       └── RollbackTrigger.cs             ★ 回滚触发条件评估
+│   │       ├── ReleaseManager.cs              * 版本管理与状态检查
+│   │       └── RollbackTrigger.cs             * 回滚触发条件评估
 │   │
 │   └── Godot/
-│       ├── ReleaseManager.cs                  ★ Autoload 版本检查
-│       └── RollbackNotifier.cs                ★ 用户通知 UI
+│       ├── ReleaseManager.cs                  * Autoload 版本检查
+│       └── RollbackNotifier.cs                * 用户通知 UI
 │
 ├── scripts/
-│   ├── monitor_release_health.py              ★ 发布健康监控脚本
-│   ├── trigger_rollback.py                    ★ 回滚触发脚本
-│   └── sentry_queries.json                    ★ Sentry 自定义查询配置
+│   ├── monitor_release_health.py              * 发布健康监控脚本
+│   ├── trigger_rollback.py                    * 回滚触发脚本
+│   └── sentry_queries.json                    * Sentry 自定义查询配置
 │
 ├── .github/
 │   └── workflows/
-│       ├── monitor-health.yml                 ★ 持续监控工作流
-│       └── release-emergency-rollback.yml     ★ 紧急回滚工作流
+│       ├── monitor-health.yml                 * 持续监控工作流
+│       └── release-emergency-rollback.yml     * 紧急回滚工作流
 │
 ├── docs/
-│   ├── rollback-runbook.md                    ★ 应急预案（步骤清单）
-│   └── monitoring-dashboard-guide.md          ★ 监控 Dashboard 使用指南
+│   ├── rollback-runbook.md                    * 应急预案（步骤清单）
+│   └── monitoring-dashboard-guide.md          * 监控 Dashboard 使用指南
 │
 └── .taskmaster/
     └── tasks/
-        └── task-19.md                         ★ Phase 19 任务跟踪
+        └── task-19.md                         * Phase 19 任务跟踪
 ```
 
 ---
@@ -380,7 +380,7 @@ namespace Game.Core.Release
         private string _CalculateRiskLevel(double improvement)
         {
             if (improvement < -5) return "Very High";
-            if (improvement < 0) return "🟠 High";
+            if (improvement < 0) return "O High";
             if (improvement < 2) return "Medium";
             return "Low";
         }
@@ -496,7 +496,7 @@ jobs:
       - name: Trigger Emergency Rollback (if needed)
         if: steps.decision.outputs.rollback_triggered == 'true'
         run: |
-          echo "🚨 Triggering emergency rollback workflow..."
+          echo "[ALERT] Triggering emergency rollback workflow..."
           gh workflow run release-emergency-rollback.yml \
             --ref main \
             -f release_version="${{ github.event.inputs.release_version }}" \
@@ -520,7 +520,7 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           payload: |
             {
-              "text": "🚨 Release Health Alert",
+              "text": "[ALERT] Release Health Alert",
               "blocks": [
                 {
                   "type": "header",
@@ -715,7 +715,7 @@ jobs:
           # 标记当前版本为草稿（表示已回滚）
           gh release edit "${{ inputs.release_version }}" \
             --draft \
-            --notes "🚨 REVOKED - Rolled back due to: ${{ inputs.reason }}"
+            --notes "[ALERT] REVOKED - Rolled back due to: ${{ inputs.reason }}"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -748,7 +748,7 @@ jobs:
           webhook-url: ${{ secrets.SLACK_WEBHOOK_URL }}
           payload: |
             {
-              "text": "🚨 Emergency Rollback Executed",
+              "text": "[ALERT] Emergency Rollback Executed",
               "blocks": [
                 {
                   "type": "header",
@@ -861,7 +861,7 @@ python scripts/monitor_release_health.py \
 # 2. 输出示例
 # Crash-Free Sessions: 98.5% WARNING
 # Error Rate: 0.6%  CRITICAL
-# Affected Users: 3.2% 📊
+# Affected Users: 3.2% [REPORT]
 # Recommendation: ROLLBACK
 
 # 3. 检查回滚安全性
@@ -899,7 +899,7 @@ public class ObservabilityClient
     // 新增方法：记录回滚事件
     public void RecordRollbackEvent(string revokedRelease, string candidateRelease, string reason)
     {
-        _sentryHub.CaptureMessage($"Rollback: {revokedRelease} → {candidateRelease}", SentryLevel.Warning);
+        _sentryHub.CaptureMessage($"Rollback: {revokedRelease} -> {candidateRelease}", SentryLevel.Warning);
     }
 }
 ```
@@ -946,7 +946,7 @@ def should_promote_to_next_stage(current_version, current_env):
 |-----|-----|-------|
 | 假阳性触发（临时抖动导致误回滚） | 中 | 设置两级告警（warning @ -3%, critical @ -5%），人工确认机制 |
 | 回滚后问题仍存（前一版本也有问题） | 高 | 维护版本堆栈，最多回滚 3 层；如全部失败，转向人工干预 |
-| 用户体验中断（应用突然要求更新） | 中 | 渐进式提示（应用内横幅 → 对话框 → 强制更新），仅在下次启动时生效 |
+| 用户体验中断（应用突然要求更新） | 中 | 渐进式提示（应用内横幅 -> 对话框 -> 强制更新），仅在下次启动时生效 |
 | 数据一致性问题（版本不兼容导致数据损坏） | 高 | ReleaseManager.cs 检查版本兼容性，禁止回滚到不兼容版本 |
 | 监控系统故障导致无法检测问题 | 中 | 人工 Sentry Dashboard 监控、Slack 告警、邮件通知（多层次）|
 | 回滚链中断（所有候选版本均不安全） | 高 | 立即触发 SEV-1 告警，通知团队，可能需要紧急补丁发布 |

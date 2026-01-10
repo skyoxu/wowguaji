@@ -1,4 +1,4 @@
-# Phase 11: 场景集成测试（GdUnit4 + xUnit 双轨）
+﻿# Phase 11: 场景集成测试（GdUnit4 + xUnit 双轨）
 
 **阶段目标**: 建立完整的 Godot 场景集成测试框架，采用 **GdUnit4**（Godot 原生）+ **xUnit**（C# 领域逻辑）双轨方案，避免重型 GdUnit4 依赖
 
@@ -81,7 +81,7 @@ if __name__ == '__main__':
 运行示例（Windows）：
 
 ```
-py -3 scripts/install_gut.py C:\buildgame\godotgame
+py -3 scripts/install_gut.py C:\buildgame\wowguaji
 ```
 
 ### 11.2.2 项目配置
@@ -292,7 +292,7 @@ public class GodotTimeAdapterTests
 
 ```powershell
 param(
-    [string]$ProjectRoot = "C:\buildgame\godotgame",
+    [string]$ProjectRoot = "C:\buildgame\wowguaji",
     [switch]$Headless = $true,
     [string]$TestFilter = ""
 )
@@ -339,7 +339,7 @@ exit $lastExitCode
 
 ```powershell
 param(
-    [string]$ProjectRoot = "C:\buildgame\godotgame",
+    [string]$ProjectRoot = "C:\buildgame\wowguaji",
     [string]$Configuration = "Debug"
 )
 
@@ -643,3 +643,4 @@ public partial class SignalsTests : Node
 
 
 > 参考 Runner 接入指南：见 docs/migration/gdunit4-csharp-runner-integration.md。
+

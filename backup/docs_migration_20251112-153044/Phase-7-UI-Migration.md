@@ -1509,7 +1509,7 @@ jobs:
 
 瀹屾垚鏈樁娈靛悗锛岀户缁細
 
-鉃★笍 [Phase-8-Scene-Design.md](Phase-8-Scene-Design.md) 鈥?Scene Tree 涓?Node 璁捐
+鉃*笍 [Phase-8-Scene-Design.md](Phase-8-Scene-Design.md) 鈥?Scene Tree 涓?Node 璁捐
 
 ## 最小迁移清单 / Minimal UI Checklist
 
@@ -1522,7 +1522,7 @@ jobs:
 ## 事件与信号 / Events & Signals
 
 - 统一通过 `/root/EventBus` 发出领域事件：`bus.PublishSimple(type, source, data_json)`
-- UI → 域：控件信号在脚本中转换为领域指令/事件；域 → UI：订阅事件总线刷新视图
+- UI -> 域：控件信号在脚本中转换为领域指令/事件；域 -> UI：订阅事件总线刷新视图
 
 
 ## 新增 UI 场景 / New Scenes (Windows-only)
@@ -1566,7 +1566,7 @@ jobs:
 
 ## UI 缩放与窗口 / UI Scaling & Window
 
-- 默认窗口大小：1280x720，`project.godot` → `[display]` → `window/size/viewport_width|height`。
+- 默认窗口大小：1280x720，`project.godot` -> `[display]` -> `window/size/viewport_width|height`。
 - Stretch：`window/stretch/mode="viewport"`，`window/stretch/aspect="keep"`（适合 UI 场景，保持比例）。
 - 若需 DPI 缩放或动态缩放，可在根节点按需调整 `content_scale_factor`。
 
@@ -1598,7 +1598,7 @@ jobs:
   - 示例/演示：`Game.Godot/Examples/**`（默认不加载）
 - 命名：`<Role>_<Area>_<Action>`，例如：`Btn_Menu_Start`，`Lbl_HUD_Score`
 
-## Main → Screen 跳转示例 / Navigation
+## Main -> Screen 跳转示例 / Navigation
 
 ```csharp
 // 在 Main.gd/C# 中加载并切换 Screen

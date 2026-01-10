@@ -1,6 +1,6 @@
-# Phase 20: 功能验收测试
+﻿# Phase 20: 功能验收测试
 
-> **核心目标**：逐功能对标验证 LegacyProject 与 godotgame 的特性一致性，建立功能完整性与兼容性验收基线。
+> **核心目标**：逐功能对标验证 LegacyProject 与 wowguaji 的特性一致性，建立功能完整性与兼容性验收基线。
 > **工作量**：5-7 人天
 > **依赖**：Phase 1-19（完整实现基座）、Phase 21 前提条件
 > **交付物**：功能验收清单 + 对标测试脚本 + 兼容性报告 + 用户体验评估 + 迁移完整性确认
@@ -22,7 +22,7 @@
 - 音效与背景音乐
 
 **UI 功能模块**：
-- 菜单导航（主菜单 → 游戏 → 暂停 → 结束）
+- 菜单导航（主菜单 -> 游戏 -> 暂停 -> 结束）
 - 设置面板（音量、图形、语言）
 - 本地化支持（多语言界面文本）
 - 游戏中 HUD（生命值、分数、计时器）
@@ -33,11 +33,11 @@
 - 自动保存与手动保存机制
 
 **通信与事件**：
-- EventBus（Legacy2DEngine ↔ LegacyUIFramework 通信）
+- EventBus（Legacy2DEngine <-> LegacyUIFramework 通信）
 - CloudEvents 标准契约
 - 信号系统（菜单点击、游戏事件）
 
-### 新版（godotgame）迁移机遇与挑战
+### 新版（wowguaji）迁移机遇与挑战
 
 **机遇**：
 - Godot 4.5 Scene Tree 原生支持 MVC 模式
@@ -87,7 +87,7 @@
 
 #### 维度 A: 游戏功能完整性（Game Mechanics）
 
-| 功能模块 | LegacyProject 实现 | godotgame 对标 | 验收标准 |
+| 功能模块 | LegacyProject 实现 | wowguaji 对标 | 验收标准 |
 |---------|-------------|---------------|---------|
 | **主菜单** | LegacyUIFramework 菜单组件 + EventBus | Godot Control 场景 | 菜单导航功能一致 |
 | **游戏场景** | Legacy2DEngine Scene Tree | Godot Scene Tree | 场景初始化、对象生成、销毁一致 |
@@ -101,7 +101,7 @@
 
 #### 维度 B: UI/UX 一致性（User Experience）
 
-| UI 组件 | LegacyProject | godotgame | 验收标准 |
+| UI 组件 | LegacyProject | wowguaji | 验收标准 |
 |--------|---------|----------|---------|
 | **主菜单** | LegacyUIFramework 组件 | Godot Control | 菜单项、交互流程一致 |
 | **设置面板** | 标签页式面板 | Godot 面板 UI | 设置项、默认值、保存逻辑一致 |
@@ -111,16 +111,16 @@
 
 #### 维度 C: 数据系统一致性（Data Integrity）
 
-| 数据类型 | LegacyProject | godotgame | 验收标准 |
+| 数据类型 | LegacyProject | wowguaji | 验收标准 |
 |--------|---------|----------|---------|
 | **游戏进度** | 本地 JSON | SQLite users 表 | 存档完整性、加载正确性 |
 | **用户设置** | JSON 配置 | ConfigFile (user://) | 音量、图形、语言设置持久化 |
 | **成就系统** | 数据库记录 | SQLite achievements 表 | 成就解锁、统计一致 |
-| **数据导入** | - | 迁移脚本 | LegacyProject 数据可导入 godotgame |
+| **数据导入** | - | 迁移脚本 | LegacyProject 数据可导入 wowguaji |
 
 #### 维度 D: 性能基线对标（Performance Baseline）
 
-| 性能指标 | LegacyProject 基线 | godotgame 目标 | 验收标准 |
+| 性能指标 | LegacyProject 基线 | wowguaji 目标 | 验收标准 |
 |--------|-------------|--------------|---------|
 | **启动时间** | <2.0s | <2.5s (±25% tolerance) | 冷启动时间 |
 | **场景加载** | <1.0s | <1.2s | 关卡初始化时间 |
@@ -133,7 +133,7 @@
 ```
 ┌──────────────────────────────────────────────────────┐
 │         Phase 20 功能验收测试启动                      │
-│  依赖：Phase 1-19 完整实现 + godotgame 可运行构建      │
+│  依赖：Phase 1-19 完整实现 + wowguaji 可运行构建      │
 └────────────────────┬─────────────────────────────────┘
                      │
         ┌────────────▼────────────┐
@@ -180,14 +180,14 @@
         ┌────────────▼────────────────┐
         │  验收完成 [OK]                 │
         │  功能完整性验证通过          │
-        │  → Phase 21 性能优化         │
+        │  -> Phase 21 性能优化         │
         └────────────────────────────┘
 ```
 
 ### 2.3 目录结构
 
 ```
-godotgame/
+wowguaji/
 ├── tests/
 │   ├── acceptance/                           * 功能验收测试
 │   │   ├── feature-mapping-tests.cs          * 功能对标测试 (xUnit)
@@ -223,7 +223,7 @@ godotgame/
 ### 3.1 feature-mapping-tests.cs（功能对标测试）
 
 **职责**：
-- 验证 godotgame 核心游戏机制与 vitagame 的一致性
+- 验证 wowguaji 核心游戏机制与 vitagame 的一致性
 - 对标菜单、场景、数据系统等关键功能
 - 使用 xUnit + FluentAssertions 框架
 
@@ -240,7 +240,7 @@ namespace Game.Tests.Acceptance
 {
     /// <summary>
     /// Phase 20 功能对标测试
-    /// 验证 godotgame 核心功能与 LegacyProject 的完整性与行为一致性
+    /// 验证 wowguaji 核心功能与 LegacyProject 的完整性与行为一致性
     /// </summary>
     public class FeatureMappingTests
     {
@@ -827,7 +827,7 @@ test.describe('Smoke Tests - Game Playability', () => {
 ### 3.3 feature-parity-checklist.md（功能对标清单）
 
 **职责**：
-- 逐功能列出 LegacyProject vs godotgame 的对标要点
+- 逐功能列出 LegacyProject vs wowguaji 的对标要点
 - 记录每个功能的验收状态
 - 作为发版前的最终检查清单
 
@@ -875,7 +875,7 @@ test.describe('Smoke Tests - Game Playability', () => {
 
 - [ ] **移动系统**
   - [ ] 向左移动（← / A 键）
-  - [ ] 向右移动（→ / D 键）
+  - [ ] 向右移动（-> / D 键）
   - [ ] 向上移动（↑ / W 键，如适用）
   - [ ] 向下移动（↓ / S 键，如适用）
   - [ ] 移动速度与 LegacyProject 一致
@@ -1032,7 +1032,7 @@ test.describe('Smoke Tests - Game Playability', () => {
 
 ## 性能指标
 
-| 指标 | LegacyProject 基线 | godotgame 目标 | 实际值 | 状态 |
+| 指标 | LegacyProject 基线 | wowguaji 目标 | 实际值 | 状态 |
 |------|-------------|--------------|-------|------|
 | 启动时间 | <2.0s | <2.5s | ____ | - |
 | 场景加载 | <1.0s | <1.2s | ____ | - |
@@ -1523,3 +1523,4 @@ public partial class MainMenuAcceptance : Node
     }
 }
 ```
+

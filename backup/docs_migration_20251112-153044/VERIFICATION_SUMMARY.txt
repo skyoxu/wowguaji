@@ -52,16 +52,16 @@ CI/CD 集成
 功能对照验证
 ================================================================================
 
-原项目功能（vitegame）→ 迁移后功能（godotgame）对标：
+原项目功能（vitegame）-> 迁移后功能（godotgame）对标：
 
-菜单 UI:          React + Tailwind → Godot Control    无差异
-游戏场景:        Phaser 3 → Godot Scene Tree          等功能
-场景测试:        Playwright E2E → GUT scenes          更轻更快
-信号系统:        CloudEvents → Godot Signals          原生支持
-可观测性:        Sentry.io → Sentry Godot SDK        API 一致
-安全审计:        CSP → Security.gd + JSONL           覆盖等价
-性能基准:        FPS → P50/P95/P99                   更科学
-打包交付:        Electron .exe → Godot Export .exe   同形式
+菜单 UI:          React + Tailwind -> Godot Control    无差异
+游戏场景:        Phaser 3 -> Godot Scene Tree          等功能
+场景测试:        Playwright E2E -> GUT scenes          更轻更快
+信号系统:        CloudEvents -> Godot Signals          原生支持
+可观测性:        Sentry.io -> Sentry Godot SDK        API 一致
+安全审计:        CSP -> Security.gd + JSONL           覆盖等价
+性能基准:        FPS -> P50/P95/P99                   更科学
+打包交付:        Electron .exe -> Godot Export .exe   同形式
 
 结论: 功能完全对应，无遗漏，可行性评估通过
 
@@ -88,11 +88,11 @@ SHOULD（建议）:
 综合评分: 91/100
 
 维度权重计算:
-  - 框架技术可行性        25%  →  95/100
-  - 代码示例完整性        25%  →  85/100  (框架100%，场景需适配)
-  - CI 集成就绪度         20%  →  95/100
-  - 文档清晰度           20%  →  95/100
-  - 风险可控程度         10%  →  90/100
+  - 框架技术可行性        25%  ->  95/100
+  - 代码示例完整性        25%  ->  85/100  (框架100%，场景需适配)
+  - CI 集成就绪度         20%  ->  95/100
+  - 文档清晰度           20%  ->  95/100
+  - 风险可控程度         10%  ->  90/100
 
 最终等级: 强烈推荐实施 (Approved for Implementation)
 

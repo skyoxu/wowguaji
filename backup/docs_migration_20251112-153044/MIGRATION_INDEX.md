@@ -62,7 +62,7 @@
 ## 閺夆晙鑳朵簺闁哄倸娲﹂妴鍌滅磼閹惧鈧?
 
 ### 缂佹鍏涚粩鎾⒓閼告鍞介柨娑欒壘閸ｎ垱寰勯崶锔剧憿闁糕晛鎼鍥╂媼閹规劦鍚€
-- [Phase-1-Prerequisites.md](Phase-1-Prerequisites.md) 闁?闁绘粠鍨伴。銊╁礄閸℃妲靛☉鎾抽娴兼劙宕楀畡鎵殧閻?
+- [Phase-1-Prerequisites.md](Phase-1-Prerequisites.md) 闁?闁绘粠鍨伴。銊╁礄閸℃妲靛[SUN]鎾抽娴兼劙宕楀畡鎵殧閻?
 - [Phase-2-ADR-Updates.md](Phase-2-ADR-Updates.md) 闁?ADR 闁哄洤鐡ㄩ弻濠冪▔鎼淬垺鐓€濠⒀呭剳缁辨DR-0018~0022闁?
 - [Phase-3-Project-Structure.md](Phase-3-Project-Structure.md) 闁?Godot 濡炪倕婀卞ú鎵磼閹惧鈧垳鎷嬮幑鎰靛悁
 
@@ -81,7 +81,7 @@
 
 - [Phase-10-Unit-Tests.md](Phase-10-Unit-Tests.md) 闁?xUnit 闁告娲栭崢鎾趁圭€ｎ厾妲搁弶鈺€鑳朵簺
 - [Phase-11-Scene-Integration-Tests-REVISED.md](Phase-11-Scene-Integration-Tests-REVISED.md) 闁?**GdUnit4 + xUnit 闁告瑥鐭佸娲捶閻戞ɑ鐝繛鏉戭儓閻?*闁挎稑鐗嗛崙锟犲绩绾懐绠婚柨娑欏哺閸ｄ即鎮?GdUnit4 闁兼澘鐭傚?GdUnit4闁挎稑鐡沞adless 濞戞挴鍋撶紒娑橆槸閸欐洖顫濋幋顖滅
-- [Phase-12-Headless-Smoke-Tests.md](Phase-12-Headless-Smoke-Tests.md) 闁?**Godot Headless 闁告劖甯為崕顐⒚圭€ｎ厾妲稿☉鎾冲閳ь儸鍡楀幋闂佹彃娲▔?*闁挎稑鐗嗛幆搴ㄥ礉?闁兼寧绮屽畷?濞ｅ洠鈧啿濞?闁谎嗘閹洟宕￠弴銏㈠矗閻犲洣绶ょ槐?
+- [Phase-12-Headless-Smoke-Tests.md](Phase-12-Headless-Smoke-Tests.md) 闁?**Godot Headless 闁告劖甯為崕顐⒚圭€ｎ厾妲稿[SUN]鎾冲閳ь儸鍡楀幋闂佹彃娲▔?*闁挎稑鐗嗛幆搴ㄥ礉?闁兼寧绮屽畷?濞ｅ洠鈧啿濞?闁谎嗘閹洟宕￠弴銏㈠矗閻犲洣绶ょ槐?
 - [VERIFICATION_REPORT_Phase11-12.md](VERIFICATION_REPORT_Phase11-12.md) 闁?[OK] 闁告瑯鍨甸、鎴﹀箑瑜旈悰娆戞嫚娴ｇ懓袚闁告稑顭槐姗甴ase 11-12 闁瑰灈鍋撻柡鍫灠瑜拌尙鎮扮仦閿亾瑜戦惁搴㈠鐢喚绀夌紓浣哄帶閹海鎷犻崟顐㈢€?91/100闁挎稑鏈敮褰掓嚒閹邦剛鏉介柡鍌涙灮缁?
 - [CODE_EXAMPLES_VERIFICATION_Phase1-12.md](CODE_EXAMPLES_VERIFICATION_Phase1-12.md) 闁?[OK] Phase 1-12 濞寸媴绲块悥婊呯矆鏉炴壆浼愬Δ鐘茬焷閻﹀鏁嶉崼婊冩暕闁活喕绀侀悾顒勫极鐎涙ǚ鍋撹椤ュ懘寮婚妷顖滅91% 閻庣懓鏈弳锝嗘償閿旇偐绀夐悶娑栧劚閸樻牕顕欐ウ娆惧敶婵炴挸鎳庡畷鐔兼晬?
 
@@ -97,7 +97,7 @@
   - Windows-only 闊浂鍋婇埀顒傚枑鐎垫艾顕ｉ弴顏嗙獥閻?[Phase-17-Windows-Only-Quickstart.md](Phase-17-Windows-Only-Quickstart.md)
 - [Phase-18-Staged-Release-and-Canary-Strategy.md](Phase-18-Staged-Release-and-Canary-Strategy.md) 闁?[OK] Phase 18 閻犲浄濡囩划蹇曟喆閸曨偄鐏婇柨娑樼墕閸ㄥ酣姊奸懜娈垮斀闁告瑦鍨电粩閿嬬▔瀹ヮ槆nary缂佹稒鐗滈弳鎰版晬鐎涚棜lease鐎规悶鍎扮紞鏂棵规笟濠勭闁煎浜滄慨鈺呭疾鐎ｎ亜纾抽悷娆忓閸垶鏁嶇€涘┉闂傚棗妫欓崹姘舵晬?
 - [Phase-19-Emergency-Rollback-and-Monitoring.md](Phase-19-Emergency-Rollback-and-Monitoring.md) 闁?[OK] Phase 19 閻犲浄濡囩划蹇曟喆閸曨偄鐏婇柨娑樼墕缁ㄦ煡骞€閵夈儲绀€婵犲﹥鐭粭宀勬儎閹寸偛浠橀柨娑樼焷閸ゆ粓宕濋妸銊愭洟宕ｉ幋鐐寸皻闁告帟顔愮槐婕卭llbackTrigger閻犲洤瀚崣濠囨晬瀹€鈧晶妤呭嫉椤掆偓閻ｃ劑宕楅妸鈺傛嚑闁挎稑鑻ぐ鍌滄暜閸愩劋娣幖瀵稿厴濡剛绮嬫笟濠勭
-- [Phase-20-Functional-Acceptance-Testing.md](Phase-20-Functional-Acceptance-Testing.md) 闁?[OK] Phase 20 閻犲浄濡囩划蹇曟喆閸曨偄鐏婇柨娑樼墕婵盯鎳楁禒瀣矗闁衡偓閼哥數銈撮悹鍥ㄦ穿缁辨繈宕跺☉姘▕閻庝絻顫夐悥锝夋晬鐏炶偐瀹夐梻鍐煐椤斿苯顔忛妷銈囩▕婵炵繝绶ょ槐婕?/P1/P2闁告帒妫涙鍥晬?
+- [Phase-20-Functional-Acceptance-Testing.md](Phase-20-Functional-Acceptance-Testing.md) 闁?[OK] Phase 20 閻犲浄濡囩划蹇曟喆閸曨偄鐏婇柨娑樼墕婵盯鎳楁禒瀣矗闁衡偓閼哥數銈撮悹鍥ㄦ穿缁辨繈宕跺[SUN]姘▕閻庝絻顫夐悥锝夋晬鐏炶偐瀹夐梻鍐煐椤斿苯顔忛妷銈囩▕婵炵繝绶ょ槐婕?/P1/P2闁告帒妫涙鍥晬?
 - [Phase-21-Performance-Optimization.md](Phase-21-Performance-Optimization.md) 闁?[OK] Phase 21 閻犲浄濡囩划蹇曟喆閸曨偄鐏婇柨娑樼墛閳ь儸鍡楀幋濞村吋锚鐎垫煡鏁?婵縿鍎辨导鎰媴濠婂嫮銈﹂柨娑橆劍rofiler闂傚棗妫欓崹姘舵晬?缂侇偉顔婄槐顓㈠礌閺嶎偆鎽滈柣锝冨劵缁辨徊efore/After濡ょ姴鐭侀惁澶愭晬?
   - **Phase 13**: 閻犳劑鍔戦崳娲⒒閵娧屾矗闁煎瓨纰嶅﹢浼存晬閸хnit + GdUnit4 + SonarQube闁?
   - **Phase 14**: Godot 閻庣懓顦崣蹇涘春閾忕懓娈犻柨娑樻汞ecurity.cs + 閻庡銈庡悁闁?
@@ -177,14 +177,14 @@
 | Phase 20-22: 濡ょ姴鏈弫瑙勫濡搫顕?| 5-7 | 闁告梻鍠曢崗妯尖偓闈涚秺缂?+ 闁诡儸鍡楀幋閺夊牏鍋撻悥?| 濞?|
 | **闁诡剚妲掗?* | **52-80 濠?* | **閻庣懓鏈弳锝夊礉閻旇鍘撮弶鈺€鑳朵簺 + 閻犳劑鍔戦崳鐑樼┍濠靛顔?* | 濞?|
 
-婵炲鐓夌槐鐗堢▔婵犲懎鐗氬☉鎾虫惈瀹曠喐绂嶉崫鍕伎闁煎崬鑻导鎰媴濠婂牆娅ゅù鍏煎閻ｅ鏁嶅☉妯兼澖闂傚嫬鎳庤ぐ鏌ユ嚄閽樺绀堥柛銉ｅ灲濡诧妇鎲撮崟顑?妤犵偞鍎奸、鎴炴償?濡炲閰ｅ▍鎾寸鐎ｂ晜顐介柤鏉跨焷閻ㄧ喖寮ǎ顑藉亾?
+婵炲鐓夌槐鐗堢▔婵犲懎鐗氬[SUN]鎾虫惈瀹曠喐绂嶉崫鍕伎闁煎崬鑻导鎰媴濠婂牆娅ゅù鍏煎閻ｅ鏁嶅[SUN]妯兼澖闂傚嫬鎳庤ぐ鏌ユ嚄閽樺绀堥柛銉ｅ灲濡诧妇鎲撮崟顑?妤犵偞鍎奸、鎴炴償?濡炲閰ｅ▍鎾寸鐎ｂ晜顐介柤鏉跨焷閻ㄧ喖寮ǎ顑藉亾?
 
 ---
 
 ## 闁告艾娴烽悽璇差潰閵夆晩鈧?
 - 閻?Taskmaster 濞寸姾顕ф慨鐔兼煣閻愵剛澧″Δ鐘插缁?C# 濠靛倹鍨圭€规娊寮介敓鐘靛矗缂佹儳鍟块崣?Phase-13 闂傚倶鍔庨々锕傛晬閸ф悥ard_ci.py 闁?quality_gates.py闁挎稑顧€缁辨繈骞庨妷銉﹀暈缂備胶鍠嶇粩鎾媰閻ｅ本纾?logs/ci/YYYY-MM-DD/闁挎稑鐗嗛々?taskmaster-report.json闁靛棔鎭璷ntracts-report.json闁挎稑顧€缁?
-- 閻?GdUnit4 闁革妇鍎ゅ▍娆徝圭€ｎ厾妲搁柟韬插劚閹诧繝鏁嶉崸鎻箄nit4-report.xml/json闁挎稑顦粭宀勫箑瑜戦崗姗€骞庨妷銉﹀暈闁挎稑娼積rf.json闁挎稑顦粩鎾嵁閺堢數绋婂☉鎾虫惈瑜版煡鏌呮径搴ｇ炕闁稿繈鍎扮槐鍫曞礂閵夈劋绮甸柛姘墣閸撳ジ寮甸濠勫耿
-- 闁?Godot + C# 闁烩晩鍠栫紞宥囩棯閿曗偓閻ｅ墽绱掗崟顓犵煆 Contracts闁挎稑鐗嗛々?Game.Core/Contracts/**闁挎稑顧€缁辨繈鐛捄鐑樿含 CI 濞戞搩鍘烘禍?dotnet/Python 濡炵懓宕慨鈺呭冀閿熺姷宕ｅ☉鎾冲閻綊骞€濮瑰洠鍋?
+- 閻?GdUnit4 闁革妇鍎ゅ▍娆徝圭€ｎ厾妲搁柟韬插劚閹诧繝鏁嶉崸鎻箄nit4-report.xml/json闁挎稑顦粭宀勫箑瑜戦崗姗€骞庨妷銉﹀暈闁挎稑娼積rf.json闁挎稑顦粩鎾嵁閺堢數绋婂[SUN]鎾虫惈瑜版煡鏌呮径搴ｇ炕闁稿繈鍎扮槐鍫曞礂閵夈劋绮甸柛姘墣閸撳ジ寮甸濠勫耿
+- 闁?Godot + C# 闁烩晩鍠栫紞宥囩棯閿曗偓閻ｅ墽绱掗崟顓犵煆 Contracts闁挎稑鐗嗛々?Game.Core/Contracts/**闁挎稑顧€缁辨繈鐛捄鐑樿含 CI 濞戞搩鍘烘禍?dotnet/Python 濡炵懓宕慨鈺呭冀閿熺姷宕ｅ[SUN]鎾冲閻綊骞€濮瑰洠鍋?
 
 
 1. **闂傚啫鎳撻浼村触閸曨垱鈻夋繛鍫滅祷椤曟稓绱掗崱妯荤€俊?*闁挎稒纰嶇€?Phase-1 闁?Phase-22 濡炪倕鎼花顓㈠箥瑜戦、?
@@ -231,7 +231,7 @@ Addenda闁挎稑鐗愯棢闁稿繐鎳撻鈺呭及鎼搭垳绀?
 
 ---
 
-> **闂佹彃绉烽々锕傚箵閹邦喓浠?*闁挎稒纰嶅﹢鐗堟交娴ｇ洅鈺冩媼閳ュ啿鐏婇柛瀣搐閻ｇ偓鎷呴悩鎻掑殥闁绘梻鍠愰崐?Godot 4.5 闁糕晞娅ｉ、鍛村箼瀹ュ嫮绋婂☉?C# 鐎殿喒鍋撻柛娆愬灟閳ь剙鍊搁々褔妫侀埀顒勫礂閵夆晜锛岄柛鈺冾攰椤斿嫰鏁嶇仦鐣岀处閻犱緡鍠栭崢娑氣偓鐟版湰閸ㄦ氨鈧蓱閺岀喖寮▎鎴旀煠闁告艾楠搁崯鈧柛姘煎灠婵晜娼绘担鐩掆晠濡?
+> **闂佹彃绉烽々锕傚箵閹邦喓浠?*闁挎稒纰嶅﹢鐗堟交娴ｇ洅鈺冩媼閳ュ啿鐏婇柛瀣搐閻ｇ偓鎷呴悩鎻掑殥闁绘梻鍠愰崐?Godot 4.5 闁糕晞娅ｉ、鍛村箼瀹ュ嫮绋婂[SUN]?C# 鐎殿喒鍋撻柛娆愬灟閳ь剙鍊搁々褔妫侀埀顒勫礂閵夆晜锛岄柛鈺冾攰椤斿嫰鏁嶇仦鐣岀处閻犱緡鍠栭崢娑氣偓鐟版湰閸ㄦ氨鈧蓱閺岀喖寮▎鎴旀煠闁告艾楠搁崯鈧柛姘煎灠婵晜娼绘担鐩掆晠濡?
 
 - 导出清单：见 [Phase-17-Export-Checklist.md](Phase-17-Export-Checklist.md)
 - Headless 冒烟：见 [Phase-12-Headless-Smoke-Tests.md](Phase-12-Headless-Smoke-Tests.md)

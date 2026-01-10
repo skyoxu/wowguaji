@@ -60,7 +60,7 @@
 ```
 ┌─────────────────────────────────────────────────────────┐
 │       Phase 21 性能优化工作流（迭代式）                  │
-│  Profiler 分析 → 瓶颈识别 → 优化实施 → 验证测试         │
+│  Profiler 分析 -> 瓶颈识别 -> 优化实施 -> 验证测试         │
 └──────────────────────┬──────────────────────────────────┘
                        │
         ┌──────────────▼────────────────┐
@@ -80,7 +80,7 @@
                        │
         ┌──────────────▼────────────────┐
         │  Step 3: 优化方案设计          │
-        │  - 算法优化（O(n²) → O(n log n)）│
+        │  - 算法优化（O(n²) -> O(n log n)）│
         │  - 资源优化（纹理压缩、音频格式）│
         │  - 渲染优化（Culling、Batching）│
         │  - 内存优化（对象池、GC 调优）  │
@@ -106,7 +106,7 @@
             │                     │
         达标 [OK]              未达标 FAIL
             │                     │
-        完成优化          → 返回 Step 2
+        完成优化          -> 返回 Step 2
 ```
 
 ### 2.2 性能分析工具矩阵
@@ -150,33 +150,33 @@ godotgame/
 ├── src/
 │   ├── Game.Core/
 │   │   └── Performance/
-│   │       ├── PerformanceOptimizer.cs           ★ 优化工作流编排
-│   │       ├── OptimizationValidator.cs          ★ 优化效果验证
-│   │       └── ProfilerDataCollector.cs          ★ Profiler 数据采集
+│   │       ├── PerformanceOptimizer.cs           * 优化工作流编排
+│   │       ├── OptimizationValidator.cs          * 优化效果验证
+│   │       └── ProfilerDataCollector.cs          * Profiler 数据采集
 │   │
 │   └── Godot/
-│       ├── ProfilerIntegration.cs                ★ Godot Profiler 集成
-│       ├── PerformanceDebugOverlay.cs            ★ 性能调试 UI
-│       └── ObjectPool.cs                         ★ 对象池实现
+│       ├── ProfilerIntegration.cs                * Godot Profiler 集成
+│       ├── PerformanceDebugOverlay.cs            * 性能调试 UI
+│       └── ObjectPool.cs                         * 对象池实现
 │
 ├── scripts/
-│   ├── performance_analysis.py                   ★ 性能数据分析脚本
-│   ├── optimization_report_generator.py          ★ 优化报告生成
-│   └── regression_checker.py                     ★ 性能回归检测
+│   ├── performance_analysis.py                   * 性能数据分析脚本
+│   ├── optimization_report_generator.py          * 优化报告生成
+│   └── regression_checker.py                     * 性能回归检测
 │
 ├── tests/
 │   └── performance/
-│       ├── benchmark_startup.test.cs             ★ 启动时间基准测试
-│       ├── benchmark_framerate.test.cs           ★ 帧率基准测试
-│       └── benchmark_memory.test.cs              ★ 内存基准测试
+│       ├── benchmark_startup.test.cs             * 启动时间基准测试
+│       ├── benchmark_framerate.test.cs           * 帧率基准测试
+│       └── benchmark_memory.test.cs              * 内存基准测试
 │
 ├── docs/
-│   ├── performance-analysis-report.md            ★ 性能分析报告
-│   └── optimization-changelog.md                 ★ 优化变更日志
+│   ├── performance-analysis-report.md            * 性能分析报告
+│   └── optimization-changelog.md                 * 优化变更日志
 │
 └── .taskmaster/
     └── tasks/
-        └── task-21.md                            ★ Phase 21 任务跟踪
+        └── task-21.md                            * Phase 21 任务跟踪
 ```
 
 ---
@@ -214,7 +214,7 @@ public partial class ExampleTest
 ### 3.2 PerformanceOptimizer.cs（优化工作流编排）
 
 **职责**：
-- 编排优化工作流（分析 → 识别 → 优化 → 验证）
+- 编排优化工作流（分析 -> 识别 -> 优化 -> 验证）
 - 调用 PerformanceTracker.cs 采集基线数据
 - 集成 .NET Profiler（dotnet-trace）
 - 生成优化报告
@@ -233,7 +233,7 @@ namespace Game.Core.Performance
 {
     /// <summary>
     /// Phase 21 性能优化工作流编排器
-    /// 编排 Profiler 分析 → 瓶颈识别 → 优化实施 → 验证测试
+    /// 编排 Profiler 分析 -> 瓶颈识别 -> 优化实施 -> 验证测试
     /// </summary>
     public class PerformanceOptimizer
     {
@@ -590,13 +590,13 @@ namespace Game.Core.Performance
 
 | 优化类型 | 示例 | 改进预期 |
 |---------|------|---------|
-| **算法优化** | O(n²) → O(n log n)（排序、查找） | 10-100x |
-| **GDScript → C#** | 热路径核心逻辑用 C# 重写 | 3-10x |
+| **算法优化** | O(n²) -> O(n log n)（排序、查找） | 10-100x |
+| **GDScript -> C#** | 热路径核心逻辑用 C# 重写 | 3-10x |
 | **缓存计算结果** | 避免重复计算（如 Vector2.length()） | 2-5x |
 | **批量处理** | 批量信号发送、批量数据库操作 | 2-3x |
 | **对象池化** | 频繁创建/销毁对象改为对象池 | 2-4x |
 
-**代码示例**（GDScript → C# 迁移）：
+**代码示例**（GDScript -> C# 迁移）：
 
 ```csharp
 // C# equivalent (Godot 4 + C# + GdUnit4)
@@ -722,10 +722,10 @@ import/use_multiple_threads=true
 
 | 纹理类型 | 原始格式 | 压缩格式 | 内存占用对比 |
 |---------|---------|---------|-------------|
-| UI 元素（透明） | RGBA8 | ASTC 4×4 | 1024KB → 256KB (75%) |
-| 游戏场景纹理 | RGB8 | ETC2 RGB | 1024KB → 341KB (67%) |
-| 法线贴图 | RGB8 | ETC2 RGB | 1024KB → 341KB (67%) |
-| 小型图标 | RGBA8 | 保持未压缩 | 64KB → 64KB (0%) |
+| UI 元素（透明） | RGBA8 | ASTC 4×4 | 1024KB -> 256KB (75%) |
+| 游戏场景纹理 | RGB8 | ETC2 RGB | 1024KB -> 341KB (67%) |
+| 法线贴图 | RGB8 | ETC2 RGB | 1024KB -> 341KB (67%) |
+| 小型图标 | RGBA8 | 保持未压缩 | 64KB -> 64KB (0%) |
 
 #### 4.2.2 音频格式优化
 
@@ -756,10 +756,10 @@ public partial class ExampleTest
 
 | 音频类型 | 格式 | 采样率 | 比特率 | 文件大小对比 |
 |---------|------|--------|--------|-------------|
-| 背景音乐 | OGG Vorbis | 44.1kHz | 128kbps | 5MB → 1.2MB (76%) |
-| 长对话 | OGG Vorbis | 44.1kHz | 96kbps | 3MB → 0.9MB (70%) |
-| 短音效 | WAV | 44.1kHz | 16-bit | 100KB → 100KB (0%) |
-| 环境音 | OGG Vorbis | 22.05kHz | 64kbps | 2MB → 0.4MB (80%) |
+| 背景音乐 | OGG Vorbis | 44.1kHz | 128kbps | 5MB -> 1.2MB (76%) |
+| 长对话 | OGG Vorbis | 44.1kHz | 96kbps | 3MB -> 0.9MB (70%) |
+| 短音效 | WAV | 44.1kHz | 16-bit | 100KB -> 100KB (0%) |
+| 环境音 | OGG Vorbis | 22.05kHz | 64kbps | 2MB -> 0.4MB (80%) |
 
 ### 4.3 渲染优化（Rendering Optimization）
 
@@ -1027,7 +1027,7 @@ Phase 20 建立的性能基线作为 Phase 21 优化目标：
 | 性能基线采集（Phase 20 数据复用） | 0.5 天 | Day 1 |
 | Godot Profiler 集成 + ProfilerIntegration.cs | 1 天 | Day 1-2 |
 | 瓶颈识别与分析（CPU/内存/渲染/I/O） | 1 天 | Day 2 |
-| 代码优化（热路径、算法、GDScript → C#） | 1.5 天 | Day 2-3 |
+| 代码优化（热路径、算法、GDScript -> C#） | 1.5 天 | Day 2-3 |
 | 资源优化（纹理压缩、音频格式） | 0.5 天 | Day 3 |
 | 渲染优化（Culling、Batching、LOD） | 1 天 | Day 3-4 |
 | 内存优化（对象池、GC 调优） | 0.5 天 | Day 4 |
@@ -1044,7 +1044,7 @@ Phase 20 建立的性能基线作为 Phase 21 优化目标：
 | Phase 15（性能预算） | ← 依赖 | 使用 PerformanceTracker.cs 采集基线数据 |
 | Phase 16（可观测性） | ← 依赖 | 通过 Sentry 上报优化结果与监控指标 |
 | Phase 20（功能验收） | ← 依赖 | 基线性能数据作为优化目标 + 回归测试 |
-| Phase 22（文档更新） | → 输入 | 性能优化报告纳入最终发布说明 |
+| Phase 22（文档更新） | -> 输入 | 性能优化报告纳入最终发布说明 |
 
 ---
 
@@ -1083,7 +1083,7 @@ Phase 20 建立的性能基线作为 Phase 21 优化目标：
 
 **启动方式**：
 1. 运行游戏（F5）
-2. 打开 Debugger 面板（菜单 → Debug → Profiler）
+2. 打开 Debugger 面板（菜单 -> Debug -> Profiler）
 3. 查看实时性能数据（CPU、渲染、内存、网络）
 
 **关键指标**：
@@ -1124,7 +1124,7 @@ public partial class ExampleTest
 ### A.3 导出 Profiler 数据
 
 **步骤**：
-1. Profiler 面板 → 右上角"Export"按钮
+1. Profiler 面板 -> 右上角"Export"按钮
 2. 保存为 JSON 格式
 3. 使用 `scripts/performance_analysis.py` 分析
 

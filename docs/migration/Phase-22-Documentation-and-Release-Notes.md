@@ -1,4 +1,4 @@
-# Phase 22: 文档更新与发布说明
+﻿# Phase 22: 文档更新与发布说明
 
 > **核心目标**:完成迁移项目的文档整合、生成最终发布说明、建立文档维护流程,为项目正式发布和长期运维奠定基础。
 > **工作量**:2-3 人天
@@ -26,7 +26,7 @@
 - 缺少用户手册与运维文档
 - 文档搜索与导航困难
 
-### 新版(godotgame)文档机遇与挑战
+### 新版(wowguaji)文档机遇与挑战
 
 **机遇**:
 - Phase 1-21 提供完整的迁移历史追溯
@@ -80,7 +80,7 @@
 ```
 ┌─────────────────────────────────────────────────────────┐
 │               Phase 22 文档分层架构                      │
-│  Layer 1: 高管摘要 → Layer 2: 技术文档 → Layer 3: 用户文档 │
+│  Layer 1: 高管摘要 -> Layer 2: 技术文档 -> Layer 3: 用户文档 │
 └──────────────────────┬──────────────────────────────────┘
                        │
         ┌──────────────▼────────────────┐
@@ -126,7 +126,7 @@
 ```
 ┌─────────────────────────────────────────────────────────┐
 │         Phase 22 文档生成与发布工作流                    │
-│  输入(Phase 1-21) → 整合 → 生成 → 审核 → 发布           │
+│  输入(Phase 1-21) -> 整合 -> 生成 -> 审核 -> 发布           │
 └──────────────────────┬──────────────────────────────────┘
                        │
         ┌──────────────▼────────────────┐
@@ -174,7 +174,7 @@
 ### 2.4 目录结构
 
 ```
-godotgame/
+wowguaji/
 ├── docs/
 │   ├── migration/                              # 迁移文档(已存在)
 │   │   ├── MIGRATION_INDEX.md                 # 总索引
@@ -459,17 +459,17 @@ class ReleaseNotesGenerator:
         """
         now = datetime.utcnow().strftime("%Y-%m-%d")
 
-        release_notes = f"""# Release Notes: godotgame v{version}
+        release_notes = f"""# Release Notes: wowguaji v{version}
 
 > 发布日期: {now}
-> 项目: LegacyProject → godotgame 迁移
-> 类型: 完整技术栈替换(LegacyDesktopShell + Legacy2DEngine → Godot 4.5 + C#)
+> 项目: LegacyProject -> wowguaji 迁移
+> 类型: 完整技术栈替换(LegacyDesktopShell + Legacy2DEngine -> Godot 4.5 + C#)
 
 ---
 
 ## 版本摘要
 
-**godotgame v{version}** 是 LegacyProject 项目的完整重写版本,采用 Godot 4.5 游戏引擎 + C# (.NET 8) 技术栈替代原有的 LegacyDesktopShell + Legacy2DEngine 3 + LegacyUIFramework 19 架构。本次迁移历经 22 个阶段,累计 52-80 人天开发工作量,完成了功能对标、性能优化与质量保障。
+**wowguaji v{version}** 是 LegacyProject 项目的完整重写版本,采用 Godot 4.5 游戏引擎 + C# (.NET 8) 技术栈替代原有的 LegacyDesktopShell + Legacy2DEngine 3 + LegacyUIFramework 19 架构。本次迁移历经 22 个阶段,累计 52-80 人天开发工作量,完成了功能对标、性能优化与质量保障。
 
 ### 核心成果
 
@@ -499,7 +499,7 @@ class ReleaseNotesGenerator:
 
 ### 发布管理
 
-- **分阶段发布**: Canary → Beta → Stable 三阶段渐进式发布
+- **分阶段发布**: Canary -> Beta -> Stable 三阶段渐进式发布
 - **Release Health 门禁**: Crash-Free Sessions ≥99.5% 强制阈值
 - **应急回滚**: 自动触发 + 版本堆栈管理
 
@@ -509,7 +509,7 @@ class ReleaseNotesGenerator:
 
 ### 核心游戏流程
 
-| 功能模块 | LegacyProject | godotgame | 状态 |
+| 功能模块 | LegacyProject | wowguaji | 状态 |
 |---------|---------|-----------|------|
 | 主菜单与设置 | LegacyUIFramework 组件 | Godot Control | [OK] 对标完成 |
 | 游戏场景初始化 | Legacy2DEngine Scene | Godot Scene Tree | [OK] 对标完成 |
@@ -523,7 +523,7 @@ class ReleaseNotesGenerator:
 
 ### UI/UX 一致性
 
-| UI 组件 | LegacyProject | godotgame | 状态 |
+| UI 组件 | LegacyProject | wowguaji | 状态 |
 |--------|---------|-----------|------|
 | 主菜单 | LegacyUIFramework 组件 | Godot Control 场景 | [OK] 对标完成 |
 | 设置面板 | 标签页面板 | Godot 面板 UI | [OK] 对标完成 |
@@ -537,7 +537,7 @@ class ReleaseNotesGenerator:
 
 ### 性能指标对比
 
-| 指标 | LegacyProject 基线 | godotgame v{version} | 改进幅度 |
+| 指标 | LegacyProject 基线 | wowguaji v{version} | 改进幅度 |
 |-----|--------------|---------------------|---------|
 | **启动时间 P95** | 2.5s | <2.0s | ↓{performance_data['startup_improvement']:.1f}% |
 | **游戏帧时间 P95** | 16.67ms | <14ms | ↓{performance_data['frame_time_improvement']:.1f}% |
@@ -547,7 +547,7 @@ class ReleaseNotesGenerator:
 
 ### 优化措施
 
-- **代码优化**: GDScript 热路径迁移至 C#,算法复杂度优化(O(n²) → O(n log n))
+- **代码优化**: GDScript 热路径迁移至 C#,算法复杂度优化(O(n²) -> O(n log n))
 - **资源优化**: 纹理 VRAM 压缩(ASTC/ETC2),音频格式优化(OGG Vorbis)
 - **渲染优化**: Culling(视锥体剔除),Batching(MultiMesh 批处理),LOD(细节层次)
 - **I/O 优化**: SQLite WAL 模式 + 批量操作,数据库查询索引优化
@@ -608,9 +608,9 @@ class ReleaseNotesGenerator:
 - Phase 6: SQLite 数据层迁移
 
 ### 第三阶段:UI 与场景迁移(Phase 7-9)
-- Phase 7: LegacyUIFramework → Godot Control 迁移
+- Phase 7: LegacyUIFramework -> Godot Control 迁移
 - Phase 8: 场景树与节点设计
-- Phase 9: CloudEvents → Signals 迁移
+- Phase 9: CloudEvents -> Signals 迁移
 
 ### 第四阶段:测试体系重建(Phase 10-12)
 - Phase 10: xUnit 单元测试迁移
@@ -658,9 +658,9 @@ class ReleaseNotesGenerator:
 
 ### 全新安装
 
-1. 从 [GitHub Releases](https://github.com/yourrepo/releases/tag/v{version}) 下载 `godotgame-{version}.exe`
+1. 从 [GitHub Releases](https://github.com/yourrepo/releases/tag/v{version}) 下载 `wowguaji-{version}.exe`
 2. 解压到任意目录
-3. 运行 `godotgame-{version}.exe`
+3. 运行 `wowguaji-{version}.exe`
 4. 首次启动会自动创建配置文件与数据库
 
 ### 从 LegacyProject 升级
@@ -671,11 +671,11 @@ class ReleaseNotesGenerator:
    NodePkg run export-data
    ```
 
-2. **安装 godotgame**:按照上述"全新安装"步骤
+2. **安装 wowguaji**:按照上述"全新安装"步骤
 
 3. **数据导入**(可选):导入 LegacyProject 的游戏进度
-   - 启动 godotgame
-   - 进入"设置" → "数据迁移"
+   - 启动 wowguaji
+   - 进入"设置" -> "数据迁移"
    - 选择 LegacyProject 导出的数据文件
    - 点击"导入"
 
@@ -929,7 +929,7 @@ class ChangelogGenerator:
 
         entry = f"## [v{version}] - {today}\n\n"
 
-        # 映射:类型 → Keep a Changelog 标准标题
+        # 映射:类型 -> Keep a Changelog 标准标题
         category_map = {
             "feat": "Added",
             "fix": "Fixed",
@@ -1259,17 +1259,17 @@ if __name__ == "__main__":
 **模板内容**:
 
 ```markdown
-# Release Notes: godotgame v${VERSION}
+# Release Notes: wowguaji v${VERSION}
 
 > 发布日期: ${DATE}
-> 项目: LegacyProject → godotgame 迁移
+> 项目: LegacyProject -> wowguaji 迁移
 > 类型: ${RELEASE_TYPE}
 
 ---
 
 ## 版本摘要
 
-**godotgame v${VERSION}** 是 LegacyProject 项目的${SUMMARY_DESCRIPTION}。
+**wowguaji v${VERSION}** 是 LegacyProject 项目的${SUMMARY_DESCRIPTION}。
 
 ### 核心成果
 
@@ -1295,7 +1295,7 @@ ${FEATURE_DESCRIPTION_2}
 
 ## 功能对标
 
-| 功能模块 | LegacyProject | godotgame | 状态 |
+| 功能模块 | LegacyProject | wowguaji | 状态 |
 |---------|---------|-----------|------|
 | ${MODULE_1} | ${OLD_IMPL_1} | ${NEW_IMPL_1} | ${STATUS_1} |
 | ${MODULE_2} | ${OLD_IMPL_2} | ${NEW_IMPL_2} | ${STATUS_2} |
@@ -1304,7 +1304,7 @@ ${FEATURE_DESCRIPTION_2}
 
 ## 性能改进
 
-| 指标 | LegacyProject 基线 | godotgame v${VERSION} | 改进幅度 |
+| 指标 | LegacyProject 基线 | wowguaji v${VERSION} | 改进幅度 |
 |-----|--------------|---------------------|---------|
 | **${METRIC_1}** | ${OLD_VALUE_1} | ${NEW_VALUE_1} | ${IMPROVEMENT_1} |
 | **${METRIC_2}** | ${OLD_VALUE_2} | ${NEW_VALUE_2} | ${IMPROVEMENT_2} |
@@ -1416,9 +1416,9 @@ ${ACKNOWLEDGEMENTS}
 ```python
 # generate_release_notes.py 中
 acceptance_data = self._load_acceptance_report()
-# → 提取功能测试通过率
-# → 提取功能模块对标状态
-# → 生成功能对标表格
+# -> 提取功能测试通过率
+# -> 提取功能模块对标状态
+# -> 生成功能对标表格
 ```
 
 ### 5.2 与 Phase 21(性能优化)集成
@@ -1433,9 +1433,9 @@ acceptance_data = self._load_acceptance_report()
 ```python
 # generate_release_notes.py 中
 performance_data = self._load_performance_report()
-# → 提取启动时间/帧时间/内存改进百分比
-# → 生成性能对比表格
-# → 列出优化措施
+# -> 提取启动时间/帧时间/内存改进百分比
+# -> 生成性能对比表格
+# -> 列出优化措施
 ```
 
 ### 5.3 与 Phase 17-18(构建与发布)集成
@@ -1495,7 +1495,7 @@ jobs:
 ```
 ┌─────────────────────────────────────────────────────────┐
 │            文档审核与发布工作流                          │
-│  草稿 → 技术审核 → 业务审核 → 法务审核 → 最终签核 → 发布 │
+│  草稿 -> 技术审核 -> 业务审核 -> 法务审核 -> 最终签核 -> 发布 │
 └──────────────────────┬──────────────────────────────────┘
                        │
         ┌──────────────▼────────────────┐
@@ -1639,7 +1639,7 @@ jobs:
 | Phase 1-19(准备+核心+UI+测试+质量) | ← 输入 | 所有 Phase 文档作为发布说明的源材料 |
 | Phase 20(功能验收测试) | ← 输入 | 验收报告提供功能对标数据 |
 | Phase 21(性能优化) | ← 输入 | 性能报告提供性能改进数据 |
-| 后续版本(v1.1.0+) | → 持续 | 文档维护流程支持后续版本迭代 |
+| 后续版本(v1.1.0+) | -> 持续 | 文档维护流程支持后续版本迭代 |
 
 ---
 
@@ -1745,3 +1745,4 @@ jobs:
 **推荐评分**: 94/100(文档更新体系完备,轻微改进空间:API 文档自动生成工具、用户手册模板化)
 
 **实施优先级**: Critical(项目发布前必须完成,无文档无法正式发布)
+

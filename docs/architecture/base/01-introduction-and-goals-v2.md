@@ -7,7 +7,7 @@ placeholders: unknown-app, Unknown Product, unknown-product, ${DOMAIN_PREFIX}, $
 
 # 01 约束与目标（Godot 4.5 + C# 模板口径）
 
-本章定义模板的硬约束与质量目标，并给出从 **ADR → 测试/门禁 → 日志工件** 的最小可追溯骨架，作为后续 Base 章节的锚点。
+本章定义模板的硬约束与质量目标，并给出从 **ADR -> 测试/门禁 -> 日志工件** 的最小可追溯骨架，作为后续 Base 章节的锚点。
 
 ## 1.1 背景与范围
 
@@ -19,7 +19,7 @@ placeholders: unknown-app, Unknown Product, unknown-product, ${DOMAIN_PREFIX}, $
 
 - 平台：仅 Windows（构建、测试、导出、CI 均以 Windows 为准）。
 - 运行时：Godot 4.5.1（.NET）+ C#（.NET 8 LTS）（见 ADR-0018）。
-- 分层：Scenes（Godot 装配/信号）→ Adapters（仅封装 Godot API）→ Core（纯 C# 领域，可 xUnit 单测）（见 ADR-0025）。
+- 分层：Scenes（Godot 装配/信号）-> Adapters（仅封装 Godot API）-> Core（纯 C# 领域，可 xUnit 单测）（见 ADR-0025）。
 - 契约：事件/DTO/端口类型的单一事实来源为 `Game.Core/Contracts/**`，禁止在文档复制粘贴造成口径漂移（见 ADR-0020、ADR-0004）。
 - 安全：默认拒绝越权文件访问与非白名单出网；仅允许 `res://`（只读）与 `user://`（读写）（见 ADR-0019）。
 - 日志与取证：测试/门禁/扫描输出统一落盘 `logs/**`，便于排障与归档（见 `docs/testing-framework.md`）。
@@ -71,7 +71,7 @@ C4Container
     Rel(adapters, obs, "Emit", "Events/metrics/logs")
 ```
 
-## 1.6 可追溯骨架（PRD → ADR → 测试）
+## 1.6 可追溯骨架（PRD -> ADR -> 测试）
 
 Base 仅提供骨架示例，真实 PRD 的追踪表放在 Overlay 08，并通过 CI 校验回链完整度。
 

@@ -50,14 +50,13 @@ def _templateize_markdown(text: str) -> tuple[str, list[str]]:
 
     # Decouple obvious sibling repo identifiers.
     before = text
-    text = re.sub(r"(?i)\\bnewguild\\b", "本模板仓库", text)
-    text = re.sub(r"(?i)\\bsanguo\\b", "本模板仓库", text)
+    text = re.sub(r"(?i)\\bwowguaji\\b", "本模板仓库", text)
     if text != before:
         notes.append("replaced_sibling_repo_names")
 
     # Strip absolute build paths if present.
     before = text
-    text = re.sub(r"(?i)C:\\\\buildgame\\\\(newguild|sanguo)\\\\", "", text)
+    text = re.sub(r"(?i)C:\\\\buildgame\\\\wowguaji\\\\", "", text)
     if text != before:
         notes.append("removed_absolute_build_paths")
 
@@ -66,10 +65,8 @@ def _templateize_markdown(text: str) -> tuple[str, list[str]]:
 
 def _forbidden_hits(text: str) -> list[str]:
     forbidden = [
-        r"(?i)\\bnewguild\\b",
-        r"(?i)\\bsanguo\\b",
-        r"\\bC:\\\\buildgame\\\\newguild\\b",
-        r"\\bC:\\\\buildgame\\\\sanguo\\b",
+        r"(?i)\\bwowguaji\\b",
+        r"\\bC:\\\\buildgame\\\\wowguaji\\b",
         "????",
     ]
     hits: list[str] = []
@@ -178,8 +175,8 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--root", default=".", help="Current repo root (default: .)")
     parser.add_argument(
         "--sibling",
-        default=r"C:\buildgame\sanguo",
-        help=r"Sibling repo root (default: C:\buildgame\sanguo)",
+        default=r"C:\buildgame\wowguaji",
+        help=r"Sibling repo root (default: C:\buildgame\wowguaji)",
     )
     args = parser.parse_args(argv)
 

@@ -1,4 +1,4 @@
-# Phase 17: 构建系统与 Godot Export
+﻿# Phase 17: 构建系统与 Godot Export
 
 
 
@@ -30,7 +30,7 @@
 
 - LegacyBuildTool 开发服务器（HMR、快速刷新）
 
-- `NodePkg run build` → 预构建 LegacyUIFramework/Tailwind/Legacy2DEngine（~2.5s）
+- `NodePkg run build` -> 预构建 LegacyUIFramework/Tailwind/Legacy2DEngine（~2.5s）
 
 - `LegacyDesktopShell-builder` 自动化打包（签名、代码注入、资源优化）
 
@@ -40,7 +40,7 @@
 
 
 
-### 新版（godotgame）构建机遇与挑战
+### 新版（wowguaji）构建机遇与挑战
 
 
 
@@ -96,7 +96,7 @@
 
 ### 2.0 Godot+C# 变体（当前模板实现）
 
-> 本节描述的是 **当前 godotgame 模板已经落地的构建/导出能力**。下文所述的 `scripts/build_windows.py`、独立 Release 工作流等仍处于蓝图阶段，对应增强统一收敛到 Phase-17 Backlog。
+> 本节描述的是 **当前 wowguaji 模板已经落地的构建/导出能力**。下文所述的 `scripts/build_windows.py`、独立 Release 工作流等仍处于蓝图阶段，对应增强统一收敛到 Phase-17 Backlog。
 
 - 依赖与前置：
   - 环境变量：`GODOT_BIN` 指向 Godot .NET（mono）可执行文件路径（例如 `C:\Godot\Godot_v4.5.1-stable_mono_win64.exe`）。
@@ -190,7 +190,7 @@
 
    本地工件          CI 工件上传
 
-   (dist/)          → GitHub Release
+   (dist/)          -> GitHub Release
 
 ```
 
@@ -202,7 +202,7 @@
 
 ```
 
-godotgame/
+wowguaji/
 
 ├── src/
 
@@ -242,11 +242,11 @@ godotgame/
 
 ├── dist/                                     * 本地构建输出目录
 
-│   ├── godotgame-1.0.0.exe
+│   ├── wowguaji-1.0.0.exe
 
-│   ├── godotgame-1.0.0.pck
+│   ├── wowguaji-1.0.0.pck
 
-│   ├── godotgame-1.0.0-SHA256.txt
+│   ├── wowguaji-1.0.0-SHA256.txt
 
 │   └── build-metadata.json
 
@@ -318,7 +318,7 @@ include_filter=""
 
 exclude_filter=""
 
-export_path="dist/godotgame-1.0.0.exe"
+export_path="dist/wowguaji-1.0.0.exe"
 
 encryption_include_filters=""
 
@@ -346,7 +346,7 @@ application/trademarks=""
 
 application/company_name="Anthropic"
 
-application/product_name="GodotGame"
+application/product_name="wowguaji"
 
 application/product_version="1.0.0"
 
@@ -478,7 +478,7 @@ include_filter=""
 
 exclude_filter=""
 
-export_path="dist/godotgame-1.0.0-debug.exe"
+export_path="dist/wowguaji-1.0.0-debug.exe"
 
 encryption_include_filters=""
 
@@ -504,7 +504,7 @@ application/copyright="2025"
 
 application/company_name="Anthropic"
 
-application/product_name="GodotGame"
+application/product_name="wowguaji"
 
 application/product_version="1.0.0-debug"
 
@@ -568,7 +568,7 @@ debug/gdscript/warnings/print_verbose=true
 
 Godot Windows Build Driver
 
-Orchestrates: validation → export → signing → metadata generation
+Orchestrates: validation -> export -> signing -> metadata generation
 
 """
 
@@ -746,7 +746,7 @@ class GodotBuildDriver:
 
         if self.dist_dir.exists():
 
-            for file in self.dist_dir.glob("godotgame-*"):
+            for file in self.dist_dir.glob("wowguaji-*"):
 
                 file.unlink()
 
@@ -764,7 +764,7 @@ class GodotBuildDriver:
 
         preset_name = "Windows Desktop" if self.build_config == "release" else "Windows Desktop (Debug)"
 
-        exe_name = f"godotgame-1.0.0{'-debug' if self.build_config == 'debug' else ''}.exe"
+        exe_name = f"wowguaji-1.0.0{'-debug' if self.build_config == 'debug' else ''}.exe"
 
         exe_path = self.dist_dir / exe_name
 
@@ -1332,7 +1332,7 @@ jobs:
 
           python scripts/build_windows.py release
 
-          Get-Item dist/godotgame-*.exe | ForEach-Object {
+          Get-Item dist/wowguaji-*.exe | ForEach-Object {
 
             Write-Host "Built: $($_.Name) ($([math]::Round($_.Length / 1MB, 2)) MB)"
 
@@ -1398,9 +1398,9 @@ jobs:
 
           files: |
 
-            dist/godotgame-*.exe
+            dist/wowguaji-*.exe
 
-            dist/godotgame-*-SHA256.txt
+            dist/wowguaji-*-SHA256.txt
 
             dist/build-metadata.json
 
@@ -1420,9 +1420,9 @@ jobs:
 
             ### Files
 
-            - `godotgame-*.exe` - Windows Desktop executable
+            - `wowguaji-*.exe` - Windows Desktop executable
 
-            - `godotgame-*-SHA256.txt` - File integrity checksum
+            - `wowguaji-*-SHA256.txt` - File integrity checksum
 
             - `build-metadata.json` - Build configuration metadata
 
@@ -1430,7 +1430,7 @@ jobs:
 
             ### Installation
 
-            Extract and run `godotgame-1.0.0.exe`. No installation required.
+            Extract and run `wowguaji-1.0.0.exe`. No installation required.
 
 
 
@@ -1594,7 +1594,7 @@ namespace Game.Core.Version
 
         public static string UserAgent =>
 
-            $"godotgame/{SemanticVersion} ({GitTag})";
+            $"wowguaji/{SemanticVersion} ({GitTag})";
 
     }
 
@@ -1702,7 +1702,7 @@ def inject_version_info(project_root: Path, commit_sha: str, git_tag: str, build
 
 NodePkg run build:exe:debug
 
-# 输出：dist/godotgame-1.0.0-debug.exe
+# 输出：dist/wowguaji-1.0.0-debug.exe
 
 
 
@@ -1710,7 +1710,7 @@ NodePkg run build:exe:debug
 
 NodePkg run build:exe
 
-# 输出：dist/godotgame-1.0.0.exe, dist/build-metadata.json, dist/godotgame-*-SHA256.txt
+# 输出：dist/wowguaji-1.0.0.exe, dist/build-metadata.json, dist/wowguaji-*-SHA256.txt
 
 
 
@@ -1824,7 +1824,7 @@ NodePkg run build:sign
 
 - [ ] export_presets.cfg：[OK] Windows Desktop Release + Debug 配置
 
-- [ ] build_windows.py（280+ 行）：[OK] 完整 validate → export → sign → metadata 流程
+- [ ] build_windows.py（280+ 行）：[OK] 完整 validate -> export -> sign -> metadata 流程
 
 - [ ] build-windows.yml（100+ 行）：[OK] CI 自动化构建、Release 创建
 
@@ -1880,9 +1880,9 @@ NodePkg run build:sign
 
 | Phase 16（可观测性） | ← 依赖 | Release tag 与 Sentry Release API 联动，发布健康门禁检查 |
 
-| Phase 18（分阶段发布） | → 启用 | Canary/Beta/Stable 版本管理基于 git tag 分支策略 |
+| Phase 18（分阶段发布） | -> 启用 | Canary/Beta/Stable 版本管理基于 git tag 分支策略 |
 
-| Phase 19（应急回滚） | ↔ 集成 | 回滚脚本以 git tag 为基准指定版本 |
+| Phase 19（应急回滚） | <-> 集成 | 回滚脚本以 git tag 为基准指定版本 |
 
 
 
@@ -2037,7 +2037,7 @@ NodePkg run build:exe
 import subprocess, pathlib
 project = pathlib.Path('Game.Godot')
 export_preset = 'Windows Desktop'
-output = pathlib.Path('dist')/ 'godotgame.exe'
+output = pathlib.Path('dist')/ 'wowguaji.exe'
 output.parent.mkdir(parents=True, exist_ok=True)
 
 # 导出可执行文件
@@ -2096,7 +2096,7 @@ if __name__ == '__main__':
 
 用法：
 ```
-py -3 scripts/sign_executable.py --file dist\godotgame.exe --thumbprint <CERT_SHA1>
+py -3 scripts/sign_executable.py --file dist\wowguaji.exe --thumbprint <CERT_SHA1>
 ```
 
 说明：
@@ -2105,3 +2105,4 @@ py -3 scripts/sign_executable.py --file dist\godotgame.exe --thumbprint <CERT_SH
 - 在 CI 中，建议将证书和密码以机密方式注入环境（GitHub Actions Secrets）。
 
 > 提示：构建与签名完成后，建议将性能报告（perf.json）、GdUnit4 场景测试报告（gdunit4-report.xml/json）、Taskmaster 与 Contracts 校验报告统一归档至 logs/ci/YYYY-MM-DD/，并在 Phase-13 的 quality_gates.py 中以 `--perf-report`、`--gdunit4-report`、`--taskmaster-report`、`--contracts-report` 作为可选输入参与门禁聚合。
+

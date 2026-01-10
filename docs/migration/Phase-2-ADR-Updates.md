@@ -1,4 +1,4 @@
-# Phase 2: ADR 更新与新增
+﻿# Phase 2: ADR 更新与新增
 
 > 状态: 设计阶段
 > 预估工时: 1-2 天
@@ -25,10 +25,10 @@
 
 以下现有 ADR 需要更新以支持 Godot 技术栈：
 
-- **ADR-0003**: 可观测性 → 更新 Sentry Godot SDK 配置
-- **ADR-0005**: 质量门禁 → 更新为 C#/.NET 工具链
-- **ADR-0006**: 数据存储 → 更新为 godot-sqlite 适配
-- **ADR-0015**: 性能预算 → 更新为 Godot 性能指标
+- **ADR-0003**: 可观测性 -> 更新 Sentry Godot SDK 配置
+- **ADR-0005**: 质量门禁 -> 更新为 C#/.NET 工具链
+- **ADR-0006**: 数据存储 -> 更新为 godot-sqlite 适配
+- **ADR-0015**: 性能预算 -> 更新为 Godot 性能指标
 
 ---
 
@@ -36,7 +36,7 @@
 
 **文件路径**: `docs/adr/ADR-0018-godot-runtime-and-distribution.md`
 
-**状态**: Proposed → Accepted（迁移启动后）
+**状态**: Proposed -> Accepted（迁移启动后）
 
 **核心决策**:
 
@@ -76,7 +76,7 @@
 
 **文件路径**: `docs/adr/ADR-0019-godot-security-baseline.md`
 
-**状态**: Proposed → Accepted
+**状态**: Proposed -> Accepted
 
 **核心决策**:
 
@@ -203,7 +203,7 @@ public void OpenUrlSafe_ShouldAllowWhitelistedHttps()
 
 **文件路径**: `docs/adr/ADR-0025-godot-test-strategy.md`
 
-**状态**: Proposed → Accepted
+**状态**: Proposed -> Accepted
 
 **核心决策**:
 
@@ -226,7 +226,7 @@ public void OpenUrlSafe_ShouldAllowWhitelistedHttps()
 
 4. **E2E 冒烟测试** (Godot Headless + 自建 TestRunner)
    - 项目: `Game.Godot.Tests/E2E`
-   - 范围: 启动→主场景→关键信号→退出
+   - 范围: 启动->主场景->关键信号->退出
    - 运行方式: `godot --headless --path . --scene res://Tests/E2ERunner.tscn`
 
 **分层原则**:
@@ -406,7 +406,7 @@ godot --headless --path . `
 
 **文件路径**: `docs/adr/ADR-0021-csharp-domain-layer-architecture.md`
 
-**状态**: Proposed → Accepted
+**状态**: Proposed -> Accepted
 
 **核心决策**:
 
@@ -570,7 +570,7 @@ public class CombatServiceTests
 
 **文件路径**: `docs/adr/ADR-0022-godot-signal-system-and-contracts.md`
 
-**状态**: Proposed → Accepted
+**状态**: Proposed -> Accepted
 
 **核心决策**:
 
@@ -615,13 +615,13 @@ public partial class ExampleTest
 | new_health | int | 变化后生命值 | >= 0 |
 
 ### 发射位置
-- `Player.cs` → `TakeDamage()` 方法
-- `Player.cs` → `Heal()` 方法
+- `Player.cs` -> `TakeDamage()` 方法
+- `Player.cs` -> `Heal()` 方法
 
 ### 监听位置
-- `UI/HealthBar.cs` → 更新显示
-- `GameState.cs` → 检查死亡条件
-- `Observability.cs` → 记录事件
+- `UI/HealthBar.cs` -> 更新显示
+- `GameState.cs` -> 检查死亡条件
+- `Observability.cs` -> 记录事件
 
 ### 测试用例 (GdUnit4)
 \`\`\`gdscript
@@ -693,7 +693,7 @@ public partial class HealthBar : Control
 
     private void OnPlayerHealthChanged(int oldHealth, int newHealth)
     {
-        GD.Print($"Health: {oldHealth} → {newHealth}");
+        GD.Print($"Health: {oldHealth} -> {newHealth}");
         UpdateDisplay(newHealth);
     }
 
@@ -782,7 +782,7 @@ public void LogGameEvent(string eventType, object data)
     var cloudEvent = new CloudEvent
     {
         Type = eventType,
-        Source = new Uri("app://godotgame"),
+        Source = new Uri("app://wowguaji"),
         Data = JsonSerializer.Serialize(data),
         Time = DateTimeOffset.UtcNow
     };
@@ -891,3 +891,4 @@ public void LogGameEvent(string eventType, object data)
 完成本阶段后，继续：
 
 -> [Phase-3-Project-Structure.md](Phase-3-Project-Structure.md) — Godot 项目结构设计
+

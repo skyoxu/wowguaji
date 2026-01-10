@@ -180,8 +180,8 @@ find_referencing_symbols "GuildService" --relative_path "Scripts/Core/Services/G
 find_referencing_symbols "GuildService/CreateGuild" --relative_path "Scripts/Core/Services/GuildService.cs"
 
 # 返回调用链：
-# - GuildManager.cs:45 → CreateGuild()
-# - GuildTests.cs:12 → CreateGuild()（单元测试）
+# - GuildManager.cs:45 -> CreateGuild()
+# - GuildTests.cs:12 -> CreateGuild()（单元测试）
 ```
 
 **适用时机**：
@@ -451,14 +451,14 @@ rename_symbol "<name_path>" --relative_path "<file_path>" --new_name "<new_name>
 ##### 场景 1：重命名类（自动更新所有引用）
 
 ```bash
-# 重命名 GuildService → GuildManagerService
+# 重命名 GuildService -> GuildManagerService
 rename_symbol "GuildService" \
   --relative_path "Scripts/Core/Services/GuildService.cs" \
   --new_name "GuildManagerService"
 
 # 自动更新：
-# - 文件名：GuildService.cs → GuildManagerService.cs
-# - 所有引用：IGuildService → IGuildManagerService
+# - 文件名：GuildService.cs -> GuildManagerService.cs
+# - 所有引用：IGuildService -> IGuildManagerService
 # - 所有构造函数调用
 # - 所有类型声明
 ```
@@ -471,10 +471,10 @@ rename_symbol "GuildService" \
 ##### 场景 2：重命名方法（保持接口一致性）
 
 ```bash
-# 重命名方法 CreateGuild → CreateNewGuild
+# 重命名方法 CreateGuild -> CreateGuildAsync
 rename_symbol "GuildService/CreateGuild" \
   --relative_path "Scripts/Core/Services/GuildService.cs" \
-  --new_name "CreateNewGuild"
+  --new_name "CreateGuildAsync"
 
 # 自动更新所有调用点
 ```
@@ -791,13 +791,13 @@ replace_content --needle "..." --repl "..." --mode regex --allow_multiple_occurr
 ### 配合 SuperClaude
 
 ```bash
-# SuperClaude analyze 阶段 → 使用 Serena 前置检索
+# SuperClaude analyze 阶段 -> 使用 Serena 前置检索
 /sc:analyze --task 1.1 --focus architecture,security
 # ↓ 内部自动调用 Serena
 # find_symbol "Guild" --substring_matching=true
 # find_symbol "GuildCreated" --include_body=true
 
-# SuperClaude build 阶段 → Serena 自动重构
+# SuperClaude build 阶段 -> Serena 自动重构
 /sc:build --task 1.1 --tdd
 # ↓ TDD 绿灯后可能调用 Serena
 # replace_symbol_body "GuildService/CreateGuild" --body "..."
@@ -806,12 +806,12 @@ replace_content --needle "..." --repl "..." --mode regex --allow_multiple_occurr
 ### 配合 Task Master
 
 ```bash
-# Task Master 识别任务后 → Serena 检索上下文
+# Task Master 识别任务后 -> Serena 检索上下文
 npx task-master next  # 输出：Task 1.1 实现公会创建
 find_symbol "Guild" --substring_matching=true  # 检索现有代码
 write_memory "task-1.1-context" --content "..."  # 保存发现
 
-# 实现完成后 → 更新任务状态
+# 实现完成后 -> 更新任务状态
 npx task-master set-status 1.1 done
 ```
 

@@ -95,10 +95,10 @@ Game.Core.Tests/                # xUnit 测试项目
 ### TDD 工作流
 
 ```
-1. Red   → 在 Game.Core.Tests/ 写失败测试
-2. Green → 在 Game.Core/ 实现最小化代码通过测试
-3. Refactor → 优化设计，保持测试绿色
-4. Integrate → 通过 Adapters/ 层集成到 Godot
+1. Red   -> 在 Game.Core.Tests/ 写失败测试
+2. Green -> 在 Game.Core/ 实现最小化代码通过测试
+3. Refactor -> 优化设计，保持测试绿色
+4. Integrate -> 通过 Adapters/ 层集成到 Godot
 ```
 
 ### 示例测试
@@ -390,8 +390,8 @@ py -3 scripts/python/run_gdunit.py --prewarm --godot-bin "$env:GODOT_BIN" --proj
 
 E2E 测试**仅保留关键路径冒烟**，避免过度投入维护成本：
 
-- 游戏启动 → 主菜单加载 → 退出
-- 主菜单 → 开始游戏 → 第一关加载成功
+- 游戏启动 -> 主菜单加载 -> 退出
+- 主菜单 -> 开始游戏 -> 第一关加载成功
 - 保存/加载游戏存档流程
 
 ### 示例

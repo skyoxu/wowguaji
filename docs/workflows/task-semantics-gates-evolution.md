@@ -185,7 +185,7 @@
 #### 0.1 硬结构先过：任务映射字段一致 + 至少一侧视图存在
 
 - `scripts/python/validate_task_master_triplet.py`
-  - 意义：验证三份任务文件一致性（视图↔master 映射、depends_on、无环），并串联 ADR/CH/Overlay 的全量引用校验（内部调用 `check_tasks_all_refs.py`）。
+  - 意义：验证三份任务文件一致性（视图<->master 映射、depends_on、无环），并串联 ADR/CH/Overlay 的全量引用校验（内部调用 `check_tasks_all_refs.py`）。
   - 建议用法：无参数，直接跑；非 0 退出码视为 fail-fast。
 
 ```powershell
@@ -254,7 +254,7 @@ py -3 scripts/sc/llm_extract_task_obligations.py --task-id 17
 #### 1.3 批量对齐 acceptance（主流程）：让 acceptance 集合与任务描述语义尽量等价
 
 - `scripts/sc/llm_align_acceptance_semantics.py`
-  - 意义：对齐“任务描述 ↔ acceptance 集合”的语义（acceptance-only phase），按需把视图描述与 master 对齐，并把可选提示从 tasks.json 迁出（可选 preflight）。
+  - 意义：对齐“任务描述 <-> acceptance 集合”的语义（acceptance-only phase），按需把视图描述与 master 对齐，并把可选提示从 tasks.json 迁出（可选 preflight）。
   - 输出：`logs/ci/<YYYY-MM-DD>/sc-llm-align-acceptance-semantics/summary.json`。
   - 建议用法：
     - 新任务/未完成任务：优先 `--scope not-done --apply --preflight-migrate-optional-hints`；
@@ -476,7 +476,7 @@ py -3 scripts/python/check_test_naming.py --style legacy
 
 #### A2) `scripts/sc/llm_align_acceptance_semantics.py`
 
-- 意义：批量对齐 acceptance 语义（acceptance-only phase）。目标是让“任务描述 ↔ acceptance 集合”尽量等价。
+- 意义：批量对齐 acceptance 语义（acceptance-only phase）。目标是让“任务描述 <-> acceptance 集合”尽量等价。
 - 输出：`logs/ci/<YYYY-MM-DD>/sc-llm-align-acceptance-semantics/summary.json`（逐任务变更/失败信息）。
 - 场景：新生成三份任务文件后，先把 acceptance 补到不贫血；或对 done 任务做止损式补齐。
 - 关键参数：
@@ -632,7 +632,7 @@ py -3 scripts/python/check_test_naming.py --style legacy
   - 作用：校验 acceptance 条款的 `Refs:`（把自由文本变成可确定性校验）。规则包含：
     - 每条 acceptance 必须包含 `Refs:`；
     - Refs 必须是 repo 相对路径，且只能是允许的测试根目录前缀（`Game.Core.Tests/`、`Tests.Godot/tests/`、`Tests/`）下的 `.cs`/`.gd`；
-    - 文本↔Refs 类型一致性硬规则：
+    - 文本<->Refs 类型一致性硬规则：
       - 文本提到 xUnit ⇒ Refs 至少包含一个 `.cs`；
       - 文本提到 GdUnit4 ⇒ Refs 至少包含一个 `.gd`；
       - 文本提到 Game.Core ⇒ Refs 至少包含一个 `Game.Core.Tests/*.cs`；

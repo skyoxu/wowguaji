@@ -1,6 +1,6 @@
 ---
-Story-ID: PRD-NEWGUILD-VS-0001
-Title: newguild 首个垂直切片 - 公会管理循环
+Story-ID: PRD-WOWGUAJI-VS-0001
+Title: wowguaji 首个垂直切片 - 公会管理循环（示例）
 Status: Active
 ADR-Refs:
   - ADR-0018
@@ -19,22 +19,18 @@ Overlay-Refs:
   - docs/architecture/overlays/PRD-Guild-Manager/08/_index.md
   - docs/architecture/overlays/PRD-Guild-Manager/08/08-Feature-Slice-Guild-Manager.md
   - docs/architecture/overlays/PRD-Guild-Manager/08/ACCEPTANCE_CHECKLIST.md
-Test-Refs:
-  - Game.Core.Tests/Domain/GuildCoreTests.cs
-  - Game.Core.Tests/Domain/GuildMemberTests.cs
-  - Tests.Godot/tests/Scenes/test_guild_main_scene.gd
-  - Tests.Godot/tests/Integration/test_guild_workflow.gd
+Test-Refs: []
 ---
 
-# PRD-NEWGUILD-VS-0001：首个垂直切片 - 公会管理循环
+# PRD-WOWGUAJI-VS-0001：首个垂直切片 - 公会管理循环（示例）
 
 ## 1. 引言与目标（引用 CH01）
 
 ### 1.1 Story ID
-PRD-NEWGUILD-VS-0001
+PRD-WOWGUAJI-VS-0001
 
 ### 1.2 目标
-定义 newguild 首个可玩的垂直切片：基础公会管理循环（创建公会 → 成员管理 → 解散公会），作为后续功能迭代的基线。
+定义 wowguaji 首个可玩的垂直切片：基础公会管理循环（创建公会 -> 成员管理 -> 解散公会），作为后续功能迭代的基线。
 
 ### 1.3 技术栈（引用 ADR-0018）
 - 游戏引擎：Godot 4.5（Forward Plus 渲染器）
@@ -139,7 +135,7 @@ PRD-NEWGUILD-VS-0001
 
 ### 5.2 外部互操作（未来规划）
 如未来需发布 Mod API 或插件系统事件：
-- **迁移目标**：反向 DNS 命名（如 `com.newguild.guild.created`）
+- **迁移目标**：反向 DNS 命名（如 `com.wowguaji.guild.created`）
 - **迁移范围**：仅外部发布事件，内部事件保持简化前缀
 - **文档要求**：在 Overlay/08 中注明迁移计划与适用范围
 
@@ -153,21 +149,12 @@ Base 文档使用 `${DOMAIN_PREFIX}` 占位符：
 ## 6. Test-Refs 协议（验收标准第 3 条）
 
 ### 6.1 xUnit 单元测试（Core）
-- **Game.Core.Tests/Domain/GuildCoreTests.cs**
-  - 覆盖：Guild 实体构造、业务规则、状态变更
-  - 断言：FluentAssertions
-  - Mock：NSubstitute（如需）
-- **Game.Core.Tests/Domain/GuildMemberTests.cs**
-  - 覆盖：GuildMember 实体、角色变更逻辑
-  - 验证：成员加入/离开/角色变更的前置条件与后置状态
+- 规则：新建领域逻辑必须有对应的 xUnit 测试（覆盖核心算法/状态机/DTO 映射）。
+- 约束：Test-Refs 只能指向仓库内真实存在的测试文件路径；不存在的路径不得写入 PRD Front-Matter。
 
 ### 6.2 GdUnit4 场景测试（Scene）
-- **Tests.Godot/tests/Scenes/test_guild_main_scene.gd**
-  - 覆盖：主场景加载、节点可见性、关键 Signals 连通
-  - 验证：场景树结构与 UI 初始化
-- **Tests.Godot/tests/Integration/test_guild_workflow.gd**
-  - 覆盖：完整垂直切片流程（启动 → 进入公会管理界面 → 执行一次最小操作 → 退出）
-  - 验证：Core 与 Godot 适配层集成正常
+- 规则：涉及场景/Signals 的验收必须有 headless 可跑的场景测试（GdUnit4）。
+- 约束：Test-Refs 只能指向仓库内真实存在的测试文件路径；不存在的路径不得写入 PRD Front-Matter。
 
 ### 6.3 Headless Smoke 测试
 - **日志路径**：logs/ci/<date>/smoke/headless.log
@@ -179,7 +166,7 @@ Base 文档使用 `${DOMAIN_PREFIX}` 占位符：
 ## 7. 验收标准
 
 ### 7.1 PRD 完整性
-- [x] 存在一份针对 newguild 的最小 PRD 片段（本文档）
+- [x] 存在一份针对 wowguaji 的最小 PRD 片段（本文档）
 - [x] 显式引用 ADR-0018/0004/0005/0023/0011（见上文各章节）
 - [x] 包含输入/输出/状态/存储与非功能约束
 

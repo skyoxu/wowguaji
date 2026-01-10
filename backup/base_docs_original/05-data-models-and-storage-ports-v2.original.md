@@ -39,7 +39,7 @@ Rel(IPortRepo, RepoSQLite, "impl")
 
 > 目标：以 **端口-适配器（Hexagonal）** 表达 Chapter 05 的**唯一事实源（SSoT）**——数据模型与存储端口。严格 **Base-Clean**：不绑定具体云厂商；默认实现仅有 InMemory 与 SQLite（WAL）。本版本整合物理实现与迁移策略，提供生产级数据库管理能力。
 
-## 🧭 SSoT 边界与溯源（对齐 arc42 §5）
+## [COMPASS] SSoT 边界与溯源（对齐 arc42 §5）
 
 - 本章仅定义 **端口契约** 与 **聚合的持久化结构**；运行时/观测/部署分别在 06/03/07 章。
 - ADR 关联：**ADR-0001/0002/0003/0004/0005/0007**。正文在相应小节内**至少一次**引用 ADR 编号以便追溯。
@@ -402,7 +402,7 @@ export class SqliteBackupManager implements IBackupManager {
       await this.applyRetentionPolicy();
 
       console.log(
-        `✅ 备份创建成功: ${backupPath} (${this.formatBytes(backupSize)}, ${duration}ms, ${(compressionRatio * 100).toFixed(1)}%压缩)`
+        `[OK] 备份创建成功: ${backupPath} (${this.formatBytes(backupSize)}, ${duration}ms, ${(compressionRatio * 100).toFixed(1)}%压缩)`
       );
 
       return {
@@ -414,7 +414,7 @@ export class SqliteBackupManager implements IBackupManager {
         metadata,
       };
     } catch (error) {
-      console.error(`❌ 备份创建失败: ${error}`);
+      console.error(`[X] 备份创建失败: ${error}`);
 
       // 清理失败的备份文件
       try {
@@ -763,10 +763,10 @@ export async function runDatabaseHealthCheck() {
       // 发送健康检查事件到Sentry
     }
 
-    console.log(`✅ ${result.message}`);
+    console.log(`[OK] ${result.message}`);
     return result;
   } catch (error) {
-    console.error('❌ Health check failed:', error);
+    console.error('[X] Health check failed:', error);
     throw error;
   }
 }
@@ -978,7 +978,7 @@ export class SqliteConnectionPool implements IConnectionPool {
           }
 
           console.log(
-            `🔄 检查点完成: ${result.checkpointed}页, 下次间隔${Math.round(checkpointInterval / 1000)}秒`
+            `[SYNC] 检查点完成: ${result.checkpointed}页, 下次间隔${Math.round(checkpointInterval / 1000)}秒`
           );
         } catch (error) {
           console.error('智能检查点执行失败:', error);
@@ -1009,7 +1009,7 @@ export class SqliteConnectionPool implements IConnectionPool {
       // 如果PASSIVE检查点无法完成（busy > 0），尝试更积极的策略
       if (busy > 0 && logPages > 5000) {
         // WAL超过5000页且有busy冲突
-        console.warn(`🔄 PASSIVE检查点冲突(busy: ${busy})，尝试FULL模式`);
+        console.warn(`[SYNC] PASSIVE检查点冲突(busy: ${busy})，尝试FULL模式`);
 
         // 等待一段时间后尝试FULL检查点
         await this.sleep(1000);
@@ -1359,7 +1359,7 @@ export class SqliteInventoryRepo implements IInventoryRepository {
 
 ---
 
-## 4) 可追溯性矩阵（端口 → ADR → 测试）
+## 4) 可追溯性矩阵（端口 -> ADR -> 测试）
 
 核心端口关联：`IRepository<EntityA>` (ADR-0001/ADR-0004, T05-01), `IUnitOfWork` (ADR-0005, T05-04), `IMigration` (ADR-0002/ADR-0005, T05-05), `IHealthCheck` (ADR-0003/ADR-0005, T05-06), `IConnectionPool` (ADR-0002, T05-08)
 

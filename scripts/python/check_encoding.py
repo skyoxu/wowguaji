@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """
 Check text files for UTF-8 decode errors and common mojibake/garbled patterns.
 
@@ -95,7 +95,7 @@ EXCLUDE_SUBSTRINGS = [
 MOJIBAKE_REGEXES = [
     ("FFFD_REPLACEMENT", re.compile("\uFFFD")),
     ("CJK_MOJIBAKE", re.compile(r"[闁閻鐟鍗鈧缂濞閸鎮绱锛绗閿鍊鎯缁婵锟斤拷]")),
-    ("CP1252_PUNCT", re.compile(r"(?:â€™|â€œ|â€�|â€”|â€˜|â€¢|â€¦|â„¢)")),
+    ("CP1252_PUNCT", re.compile("(?:\u00e2\u20ac\u2122|\u00e2\u20ac\u0153|\u00e2\u20ac\ufffd|\u00e2\u20ac\u201d|\u00e2\u20ac\u02dc|\u00e2\u20ac\u00a2|\u00e2\u20ac\u00a6|\u00e2\u201e\u00a2)")),
     ("BOM_AS_TEXT", re.compile(r"ï»¿")),
 ]
 

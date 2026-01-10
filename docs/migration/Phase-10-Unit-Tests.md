@@ -1,4 +1,4 @@
-# Phase 10: Jest → xUnit 单元测试迁移
+﻿# Phase 10: Jest -> xUnit 单元测试迁移
 
 > 状态: 设计阶段
 > 预估工时: 8-12 天
@@ -9,13 +9,13 @@
 
 ## 目标
 
-将 LegacyProject 的 Jest + TypeScript 单元测试迁移到 godotgame 的 xUnit + C# 单元测试，建立类型安全的测试套件与 AI-first 覆盖率门禁。
+将 LegacyProject 的 Jest + TypeScript 单元测试迁移到 wowguaji 的 xUnit + C# 单元测试，建立类型安全的测试套件与 AI-first 覆盖率门禁。
 
 ---
 
 ## 技术栈对比
 
-| 功能 | LegacyProject (Node.js) | godotgame (.NET 8) |
+| 功能 | LegacyProject (Node.js) | wowguaji (.NET 8) |
 |-----|-------------------|-------------------|
 | 测试框架 | Jest 29 | xUnit 2.x |
 | 断言库 | Jest expect() | FluentAssertions |
@@ -136,7 +136,7 @@ describe('Player', () => {
 
 ## xUnit 测试结构
 
-### 等价 xUnit 测试 (godotgame)
+### 等价 xUnit 测试 (wowguaji)
 
 ```csharp
 // Game.Core.Tests/Domain/Entities/PlayerTests.cs
@@ -300,7 +300,7 @@ public class PlayerTests : IDisposable
 
 ## 核心迁移模式
 
-### 1. describe/it → [Fact]/[Theory]
+### 1. describe/it -> [Fact]/[Theory]
 
 **Jest (嵌套结构)**:
 
@@ -346,9 +346,9 @@ public class PlayerTests
 
 ---
 
-### 2. expect() → FluentAssertions
+### 2. expect() -> FluentAssertions
 
-**Jest 断言 → FluentAssertions 映射表**:
+**Jest 断言 -> FluentAssertions 映射表**:
 
 | Jest | FluentAssertions | 说明 |
 |------|-----------------|------|
@@ -385,7 +385,7 @@ act.Should().Throw<ArgumentException>()
 
 ---
 
-### 3. beforeEach/afterEach → Constructor/IDisposable
+### 3. beforeEach/afterEach -> Constructor/IDisposable
 
 **Jest 生命周期**:
 
@@ -477,7 +477,7 @@ public class UserRepositoryTests : IClassFixture<DatabaseFixture>
 
 ---
 
-### 4. test.each() → [Theory] + [InlineData]
+### 4. test.each() -> [Theory] + [InlineData]
 
 **Jest 参数化测试**:
 
@@ -552,7 +552,7 @@ public class PlayerTests
 
 ---
 
-### 5. jest.mock → Moq / NSubstitute / Fakes
+### 5. jest.mock -> Moq / NSubstitute / Fakes
 
 **Jest Mock**:
 
@@ -1534,7 +1534,7 @@ jobs:
         with:
           files: ./TestResults/**/coverage.cobertura.xml
           flags: unittests
-          name: codecov-godotgame
+          name: codecov-wowguaji
 ```
 
 ---
@@ -1560,3 +1560,4 @@ jobs:
 完成本阶段后，继续：
 
 [参考] [Phase-11-Scene-Integration-Tests-REVISED.md](Phase-11-Scene-Integration-Tests-REVISED.md) — 场景测试设计（GdUnit4）
+

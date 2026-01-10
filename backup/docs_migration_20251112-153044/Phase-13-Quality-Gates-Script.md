@@ -1167,7 +1167,7 @@ Branch protection rule checks:
 
 瀹屾垚 Phase 13 鍚庯紝鍚庣画宸ヤ綔搴忓垪锛?
 
-- **Phase 14**锛欸odot 瀹夊叏鍩虹嚎涓庡璁★紙Security.cs 瀹屾暣瀹炵幇銆丣SONL 鏃ュ織锛?
+- **Phase 14**锛欸odot 瀹夊叏鍩虹嚎涓庡璁*紙Security.cs 瀹屾暣瀹炵幇銆丣SONL 鏃ュ織锛?
 - **Phase 15**锛氭€ц兘棰勭畻涓庨棬绂侊紙PerformanceTracker 鍩哄噯銆佽嚜鍔ㄥ洖褰掓娴嬶級
 - **Phase 16**锛氬彲瑙傛祴鎬т笌 Sentry 闆嗘垚锛圧elease Health 闂ㄧ锛?
 - **Phase 17-22**锛氭瀯寤恒€佸彂甯冦€佸洖婊氥€佸姛鑳介獙鏀躲€佹€ц兘浼樺寲銆佹枃妗ｆ洿鏂?
@@ -1213,6 +1213,6 @@ py -3 scripts/python/quality_gates.py   --log-dir logs/ci/2025-11-07   --coverag
 ## GitHub Actions（Windows） / CI Template
 
 - 工作流：`.github/workflows/windows-quality-gate.yml`（手动触发 `workflow_dispatch`）
-- 步骤：Checkout → Setup .NET → 下载 Godot .NET（mono）→ 运行 `scripts/ci/quality_gate.ps1`
+- 步骤：Checkout -> Setup .NET -> 下载 Godot .NET（mono）-> 运行 `scripts/ci/quality_gate.ps1`
 - 默认不包含导出（Export Templates 需在编辑器安装）；如需导出与 EXE 冒烟，可在本地或自建 Runner 上开启 `-WithExport`。
 

@@ -1,4 +1,4 @@
-# Phase 1-12 代码示例完整性与可运行性验证报告
+﻿# Phase 1-12 代码示例完整性与可运行性验证报告
 
 > 报告时间: 2025-11-07  
 > 报告范围: Phase 1 (环境准备) ~ Phase 12 (Headless 冒烟测试)  
@@ -161,7 +161,7 @@ if (!(Test-Path "addons/gut/plugin.cfg")) {
 
 ```ini
 [application]
-config/name="godotgame"
+config/name="wowguaji"
 run/main_scene="res://src/scenes/MainScene.tscn"
 config/icon="res://assets/icon.svg"
 
@@ -1069,3 +1069,4 @@ public void Create_Should_Handle_Invalid_Input(string input)
 ---
 
 _报告生成工具: Claude Code | 版本: 1.0 | 最后更新: 2025-11-07_
+

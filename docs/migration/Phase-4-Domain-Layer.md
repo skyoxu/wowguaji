@@ -1,4 +1,4 @@
-# Phase 4: 纯 C# 领域层迁移
+﻿# Phase 4: 纯 C# 领域层迁移
 
 > 状态: 实施阶段
 > 预估工时: 10-15 天
@@ -43,7 +43,7 @@ Priority 3 (复杂状态机)
 
 ---
 
-## TypeScript → C# 映射规则
+## TypeScript -> C# 映射规则
 
 ### 基础类型映射
 
@@ -91,7 +91,7 @@ export class Player {
 }
 ```
 
-**C# (godotgame)**:
+**C# (wowguaji)**:
 
 ```csharp
 // Game.Core/Domain/ValueObjects/Position.cs
@@ -720,3 +720,4 @@ if __name__ == '__main__':
 完成本阶段后，继续：
 
 -> [Phase-5-Adapter-Layer.md](Phase-5-Adapter-Layer.md) — Godot 适配层设计
+

@@ -1,8 +1,8 @@
-# Godot 4.5 + C# 技术栈迁移计划索引
+﻿# Godot 4.5 + C# 技术栈迁移计划索引
 
 
 
-> 项目: LegacyProject → godotgame
+> 项目: LegacyProject -> wowguaji
 
 > 迁移类型: 完整技术栈替换（运行时 + UI + 渲染 + 测试）
 
@@ -24,7 +24,7 @@
 
 
 
-| 层次 | 原技术栈 (LegacyProject) | 新技术栈 (godotgame) | 迁移复杂度 |
+| 层次 | 原技术栈 (LegacyProject) | 新技术栈 (wowguaji) | 迁移复杂度 |
 
 |------|-------------------|-------------------|----------|
 
@@ -68,25 +68,25 @@
 
 **[高风险] 需要完全重写**
 
-- LegacyDesktopShell 安全基线 → Godot 安全基线（外链/网络/文件系统白名单）
+- LegacyDesktopShell 安全基线 -> Godot 安全基线（外链/网络/文件系统白名单）
 
-- LegacyUIFramework 组件 → Godot Control 节点（UI 架构完全不同）
+- LegacyUIFramework 组件 -> Godot Control 节点（UI 架构完全不同）
 
-- LegacyE2ERunner E2E → Godot Headless 测试（测试框架完全替换）
+- LegacyE2ERunner E2E -> Godot Headless 测试（测试框架完全替换）
 
-- CloudEvents 契约 → Godot Signals 契约（事件系统重设计）
+- CloudEvents 契约 -> Godot Signals 契约（事件系统重设计）
 
 
 
 **[中风险] 需要适配改造**
 
-- TypeScript 业务逻辑 → C# 领域层（可部分机翻 + 人工校验）
+- TypeScript 业务逻辑 -> C# 领域层（可部分机翻 + 人工校验）
 
-- LegacyUnitTestRunner 单元测试 → xUnit 单元测试（测试框架迁移）
+- LegacyUnitTestRunner 单元测试 -> xUnit 单元测试（测试框架迁移）
 
-- LegacyBuildTool 构建流程 → Godot Export 流程（构建工具替换）
+- LegacyBuildTool 构建流程 -> Godot Export 流程（构建工具替换）
 
-- Sentry 集成 → Sentry Godot SDK（观测性迁移）
+- Sentry 集成 -> Sentry Godot SDK（观测性迁移）
 
 
 
@@ -132,11 +132,11 @@
 
 ### 第三阶段：UI 与场景迁移
 
-- [Phase-7-UI-Migration.md](Phase-7-UI-Migration.md) — LegacyUIFramework → Godot Control 迁移
+- [Phase-7-UI-Migration.md](Phase-7-UI-Migration.md) — LegacyUIFramework -> Godot Control 迁移
 
 - [Phase-8-Scene-Design.md](Phase-8-Scene-Design.md) — 场景树与节点设计
 
-- [Phase-9-Signal-System.md](Phase-9-Signal-System.md) — CloudEvents → Signals 迁移
+- [Phase-9-Signal-System.md](Phase-9-Signal-System.md) — CloudEvents -> Signals 迁移
 
 
 
@@ -220,7 +220,7 @@
 
 2. **Base/Overlay 分离**：Base 文档保持清洁（无 PRD 痕迹）
 
-3. **反向链接验证**：Task ↔ ADR/CH 校验必须通过
+3. **反向链接验证**：Task <-> ADR/CH 校验必须通过
 
 4. **质量门禁不降级**：覆盖率/重复率/复杂度阈值保持或提高
 
@@ -230,7 +230,7 @@
 
 1. **分层隔离**：Game.Core（纯 C#）与 Godot 依赖完全分离
 
-2. **红绿灯循环**：先写 xUnit 测试（红）→ 实现（绿）→ 重构
+2. **红绿灯循环**：先写 xUnit 测试（红）-> 实现（绿）-> 重构
 
 3. **接口注入**：所有 Godot API 通过接口（ITime/IInput/IResourceLoader）隔离
 
@@ -246,7 +246,7 @@
 
 3. **先冒烟后全量**：E2E 只先做启动/退出/关键信号冒烟测试
 
-4. **分支并行**：保留 LegacyProject 主分支，godotgame 在独立分支开发
+4. **分支并行**：保留 LegacyProject 主分支，wowguaji 在独立分支开发
 
 
 
@@ -292,15 +292,15 @@
 
 ### 待确认决策
 
-⏳ E2E 框架：GdUnit4 headless vs 自建 TestRunner？
+[PENDING] E2E 框架：GdUnit4 headless vs 自建 TestRunner？
 
-⏳ 静态分析：SonarQube Community vs Cloud？
+[PENDING] 静态分析：SonarQube Community vs Cloud？
 
-⏳ 性能分析：Godot Profiler vs 自建计时统计？
+[PENDING] 性能分析：Godot Profiler vs 自建计时统计？
 
-⏳ 资源管理：StreamTexture vs 预加载池策略？
+[PENDING] 资源管理：StreamTexture vs 预加载池策略？
 
-⏳ 多线程：WorkerThreadPool（推荐）vs Thread（手动管理）？
+[PENDING] 多线程：WorkerThreadPool（推荐）vs Thread（手动管理）？
 
 
 
@@ -350,7 +350,7 @@
 
 ## 后续步骤
 
-- 将 Taskmaster 任务链校验与 C# 契约校验纳入 Phase-13 门禁（guard_ci.py → quality_gates.py），报告统一落盘 logs/ci/YYYY-MM-DD/（如 taskmaster-report.json、contracts-report.json）；
+- 将 Taskmaster 任务链校验与 C# 契约校验纳入 Phase-13 门禁（guard_ci.py -> quality_gates.py），报告统一落盘 logs/ci/YYYY-MM-DD/（如 taskmaster-report.json、contracts-report.json）；
 
 - 将 GdUnit4 场景测试报告（gdunit4-report.xml/json）与性能报告（perf.json）一并作为可选输入传入聚合脚本；
 
@@ -415,4 +415,5 @@
 
 
 > **重要提示**：本迁移计划假定你已熟悉 Godot 4.5 基础操作与 C# 开发。如需入门培训，建议先完成官方教程后再启动迁移。
+
 

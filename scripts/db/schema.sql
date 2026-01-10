@@ -1,4 +1,4 @@
--- Base schema migrated from vitegame (adapted)
+-- Base schema adapted from legacy template
 
 PRAGMA foreign_keys = ON;
 PRAGMA journal_mode = WAL;
@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS schema_version (
     description TEXT
 );
 
--- Extensions in godotgame
+-- Extensions in wowguaji
 CREATE TABLE IF NOT EXISTS achievements (
     id TEXT PRIMARY KEY,
     user_id TEXT NOT NULL,

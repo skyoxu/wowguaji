@@ -1,6 +1,6 @@
 # Phase 8 纵向切片模板（Godot+C# + tasks.json）
 
-> 目的：为 BMAD / task-master-ai / SuperClaude 提供一条标准的 Godot 纵向切片 Story 模板，示范如何从 PRD → ADR/Phase → tasks.json → 代码/测试，贯穿 Core/Adapters/Scenes/Tests 四层。
+> 目的：为 BMAD / task-master-ai / SuperClaude 提供一条标准的 Godot 纵向切片 Story 模板，示范如何从 PRD -> ADR/Phase -> tasks.json -> 代码/测试，贯穿 Core/Adapters/Scenes/Tests 四层。
 
 本文件不实现真实功能代码，仅定义“切片形状”和任务结构，供 AI 工具生成/校验使用。
 
@@ -22,7 +22,7 @@
   - CH05/CH06（数据模型与运行时视图）
   - Phase-8-Scene-Design（Main 场景布局与 Screen/HUD/Overlays）
 
-该 Story 只是“形状示例”，真实项目可替换为任何领域切片，但建议保持同样的 Core→Adapter→Scene→Test 分解模式。
+该 Story 只是“形状示例”，真实项目可替换为任何领域切片，但建议保持同样的 Core->Adapter->Scene->Test 分解模式。
 
 ---
 
@@ -109,7 +109,7 @@
 
 2. 为每个层次生成对应任务，并按本文件示例附带：
    - `layer` / `adr_refs` / `chapter_refs` / `overlay_refs`；
-   - `depends_on` 关系，用于在执行任务时按“Core → Adapter → Scene → Tests”的顺序推进。
+   - `depends_on` 关系，用于在执行任务时按“Core -> Adapter -> Scene -> Tests”的顺序推进。
 
 3. 将生成的 `tasks.json` 放到仓库约定位置（例如 `docs/tasks/tasks.json`），供 SuperClaude/Claude Code 和 Codex CLI 按顺序执行。
 

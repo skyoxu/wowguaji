@@ -67,9 +67,9 @@ sequenceDiagram
   - 通过 Godot Signals 与 C# 事件桥接，统一发布 `${DOMAIN_PREFIX}.*` 事件；
   - 在 headless + GdUnit4 环境下，事件由测试用例直接订阅与断言，不依赖真实输入。
 - 错误路径：
-  - 领域层异常 → 在适配层捕获并记录（日志 + 可选事件）；
-  - DB 失败（路径非法 / 打开失败 / 执行失败）→ 通过 SqliteDataStore.LastError 与审计日志体现；
-  - UI 层异常（SettingsPanel 加载失败等）→ 在 GdUnit4 用例中通过白盒兜底（直接调用 ShowPanel/ClosePanel）确保可测性。
+  - 领域层异常 -> 在适配层捕获并记录（日志 + 可选事件）；
+  - DB 失败（路径非法 / 打开失败 / 执行失败）-> 通过 SqliteDataStore.LastError 与审计日志体现；
+  - UI 层异常（SettingsPanel 加载失败等）-> 在 GdUnit4 用例中通过白盒兜底（直接调用 ShowPanel/ClosePanel）确保可测性。
 
 ```mermaid
 C4Dynamic
@@ -90,11 +90,11 @@ C4Dynamic
 > SaveGame/Inventory 的状态机在 Game.Core 中实现；本章只描述运行时骨架。
 
 - SaveGame：
-  - 状态：未保存 → 已保存 → 载入中 → 已载入；
+  - 状态：未保存 -> 已保存 -> 载入中 -> 已载入；
   - 事件：`save.requested` / `save.completed` / `load.requested` / `load.completed` / `load.failed`；
   - DB 层通过事务保证“要么全部写入，要么全部回滚”。
 - Inventory：
-  - 状态：空 → 部分物品 → 替换中 → 稳定；
+  - 状态：空 -> 部分物品 -> 替换中 -> 稳定；
   - `ReplaceAllAsync` 使用事务，出现错误时回滚，不破坏已有库存。
 
 跨重启流程：
@@ -125,17 +125,17 @@ sequenceDiagram
 - 初次运行：
   - SettingsPanel.Load：先尝试 `ConfigFile.Load(user://settings.cfg)`；
   - 若不存在，则调用迁移逻辑尝试从 DB `settings` 表读取一次并写入 ConfigFile；
-  - UI 控件值（音量、画质、语言）从 ConfigFile 恢复并立即应用（音量 → AudioServer，语言 → TranslationServer）。
+  - UI 控件值（音量、画质、语言）从 ConfigFile 恢复并立即应用（音量 -> AudioServer，语言 -> TranslationServer）。
 - 运行中变更：
-  - 滑动音量条 → 直接调用 `ApplyVolume()`；
-  - 切换语言 → 调用 `TranslationServer.SetLocale(lang)` 并保存到 ConfigFile；
+  - 滑动音量条 -> 直接调用 `ApplyVolume()`；
+  - 切换语言 -> 调用 `TranslationServer.SetLocale(lang)` 并保存到 ConfigFile；
   - 保存按钮：持久化当前设置到 ConfigFile，并再次应用以确保一致性。
 
 相关 GdUnit4 用例：
 
 - `Tests.Godot/tests/UI/test_settings_panel_logic.gd`
 - `Tests.Godot/tests/UI/test_settings_locale_persist.gd`
-- Integration 场景用例覆盖 Main → SettingsPanel 的事件流。
+- Integration 场景用例覆盖 Main -> SettingsPanel 的事件流。
 
 ---
 

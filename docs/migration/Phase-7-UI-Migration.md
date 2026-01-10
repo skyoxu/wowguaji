@@ -1,4 +1,4 @@
-# Phase 7: LegacyUIFramework → Godot Control UI 迁移
+﻿# Phase 7: LegacyUIFramework -> Godot Control UI 迁移
 
 > 状态: 设计阶段
 > 预估工时: 15-20 天
@@ -9,13 +9,13 @@
 
 ## 目标
 
-将 LegacyProject 的 LegacyUIFramework 19 + Tailwind CSS UI 迁移到 godotgame 的 Godot Control 节点系统，保持功能等价性与可测试性。
+将 LegacyProject 的 LegacyUIFramework 19 + Tailwind CSS UI 迁移到 wowguaji 的 Godot Control 节点系统，保持功能等价性与可测试性。
 
 ---
 
 ## 技术栈对比
 
-| 层次 | LegacyProject (Web) | godotgame (Godot) |
+| 层次 | LegacyProject (Web) | wowguaji (Godot) |
 |-----|---------------|------------------|
 | UI框架 | LegacyUIFramework 19 (JSX) | Godot Control 节点 (.tscn) |
 | 布局系统 | Flexbox / CSS Grid | Container 节点 (VBoxContainer, HBoxContainer, GridContainer) |
@@ -27,7 +27,7 @@
 
 ---
 
-## LegacyUIFramework 组件 → Godot Control 映射
+## LegacyUIFramework 组件 -> Godot Control 映射
 
 ### 基础组件映射表
 
@@ -59,7 +59,7 @@
 
 ## 1. 基础组件迁移示例
 
-### LegacyUIFramework Button → Godot Button
+### LegacyUIFramework Button -> Godot Button
 
 **LegacyUIFramework (LegacyProject)**:
 
@@ -102,7 +102,7 @@ export function PrimaryButton({
 }
 ```
 
-**Godot (godotgame)**:
+**Godot (wowguaji)**:
 
 **场景文件** (`Game.Godot/Scenes/UI/PrimaryButton.tscn`):
 
@@ -211,7 +211,7 @@ public partial class PrimaryButton : Button
 }
 ```
 
-### LegacyUIFramework Form Input → Godot LineEdit
+### LegacyUIFramework Form Input -> Godot LineEdit
 
 **LegacyUIFramework (LegacyProject)**:
 
@@ -253,7 +253,7 @@ export function TextInput({ label, error, ...props }: TextInputProps) {
 }
 ```
 
-**Godot (godotgame)**:
+**Godot (wowguaji)**:
 
 **场景文件** (`Game.Godot/Scenes/UI/TextInput.tscn`):
 
@@ -446,7 +446,7 @@ public partial class TextInput : VBoxContainer
 
 ## 2. 布局系统迁移
 
-### Flexbox → VBoxContainer/HBoxContainer
+### Flexbox -> VBoxContainer/HBoxContainer
 
 **LegacyUIFramework Flexbox (LegacyProject)**:
 
@@ -480,7 +480,7 @@ export function UserCard({ username, level, avatar }: UserCardProps) {
 }
 ```
 
-**Godot Container (godotgame)**:
+**Godot Container (wowguaji)**:
 
 **场景文件** (`Game.Godot/Scenes/UI/UserCard.tscn`):
 
@@ -638,7 +638,7 @@ export function HealthBar({ maxHealth = 100 }: { maxHealth?: number }) {
 }
 ```
 
-**Godot Properties (godotgame)**:
+**Godot Properties (wowguaji)**:
 
 **场景文件** (`Game.Godot/Scenes/UI/HealthBar.tscn`):
 
@@ -950,7 +950,7 @@ public partial class ResponsivePanel : Panel
 
 ## 6. 表单处理与验证
 
-### LegacyUIFramework Form → Godot Form Container
+### LegacyUIFramework Form -> Godot Form Container
 
 **LegacyUIFramework Form (LegacyProject)**:
 
@@ -1012,7 +1012,7 @@ export function LoginForm() {
 }
 ```
 
-**Godot Form (godotgame)**:
+**Godot Form (wowguaji)**:
 
 **场景文件** (`Game.Godot/Scenes/UI/LoginForm.tscn`):
 
@@ -1132,7 +1132,7 @@ public partial class LoginForm : VBoxContainer
 
 ## 7. 列表与可滚动内容
 
-### LegacyUIFramework List → Godot ScrollContainer + VBoxContainer
+### LegacyUIFramework List -> Godot ScrollContainer + VBoxContainer
 
 **LegacyUIFramework List (LegacyProject)**:
 
@@ -1164,7 +1164,7 @@ export function UserList({ users }: { users: User[] }) {
 }
 ```
 
-**Godot List (godotgame)**:
+**Godot List (wowguaji)**:
 
 **场景文件** (`Game.Godot/Scenes/UI/UserList.tscn`):
 
@@ -1522,7 +1522,7 @@ jobs:
 ## 事件与信号 / Events & Signals
 
 - 统一通过 `/root/EventBus` 发出领域事件：`bus.PublishSimple(type, source, data_json)`
-- UI → 域：控件信号在脚本中转换为领域指令/事件；域 → UI：订阅事件总线刷新视图
+- UI -> 域：控件信号在脚本中转换为领域指令/事件；域 -> UI：订阅事件总线刷新视图
 
 
 ## 新增 UI 场景 / New Scenes (Windows-only)
@@ -1566,7 +1566,7 @@ jobs:
 
 ## UI 缩放与窗口 / UI Scaling & Window
 
-- 默认窗口大小：1280x720，`project.godot` → `[display]` → `window/size/viewport_width|height`。
+- 默认窗口大小：1280x720，`project.godot` -> `[display]` -> `window/size/viewport_width|height`。
 - Stretch：`window/stretch/mode="viewport"`，`window/stretch/aspect="keep"`（适合 UI 场景，保持比例）。
 - 若需 DPI 缩放或动态缩放，可在根节点按需调整 `content_scale_factor`。
 
@@ -1598,7 +1598,7 @@ jobs:
   - 示例/演示：`Game.Godot/Examples/**`（默认不加载）
 - 命名：`<Role>_<Area>_<Action>`，例如：`Btn_Menu_Start`，`Lbl_HUD_Score`
 
-## Main → Screen 跳转示例 / Navigation
+## Main -> Screen 跳转示例 / Navigation
 
 ```csharp
 // 在 Main.gd/C# 中加载并切换 Screen
@@ -1633,5 +1633,6 @@ GetTree().CurrentScene = screen;
 
 - `Game.Godot/Examples/Screens/DemoScreen.tscn`：演示 Modal/Toast 用法。
 - 使用方式：在编辑器直接打开该场景，或在你的 Screen 中实例化并调用相应方法。
+
 
 

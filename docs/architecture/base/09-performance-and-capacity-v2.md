@@ -15,7 +15,7 @@ placeholders: Unknown Product, ${DOMAIN_PREFIX}
 - 场景切换/资源加载：以 P95 作为主要回归监测指标（扩展门禁属于增强项）。
 - 内存：稳态与泄漏以软约束为主，优先产出可回溯工件。
 
-## 2) 采样与工件（运行时 → CI）
+## 2) 采样与工件（运行时 -> CI）
 
 - 运行时采样器（Autoload）：`Game.Godot/Scripts/Perf/PerformanceTracker.cs`
   - 周期性输出控制台标记：`[PERF] frames=... p50_ms=... p95_ms=... p99_ms=...`

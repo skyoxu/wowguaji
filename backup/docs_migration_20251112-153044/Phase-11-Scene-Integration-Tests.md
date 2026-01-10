@@ -735,7 +735,7 @@ using System.Threading.Tasks;
 
 /// <summary>
 /// 完整游戏流程集成测试
-/// 从主菜单 → 游戏开始 → 击杀敌人 → 游戏结束
+/// 从主菜单 -> 游戏开始 -> 击杀敌人 -> 游戏结束
 /// </summary>
 [TestClass]
 public partial class FullGameFlowTest : GdUnitTestBase

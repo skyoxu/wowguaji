@@ -1,4 +1,4 @@
-# Phase 15: 性能预算与门禁体系
+﻿# Phase 15: 性能预算与门禁体系
 
 > **核心目标**：建立量化性能预算体系，实现自动化性能门禁检查，防止回归，持续优化。
 > **工作量**：5-6 人天
@@ -16,7 +16,7 @@
 - **LegacyE2ERunner E2E**：性能数据基于浏览器事件，准确性有限
 - **缺乏基准**：无历史对标，难以判断性能劣化
 
-### 新版（godotgame）性能机遇与挑战
+### 新版（wowguaji）性能机遇与挑战
 **机遇**：
 - Godot Engine 内置 Profiler，帧时间精确到微秒
 - Headless 模式下无 GUI 开销，性能数据更真实
@@ -61,7 +61,7 @@
 
 ### 2.2 Godot+C# 变体（当前模板实现）
 
-> 本节描述的是 **当前 godotgame 模板已经落地的性能采集与门禁实现**。上面的 KPI 与后文 Game.Core/PerformanceTracker 蓝图视为长期目标，尚未全部在本仓库中实现，对应增强统一收敛到 Phase-15 Backlog。
+> 本节描述的是 **当前 wowguaji 模板已经落地的性能采集与门禁实现**。上面的 KPI 与后文 Game.Core/PerformanceTracker 蓝图视为长期目标，尚未全部在本仓库中实现，对应增强统一收敛到 Phase-15 Backlog。
 
 - Autoload 性能采集器：
   - `PerformanceTracker="res://Game.Godot/Scripts/Perf/PerformanceTracker.cs"` 已在 `project.godot` 配置为 Autoload；
@@ -92,7 +92,7 @@
 ```
 ┌──────────────────────────────────────────────────────┐
 │         Godot Headless Runner (TestRunner.cs)        │
-│  - 启动计时：_enter_tree → _ready                    │
+│  - 启动计时：_enter_tree -> _ready                    │
 │  - 场景采集：主循环帧时间 (_process/_physics_process)│
 │  - 内存监控：OS.get_static_memory_usage() 采样       │
 │  - GC 跟踪：GC pause hooks（if available）          │
@@ -135,7 +135,7 @@
 ### 3.2 目录结构
 
 ```
-godotgame/
+wowguaji/
 ├── src/
 │   ├── Game.Core/
 │   │   └── Performance/
@@ -762,9 +762,9 @@ jobs:
 
 | 阶段 | 关联 | 说明 |
 |-----|-----|------|
-| Phase 13（质量门禁） | ↔ 集成 | 性能门禁集成到 guard:ci 入口 |
+| Phase 13（质量门禁） | <-> 集成 | 性能门禁集成到 guard:ci 入口 |
 | Phase 14（安全基线） | ← 依赖 | 安全审计 JSONL 性能开销需检查 |
-| Phase 16（可观测性） | → 启用 | Sentry Release Health 依赖性能数据 |
+| Phase 16（可观测性） | -> 启用 | Sentry Release Health 依赖性能数据 |
 | Phase 21（性能优化） | ← 基础 | 本阶段建立的基准支撑优化验证 |
 
 ---
@@ -840,7 +840,7 @@ jobs:
 
 ## 附录 A：性能指标对标表
 
-| 指标 | LegacyProject（LegacyDesktopShell） | godotgame（Godot） | 对标情况 |
+| 指标 | LegacyProject（LegacyDesktopShell） | wowguaji（Godot） | 对标情况 |
 |-----|-------------------|------------------|---------|
 | 启动时间 | ~2.5-3.0s | ≤3.0s | [OK] 持平 |
 | 菜单 FPS | 60fps (16.67ms) | ≤14ms P95 | [OK] 改进 |
@@ -929,3 +929,4 @@ PerformanceTracker.EndMeasure("database_init");
 - 对于不满足阈值的指标给出门禁失败与“建议优化点”提示，便于快速回归定位。
 
 > 提示：quality_gates.py 支持 `--perf-report` 作为可选输入参与门禁聚合。
+

@@ -1,10 +1,10 @@
-# Phase 6 Quickstart — Windows-only DB Setup
+﻿# Phase 6 Quickstart — Windows-only DB Setup
 
 ## 目标 / Goal
 - 在 Windows 环境为 Godot + C# 项目就绪 SQLite 存储，配合 Phase 6 数据层迁移方案。
 
 ## 步骤 / Steps
-- 安装 godot-sqlite 插件：将官方插件放入 `addons/godot-sqlite/`，在 Godot Editor → Project → Plugins 启用。
+- 安装 godot-sqlite 插件：将官方插件放入 `addons/godot-sqlite/`，在 Godot Editor -> Project -> Plugins 启用。
 - 推荐的数据库路径：`user://data/game.db`（首次运行不存在则创建并执行 schema）。
 - 初始化 Schema：使用 `scripts/db/schema.sql` 作为建表脚本（包含 `users/saves/statistics/schema_version/achievements/settings`）。
 - 性能/安全建议：`PRAGMA foreign_keys=ON; PRAGMA journal_mode=WAL; PRAGMA synchronous=NORMAL`。
@@ -15,7 +15,7 @@
 - Autoload：不强制；建议由场景入口或服务定位器按需创建并保持存活。
 
 ## 注意 / Notes
-- 本方案为 Windows-only；保持与 Editor 的 .NET 版本一致（例如 `GodotGame.csproj` 目标 SDK 与 Godot 4.5 .NET 对齐）。
+- 本方案为 Windows-only；保持与 Editor 的 .NET 版本一致（例如 `wowguaji.csproj` 目标 SDK 与 Godot 4.5 .NET 对齐）。
 - 若未安装插件，适配器会抛出 `NotSupportedException`，属于预期的占位保护。
 
 ## 导出注意事项 / Export Notes
@@ -35,4 +35,5 @@
 - 环境变量 `GODOT_DB_BACKEND` 可覆盖后端选择：`plugin`（仅插件）/ `managed`（仅托管）/ 未设置（插件优先）。
 - 仅插件模式：若未安装 `addons/godot-sqlite`，将抛出错误（便于在 CI 中强制校验）。
 - 默认（推荐）：插件优先，未安装插件时自动回退到 Microsoft.Data.Sqlite。
+
 
