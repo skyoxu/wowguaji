@@ -1,22 +1,25 @@
 {
   "models": {
     "main": {
-      "provider": "anthropic",
-      "modelId": "claude-sonnet-4-5",
+      "provider": "openai-compatible",
+      "modelId": "deepseek-chat",
       "maxTokens": 64000,
-      "temperature": 0.2
+      "temperature": 0.2,
+      "baseURL": "https://api.deepseek.com/v1"
     },
     "research": {
-      "provider": "anthropic",
-      "modelId": "claude-sonnet-4-5",
+      "provider": "openai-compatible",
+      "modelId": "deepseek-chat",
       "maxTokens": 64000,
-      "temperature": 0.2
+      "temperature": 0.2,
+      "baseURL": "https://api.deepseek.com/v1"
     },
     "fallback": {
-      "provider": "anthropic",
-      "modelId": "claude-sonnet-4-5",
+      "provider": "openai-compatible",
+      "modelId": "deepseek-chat",
       "maxTokens": 64000,
-      "temperature": 0.2
+      "temperature": 0.2,
+      "baseURL": "https://api.deepseek.com/v1"
     }
   },
   "global": {
