@@ -1,0 +1,454 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "title": "Define core contracts (IDs, DTOs, domain events)",
+      "description": "Create the SSoT C# contracts for the T2 loop: IDs, DTOs, and domain event types (CloudEvents-style constants) for gathering/crafting/combat/map/offline/DLC.",
+      "details": "Add/extend files under `Game.Core/Contracts/**` (no Godot dependencies). Include event type constants following `${DOMAIN_PREFIX}.<entity>.<action>` and stable ID types/aliases for ItemId, SkillId, NodeId, RecipeId, EnemyId, RegionId, QuestId, AchievementId, DlcId. Reference ADR-0004 (event bus and contracts).",
+      "testStrategy": "Add xUnit contract tests validating event type strings and DTO defaults/serialization-ready shapes.",
+      "priority": "high",
+      "dependencies": [],
+      "status": "pending"
+    },
+    {
+      "id": 2,
+      "title": "Define Core ports (time, RNG, datastore, event bus, content)",
+      "description": "Introduce Core interfaces for deterministic logic and adapter isolation.",
+      "details": "Add `Game.Core/Ports/**` interfaces: `IClock`, `IRng`, `IDataStore`, `IEventBus`, `IContentProvider`, and any small helper abstractions needed to keep `Game.Core` engine-free. Reference ADR-0007 (ports/adapters).",
+      "testStrategy": "xUnit tests compile-only and minimal fakes verifying determinism (e.g., seeded RNG) and that Core services accept injected ports.",
+      "priority": "high",
+      "dependencies": [1],
+      "status": "pending"
+    },
+    {
+      "id": 3,
+      "title": "Implement deterministic RNG service in Game.Core",
+      "description": "Provide a seeded RNG implementation to support reproducible drops and tests.",
+      "details": "Implement `IRng` with a seedable algorithm and helper methods for weighted selection. Keep API minimal and deterministic. Ensure no Godot dependencies.",
+      "testStrategy": "xUnit: same seed yields identical sequences; weighted selection is stable under fixed seed; boundary cases (empty tables) throw predictable exceptions.",
+      "priority": "high",
+      "dependencies": [2],
+      "status": "pending"
+    },
+    {
+      "id": 4,
+      "title": "Define GameState snapshot + versioning + migration hooks",
+      "description": "Create a versioned save snapshot representing the full player state for T2.",
+      "details": "Add `Game.Core` save DTOs for skills/exp, inventory/equipment, region unlocks, quest progress, enabled DLCs, lastOnlineTime, and schema/version fields. Provide a small migration entrypoint to bump versions safely. Reference ADR-0006 (data storage) and base docs CH05.",
+      "testStrategy": "xUnit: round-trip JSON serialization; migration from previous version adds missing defaults; lastOnlineTime handling is stable in UTC.",
+      "priority": "high",
+      "dependencies": [1, 2],
+      "status": "pending"
+    },
+    {
+      "id": 5,
+      "title": "Implement InventoryManager (stacking, equipment, stats aggregation)",
+      "description": "Build Core inventory and equipment rules needed for crafting and combat.",
+      "details": "Implement inventory add/remove/stack rules, basic equipment slots, and an aggregate function producing final combat stats. Keep pure logic in `Game.Core` and model definitions in contracts.",
+      "testStrategy": "xUnit: stacking rules; insufficient materials; equip/unequip updates stats; deterministic ordering for UI-friendly display.",
+      "priority": "high",
+      "dependencies": [1, 4],
+      "status": "pending"
+    },
+    {
+      "id": 6,
+      "title": "Implement SkillManager (EXP, levels, milestones, unlock hooks)",
+      "description": "Provide skill progression and unlock checks for gathering/crafting/map.",
+      "details": "Implement exp gain, level calculation, milestone events, and unlock predicates. Keep thresholds data-driven via content provider (later).",
+      "testStrategy": "xUnit: exp-to-level math; milestone triggers at defined levels; unlock predicates are correct for edge levels.",
+      "priority": "high",
+      "dependencies": [1, 4],
+      "status": "pending"
+    },
+    {
+      "id": 7,
+      "title": "Implement ActivitySystem (start/stop/tick) for gather/craft/combat",
+      "description": "Create the unified activity orchestrator that is driven by TimeService ticks.",
+      "details": "Implement a state machine for current activity, tick processing, and event emission (e.g., item gained, exp gained). Ensure activities are engine-free and controlled via injected ports.",
+      "testStrategy": "xUnit: start/stop transitions; tick accumulation; switching activity stops previous; events emitted in correct order.",
+      "priority": "high",
+      "dependencies": [2, 4, 6],
+      "status": "pending"
+    },
+    {
+      "id": 8,
+      "title": "Implement Gathering loop (2-3 skills) with nodes and yields",
+      "description": "Ship the minimal gathering loop with periodic yields and skill XP.",
+      "details": "Implement gather node definitions (required level, base cycle, yields) and integrate into ActivitySystem. Start with 2-3 skills (e.g., mining/woodcutting/fishing) using data-driven content IDs.",
+      "testStrategy": "xUnit: cycle timing; yield amounts; required level enforcement; exp gain per cycle; inventory updates.",
+      "priority": "high",
+      "dependencies": [3, 5, 6, 7],
+      "status": "pending"
+    },
+    {
+      "id": 9,
+      "title": "Implement weighted drop tables + rare drop notifications",
+      "description": "Support rare drops for gathering and combat with UI-friendly event payloads.",
+      "details": "Create drop table utilities (weighted choice, multi-drop roll) and define an event for 'rare drop obtained' with a display hint for the UI.",
+      "testStrategy": "xUnit: fixed-seed rare drop reproducibility; probability table validation; event payload includes item id and source context.",
+      "priority": "medium",
+      "dependencies": [1, 3],
+      "status": "pending"
+    },
+    {
+      "id": 10,
+      "title": "Implement CraftingManager (recipes, material checks, outputs, XP)",
+      "description": "Enable converting gathered materials into items/equipment/consumables.",
+      "details": "Implement recipe validation, material deduction, outputs creation, and crafting XP. Keep recipes data-driven via content IDs.",
+      "testStrategy": "xUnit: missing materials; exact materials; multiple outputs; crafting XP; idempotent failure without side effects.",
+      "priority": "high",
+      "dependencies": [5, 6, 8],
+      "status": "pending"
+    },
+    {
+      "id": 11,
+      "title": "Implement CombatManager core loop (auto battle state machine)",
+      "description": "Provide an engine-free combat loop supporting auto attacks, win/loss, and drops.",
+      "details": "Implement combat state, attack interval ticks, HP updates, victory/defeat determination, and event emission. Keep enemy stats/data-driven.",
+      "testStrategy": "xUnit: deterministic outcomes under fixed seed and fixed stats; win/loss edges; state transitions; event ordering.",
+      "priority": "high",
+      "dependencies": [3, 5, 6, 7],
+      "status": "pending"
+    },
+    {
+      "id": 12,
+      "title": "Implement DamageCalculator (pure function/service)",
+      "description": "Create a testable damage calculation component used by CombatManager.",
+      "details": "Implement base damage, defense mitigation, crit chance, and optional modifiers. Keep it pure and configurable via stats and tuning parameters.",
+      "testStrategy": "xUnit: known input yields known output; crit math reproducible with injected RNG; clamp rules (no negative damage).",
+      "priority": "high",
+      "dependencies": [11],
+      "status": "pending"
+    },
+    {
+      "id": 13,
+      "title": "Implement LootGenerator (combat rewards: gold, items, rare rolls)",
+      "description": "Generate post-combat rewards via drop tables.",
+      "details": "Implement weighted loot roll based on enemy/region tables, including gold and rare drops. Integrate with CombatManager end-state.",
+      "testStrategy": "xUnit: fixed seed yields stable loot; empty table behavior; rare drop signal emitted for UI.",
+      "priority": "high",
+      "dependencies": [9, 11],
+      "status": "pending"
+    },
+    {
+      "id": 14,
+      "title": "Implement MapManager (regions, unlock conditions, region content)",
+      "description": "Support world progression with region unlock rules and content routing.",
+      "details": "Implement region definitions (requirements: skill level, boss kill, quest completion, etc.) and unlocking. Provide queries for UI: locked reason, available activities per region.",
+      "testStrategy": "xUnit: unlock predicates; locked reason text keys; region transitions persist to GameState.",
+      "priority": "high",
+      "dependencies": [4, 6, 11],
+      "status": "pending"
+    },
+    {
+      "id": 15,
+      "title": "Implement QuestManager (state machine driven by domain events)",
+      "description": "Provide minimal quest chain support for T2 progression.",
+      "details": "Implement quest states (not accepted/in progress/completed/reward claimed) and event-driven objectives (e.g., gather X, craft Y, defeat boss). Reference ADR-0004 for event-driven progression.",
+      "testStrategy": "xUnit: quest progresses on events; reward claim idempotence; persistence to GameState; invalid transitions rejected.",
+      "priority": "medium",
+      "dependencies": [1, 2, 4, 8, 10, 11],
+      "status": "pending"
+    },
+    {
+      "id": 16,
+      "title": "Implement AchievementTracker (event-driven unlocks)",
+      "description": "Track achievements for long-term goals and feedback.",
+      "details": "Implement achievement checks and persistence. Use domain events as inputs; keep core logic pure.",
+      "testStrategy": "xUnit: achievement unlock on thresholds; no double-unlock; persistence across saves.",
+      "priority": "low",
+      "dependencies": [1, 2, 4, 8, 11],
+      "status": "pending"
+    },
+    {
+      "id": 17,
+      "title": "Implement DlcManager + DLC manifest contract",
+      "description": "Add the minimal DLC system for visibility, gating, and content linking.",
+      "details": "Define DLC manifest model (id, enabled, regions/items/recipes hooks). Implement DlcManager for enabling/disabling and cross-link rules (DLC resources usable by base recipes and vice versa).",
+      "testStrategy": "xUnit: enabling DLC registers content; DLC-disabled region remains locked with correct reason; cross-link rules are enforced.",
+      "priority": "medium",
+      "dependencies": [1, 4, 14],
+      "status": "pending"
+    },
+    {
+      "id": 18,
+      "title": "Create content schemas + minimal JSON content set (base)",
+      "description": "Establish the data-driven content format and provide starter base content.",
+      "details": "Define JSON schemas (documented, not necessarily JSONSchema) for items, skills, nodes, recipes, enemies, regions, quests, achievements. Create a minimal base content set sufficient for the T2 loop and reference IDs from Core.",
+      "testStrategy": "Unit tests validate content loading parses and all referenced IDs exist (no dangling references).",
+      "priority": "high",
+      "dependencies": [1],
+      "status": "pending"
+    },
+    {
+      "id": 19,
+      "title": "Implement safe ContentProvider (res:// only, allowlist, validation)",
+      "description": "Load and validate content data at runtime with security constraints.",
+      "details": "Implement `IContentProvider` in adapter layer using Godot `FileAccess`/`ResourceLoader` (or pure file reads if already allowed) with path normalization (res:// only) and extension allowlist. Reference ADR-0019 (security baseline).",
+      "testStrategy": "xUnit for pure parsing/validation; GdUnit4 or headless integration test ensures res:// paths load and invalid paths are rejected with audit.",
+      "priority": "high",
+      "dependencies": [2, 18],
+      "status": "pending"
+    },
+    {
+      "id": 20,
+      "title": "Define IDataStore save/load contract and Core persistence workflow",
+      "description": "Centralize save/load in Core and keep engine I/O in adapters.",
+      "details": "Implement the Core workflow: `Load -> Migrate -> Apply -> Save` and expose minimal commands for UI. Do not perform file I/O in Core.",
+      "testStrategy": "xUnit with an in-memory fake IDataStore verifying migrations and lastOnlineTime updates; failure cases produce structured error results.",
+      "priority": "high",
+      "dependencies": [2, 4],
+      "status": "pending"
+    },
+    {
+      "id": 21,
+      "title": "Implement SQLite-backed DataStore adapter with schema_version table",
+      "description": "Persist save state and game data using SQLite with versioning.",
+      "details": "Implement adapter using `Microsoft.Data.Sqlite` (and/or plugin path if present) writing under `user://`. Maintain `schema_version` table and backups if required by ADR-0006.",
+      "testStrategy": "xUnit for repository-level logic (no Godot); integration test writes to a temp user:// path and confirms schema_version and save rows exist; log outputs follow logs/SSoT.",
+      "priority": "high",
+      "dependencies": [20],
+      "status": "pending"
+    },
+    {
+      "id": 22,
+      "title": "Enforce security baseline (URL allowlist, file path policy, offline mode)",
+      "description": "Implement defensive controls required by the repo security baseline.",
+      "details": "Centralize external URL opening and outbound network checks. Enforce res:// read-only and user:// read/write only. Add audit JSONL entries with {ts, action, reason, target, caller}. Reference ADR-0019.",
+      "testStrategy": "Security smoke tests: allow/deny/invalid URL cases; absolute/escape path writes denied; GD_OFFLINE_MODE=1 blocks all outbound actions and records audits.",
+      "priority": "high",
+      "dependencies": [2],
+      "status": "pending"
+    },
+    {
+      "id": 23,
+      "title": "Implement structured Logger adapter (Core-friendly, file sink)",
+      "description": "Provide structured logging usable from Core and adapters.",
+      "details": "Implement adapter writing structured logs under `user://logs/**` with minimal fields (ts, level, area, msg, context). Keep log I/O in adapter layer. Reference ADR-0003 (observability).",
+      "testStrategy": "Unit tests validate JSON serialization and log sampling behavior; integration test writes one log line and verifies file created.",
+      "priority": "medium",
+      "dependencies": [2],
+      "status": "pending"
+    },
+    {
+      "id": 24,
+      "title": "Implement EventBus adapter (Core events -> Godot signals)",
+      "description": "Wire Core domain events to the Godot scene layer in a consistent way.",
+      "details": "Implement `IEventBus` in adapters; expose typed subscribe/publish in Core; bridge to Godot signals for UI listeners. Reference ADR-0004.",
+      "testStrategy": "xUnit with fake subscribers; GdUnit4 ensures signals are emitted on publish and carry expected payloads.",
+      "priority": "high",
+      "dependencies": [1, 2],
+      "status": "pending"
+    },
+    {
+      "id": 25,
+      "title": "Implement TimeService adapter and game tick loop integration",
+      "description": "Drive ActivitySystem ticks deterministically and support offline calculation.",
+      "details": "Implement `IClock` adapter over Godot time APIs and a central tick in `CompositionRoot` calling `ActivitySystem.Tick(delta)`. Provide hooks for offline delta calculation at load time.",
+      "testStrategy": "xUnit for delta math and clamping; GdUnit4 ensures ticks advance activity and UI updates reflect changes.",
+      "priority": "high",
+      "dependencies": [2, 7],
+      "status": "pending"
+    },
+    {
+      "id": 26,
+      "title": "Create CompositionRoot wiring (DI, adapters, Core services)",
+      "description": "Establish runtime wiring between Godot autoloads and Core services.",
+      "details": "Build a composition root that constructs Core managers (skill/inventory/activity/combat/map/quest/DLC) and injects adapters (clock/rng/datastore/eventbus/content/logger). Keep singletons explicit and minimal.",
+      "testStrategy": "Headless smoke: project boots and loads main scene without exceptions; logs record baseline info.",
+      "priority": "high",
+      "dependencies": [19, 21, 23, 24, 25],
+      "status": "pending"
+    },
+    {
+      "id": 27,
+      "title": "Implement MainScene flow (new game, continue, save on exit)",
+      "description": "Provide the entry flow to start/continue a save and ensure persistence.",
+      "details": "Add UI buttons and wiring to load/save via Core persistence workflow. On exit, persist lastOnlineTime and current state.",
+      "testStrategy": "GdUnit4: boot -> new game -> save -> reload -> state persists; produces logs/e2e summary.",
+      "priority": "high",
+      "dependencies": [20, 26],
+      "status": "pending"
+    },
+    {
+      "id": 28,
+      "title": "Implement SkillScreen (overview + navigation to activities)",
+      "description": "Create a central dashboard-style screen listing skills and entry points.",
+      "details": "Build a Control-based screen showing skill levels and buttons to gathering/crafting/combat/map/inventory/quests.",
+      "testStrategy": "GdUnit4: screen is visible; key nodes exist; navigation signals are emitted and routed.",
+      "priority": "medium",
+      "dependencies": [26],
+      "status": "pending"
+    },
+    {
+      "id": 29,
+      "title": "Implement GatheringScreen UI (select node, start/stop, show yields)",
+      "description": "Expose gathering selection and live yield feedback to the player.",
+      "details": "Build UI to choose skill and node, start/stop gathering, display last yields and rare drop highlight. Consume events from EventBus.",
+      "testStrategy": "GdUnit4: start gathering emits events; UI updates inventory counts; rare drop event triggers highlight node.",
+      "priority": "high",
+      "dependencies": [8, 24, 28],
+      "status": "pending"
+    },
+    {
+      "id": 30,
+      "title": "Implement CraftingScreen UI (select recipe, craft, show results)",
+      "description": "Expose crafting selection and feedback (materials, outputs, XP).",
+      "details": "Build recipe list with filters, show required materials and craft button. Consume crafting events and update inventory display.",
+      "testStrategy": "GdUnit4: crafting disabled when materials missing; crafting consumes materials and adds outputs; XP UI updates.",
+      "priority": "high",
+      "dependencies": [10, 24, 28],
+      "status": "pending"
+    },
+    {
+      "id": 31,
+      "title": "Implement CombatScreen UI (start/stop, HP, loot summary)",
+      "description": "Provide a minimal auto combat UX with readable feedback.",
+      "details": "Build UI to select region/enemy, start combat, display HP and outcome, and show loot summary. Ensure start/stop is safe and idempotent.",
+      "testStrategy": "GdUnit4: start combat transitions state; win emits loot events; stop cancels combat; no exceptions on rapid toggles.",
+      "priority": "high",
+      "dependencies": [11, 12, 13, 24, 26],
+      "status": "pending"
+    },
+    {
+      "id": 32,
+      "title": "Implement InventoryScreen UI (items, equipment, stats)",
+      "description": "Expose inventory management and equipment changes.",
+      "details": "Build item list, equipment slots, and derived stat panel. Wire equip/unequip commands to Core and reflect results.",
+      "testStrategy": "GdUnit4: equip updates stats panel; inventory list reflects counts; invalid equip shows error and logs it.",
+      "priority": "medium",
+      "dependencies": [5, 24, 26],
+      "status": "pending"
+    },
+    {
+      "id": 33,
+      "title": "Implement QuestScreen UI (quest chain + reward claim)",
+      "description": "Show quests and allow claiming rewards for completed objectives.",
+      "details": "Build quest list with status, objective progress, and claim button. Use event-driven updates from Core.",
+      "testStrategy": "GdUnit4: progress updates on gather/craft/combat events; claim changes state and adds rewards; claim is idempotent.",
+      "priority": "low",
+      "dependencies": [15, 24, 26],
+      "status": "pending"
+    },
+    {
+      "id": 34,
+      "title": "Implement MapScreen UI (regions, unlock reasons, DLC indicators)",
+      "description": "Provide map progression UI with clear locked reasons and DLC gating.",
+      "details": "Build region list/map, show unlock requirements and state. When DLC region is present but disabled, show locked marker and explanation. Reference ADR-0010 for i18n readiness (use string keys).",
+      "testStrategy": "GdUnit4: locked regions show correct reasons; unlocking via requirements changes UI state; DLC disabled shows expected lock UI.",
+      "priority": "medium",
+      "dependencies": [14, 17, 26],
+      "status": "pending"
+    },
+    {
+      "id": 35,
+      "title": "Implement OfflineCalculator + OfflineRewardDialog",
+      "description": "Calculate offline gains and present a single settlement dialog on return.",
+      "details": "Implement offline delta calculation (clamped by tunables), apply rewards via Core managers, emit OfflineRewardGranted event, and show dialog summarizing results.",
+      "testStrategy": "xUnit: offline delta clamping and reward math; GdUnit4: returning from saved state shows one dialog and then dismisses cleanly.",
+      "priority": "high",
+      "dependencies": [4, 7, 25, 27],
+      "status": "pending"
+    },
+    {
+      "id": 36,
+      "title": "Integrate Sentry (early init, release sessions, crash-free gate inputs)",
+      "description": "Enable observability per repo baseline (Sentry Releases + Sessions).",
+      "details": "Initialize Sentry SDK in earliest Autoload, set release/environment, capture exceptions from adapters, and ensure structured context fields are sanitized. Reference ADR-0003.",
+      "testStrategy": "Integration smoke: SDK initializes without errors in headless mode; logs show Sentry init; (CI) release-health script produces `release-health.json` artifact.",
+      "priority": "medium",
+      "dependencies": [23, 26],
+      "status": "pending"
+    },
+    {
+      "id": 37,
+      "title": "Add PerformanceTracker (startup timing, frame p95 sampling)",
+      "description": "Collect perf signals required by soft gates and future hard gates.",
+      "details": "Implement sampling for startup time and frame time p95, output `logs/perf/**/summary.json` per repo SSoT. Reference ADR-0015 (performance budgets and gates).",
+      "testStrategy": "Headless perf smoke produces summary JSON; thresholds configurable via env vars; no engine exceptions when disabled.",
+      "priority": "low",
+      "dependencies": [26],
+      "status": "pending"
+    },
+    {
+      "id": 38,
+      "title": "Add Core unit test coverage suite for T2 loop invariants",
+      "description": "Ensure Core logic is covered by xUnit with stable gates.",
+      "details": "Add focused xUnit tests for the loop invariants: exp curves, drop reproducibility, crafting material accounting, combat win/loss, region unlocks, offline settlement. Keep tests fast and deterministic.",
+      "testStrategy": "Run `dotnet test --collect:\"XPlat Code Coverage\"` and verify coverage gates (lines/branches) per docs/testing-framework.md.",
+      "priority": "high",
+      "dependencies": [3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15, 17],
+      "status": "pending"
+    },
+    {
+      "id": 39,
+      "title": "Add GdUnit4 headless smoke suite (boot, main scene, key signals)",
+      "description": "Create engine-level smoke tests verifying scenes and signals wiring.",
+      "details": "Implement GdUnit4 suites for booting the project headless, loading MainScene, and validating key signals/event routing. Output JUnit/XML and JSON summaries under `logs/e2e/**`.",
+      "testStrategy": "Run headless Godot tests locally and in CI; verify artifacts are created and failures are actionable.",
+      "priority": "high",
+      "dependencies": [27, 28, 29, 30, 31, 32, 34, 35],
+      "status": "pending"
+    },
+    {
+      "id": 40,
+      "title": "Add security smoke suite (URL/network/file allow/deny + audit verification)",
+      "description": "Verify security baseline controls and audit outputs end-to-end.",
+      "details": "Implement tests that cover: allowed https host, denied host, invalid scheme, offline mode deny-all, user:// write allowed, absolute path denied, traversal denied. Ensure audits are written as JSONL. Reference ADR-0019.",
+      "testStrategy": "Headless security suite that asserts both behavior and audit file contents (entries count and reasons).",
+      "priority": "high",
+      "dependencies": [22, 23, 26],
+      "status": "pending"
+    },
+    {
+      "id": 41,
+      "title": "Wire quality gates scripts (typecheck, lint, unit, scene, security, perf)",
+      "description": "Ensure a single Windows-friendly command can run all project gates.",
+      "details": "Update/validate `scripts/python/quality_gates.py` and related helpers to run: `dotnet build -warnaserror`, `dotnet test`, headless Godot suites (smoke/security/perf), and task-links validation. Reference ADR-0005 (quality gates).",
+      "testStrategy": "Run the full gate command locally; confirm logs are written under `logs/ci/<date>/` and failures stop the pipeline.",
+      "priority": "high",
+      "dependencies": [36, 37, 38, 39, 40],
+      "status": "pending"
+    },
+    {
+      "id": 42,
+      "title": "Create minimal base world progression content (regions, boss, quest chain)",
+      "description": "Add enough content to support the T2 loop end-to-end in the base world.",
+      "details": "Add 1-2 base regions, 1 boss enemy, a small loot table, and a short quest chain that requires gathering -> crafting -> boss kill -> region unlock. Keep everything data-driven and consistent with IDs.",
+      "testStrategy": "Automated content validation + one headless scene test that simulates the quest chain triggers via Core calls and verifies region unlock event.",
+      "priority": "high",
+      "dependencies": [14, 15, 18],
+      "status": "pending"
+    },
+    {
+      "id": 43,
+      "title": "Create minimal DLC content (region, node, recipe, passive) + manifest",
+      "description": "Add a DLC region that is visible, gated, enterable, and linked to base content.",
+      "details": "Add 1 DLC region, 1 gather node, 1 recipe that uses DLC material and benefits base gameplay, and 1 passive reward usable in base world. Ensure DLC manifest drives gating and linking.",
+      "testStrategy": "Headless test toggles DLC on/off: verifies visibility, lock reason, and that DLC material can be used in a base recipe when enabled.",
+      "priority": "medium",
+      "dependencies": [17, 18, 19, 34],
+      "status": "pending"
+    },
+    {
+      "id": 44,
+      "title": "End-to-end playable loop verification (new save -> unlock -> DLC link)",
+      "description": "Validate the full T2 loop is playable and produces expected logs/artifacts.",
+      "details": "Run the project, complete the loop: new save -> gather -> craft -> combat -> unlock region -> enable DLC -> enter DLC region -> use DLC material in base. Capture gate outputs and confirm no invalid links in docs index.",
+      "testStrategy": "Record a reproducible checklist and ensure CI smoke/security/perf suites pass; artifacts exist under logs/ per repo SSoT.",
+      "priority": "high",
+      "dependencies": [41, 42, 43],
+      "status": "pending"
+    },
+    {
+      "id": 45,
+      "title": "Documentation alignment (index + Test-Refs + ADR references for T2 loop)",
+      "description": "Keep docs aligned with implementation and tests without stale project semantics.",
+      "details": "Update `docs/PROJECT_DOCUMENTATION_INDEX.md` and relevant overlay docs to link to the new tests, contracts, and gates. Ensure any new module/threshold changes reference accepted ADRs or add a Proposed ADR if needed.",
+      "testStrategy": "Run `py -3 scripts/python/task_links_validate.py` and confirm all doc links and Test-Refs resolve.",
+      "priority": "medium",
+      "dependencies": [41],
+      "status": "pending"
+    }
+  ]
+}

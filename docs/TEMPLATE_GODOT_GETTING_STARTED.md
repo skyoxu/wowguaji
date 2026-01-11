@@ -8,7 +8,7 @@
 
   本模板面向 **Godot 4.5.1 + C#（.NET 8）+ Windows-only** 项目，默认目录结构与本仓一致：
 
-  - `GodotGame.csproj` —— Godot .NET 主工程（场景 + Adapters 层）
+  - `GodotGame.csproj` —— Godot .NET 主工程（场景 + Adapters 层；模板默认名，可按需重命名）
   - `Game.Core/` —— 纯 C# 领域层（零 Godot 依赖）
   - `Game.Core.Tests/` —— xUnit 单元测试（覆盖率门禁）
   - `Tests.Godot/` —— GdUnit4 场景/Glue 测试
@@ -142,4 +142,4 @@
   - 安全基线：docs/migration/Phase-14-Godot-Security-Baseline.md
   - Release / Sentry / 工作流说明：docs/workflows/GM-NG-T2-playable-guide.md
 
-  > 派生新项目时，可以直接复制本文件并按实际仓库名、主工程名（例如 GodotGame）做极少量替换，即可获得一份完整的「Godot+C# Windows-only 快速开始」文档。
+  > 派生新项目时，可以直接复制本文件并按实际仓库名、主工程名（例如 wowguaji）做极少量替换，即可获得一份完整的「Godot+C# Windows-only 快速开始」文档。
