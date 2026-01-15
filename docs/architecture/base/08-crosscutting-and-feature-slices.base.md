@@ -21,7 +21,7 @@ last_generated: 2025-12-16
 ### 存放位置
 
 - Contracts 的单一事实来源：`Game.Core/Contracts/**`（见 ADR-0020）。
-- 文档中引用 Contracts 时必须使用反引号写明路径，例如：`Game.Core/Contracts/Guild/GuildMemberJoined.cs`。
+- 文档中引用 Contracts 时必须使用反引号写明路径，例如：`Game.Core/Contracts/CoreLoop/InventoryItemAdded.cs`。
 
 ### 事件命名
 

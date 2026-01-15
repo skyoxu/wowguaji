@@ -1,0 +1,1030 @@
+[
+  {
+    "id": "NG-0001",
+    "story_id": "PRD-WOWGUAJI-BACK-0001",
+    "title": "Implement core data models and serialization",
+    "description": "Define and implement C# classes for core game data models (e.g., Player, Skill, Resource, Item, Equipment, Region) with JSON serialization for save/load functionality.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "combat",
+      "crafting",
+      "gathering",
+      "inventory",
+      "map",
+      "offline",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create C# classes in a 'Models' or 'Data' folder. Include properties for player stats, skills (e.g., Mining, Crafting, Combat), resources (e.g., ore, wood), items, equipment, and regions. Implement JSON serialization using System",
+      "Verify: Unit tests for serialization/deserialization of each model. Verify data persistence by saving to a file and reloading in a test scene."
+    ],
+    "test_strategy": [
+      "Unit tests for serialization/deserialization of each model. Verify data persistence by saving to a file and reloading in a test scene."
+    ],
+    "taskmaster_id": 7,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "NG-0002",
+    "story_id": "PRD-WOWGUAJI-BACK-0002",
+    "title": "Project Setup and Core Architecture",
+    "description": "Initialize project with basic structure, define core modules, and set up development environment.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "docs",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0008",
+      "ADR-0018"
+    ],
+    "chapter_refs": [
+      "CH01",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "combat",
+      "crafting",
+      "docs",
+      "gathering",
+      "persistence",
+      "release",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Ensure the Godot 4.5 (C#/.NET 8) project structure is in place (Game.Core, Game.Godot, Tests, Tests.Godot) and wowguaji boots into the main scene.",
+      "Verify: Verify project builds successfully. Test core module imports and basic event system with unit tests. Ensure environment setup is reproducible."
+    ],
+    "test_strategy": [
+      "Verify project builds successfully. Test core module imports and basic event system with unit tests. Ensure environment setup is reproducible."
+    ],
+    "taskmaster_id": 16,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "NG-0003",
+    "story_id": "PRD-WOWGUAJI-BACK-0003",
+    "title": "Develop save/load system with versioning",
+    "description": "Implement automatic and manual saving of game state (skills, inventory, tasks, map unlocks, DLC status) with version tracking for migration.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "ci",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "combat",
+      "dlc",
+      "gathering",
+      "inventory",
+      "map",
+      "offline",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Use JSON serialization (System.Text.Json) or binary format. Create SaveData class containing all serializable game data plus version string. Implement SaveManager with methods: SaveGame(auto/manual), LoadGame, DeleteSave. St",
+      "Verify: Test saving and loading with sample data, verify version migration adds default values for new skills/items. Check file integrity and error handling."
+    ],
+    "test_strategy": [
+      "Test saving and loading with sample data, verify version migration adds default values for new skills/items. Check file integrity and error handling."
+    ],
+    "taskmaster_id": 51,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.deleted",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "NG-0004",
+    "story_id": "PRD-WOWGUAJI-BACK-0004",
+    "title": "Implement core data models (GameState, Skill, Item, etc.)",
+    "description": "Define C# classes in Game.Core for core data models: GameState, Skill, Item, Recipe, Enemy, Region, Quest, Achievement, DLCManifest as per PRD 5.3.1 and 5.5.1.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "ci",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "combat",
+      "crafting",
+      "dlc",
+      "inventory",
+      "map",
+      "offline",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create classes in Game.Core namespace: GameState with properties like Skills, Inventory, MapUnlocks, Version, EnabledDLCs, LastOnlineTime. Define Skill with ID, Level, Experience. Item with ID, StackSize. Use ID strings with name",
+      "Verify: Unit tests in a test project to instantiate models, set properties, and verify serialization/deserialization with System.Text.Json."
+    ],
+    "test_strategy": [
+      "Unit tests in a test project to instantiate models, set properties, and verify serialization/deserialization with System.Text.Json."
+    ],
+    "taskmaster_id": 67,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "NG-0005",
+    "story_id": "PRD-WOWGUAJI-BACK-0005",
+    "title": "Implement Autoload services: EventBus and RngService",
+    "description": "Create EventBus as a global event system and RngService for random number generation with seed support for reproducibility.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "inventory",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: In Autoload folder, create EventBus.cs as a singleton using Godot's Autoload. Define events as C# events or delegates, e.g., event Action<Item> ItemAdded. RngService.cs with methods like int Next(int min, int max) using System.Ra",
+      "Verify: Manual testing in Godot: verify EventBus instance exists, events can be subscribed and published. Test RngService with fixed seed to ensure reproducible output."
+    ],
+    "test_strategy": [
+      "Manual testing in Godot: verify EventBus instance exists, events can be subscribed and published. Test RngService with fixed seed to ensure reproducible output."
+    ],
+    "taskmaster_id": 73,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.inventory.item.added",
+      "core.save.created",
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "NG-0006",
+    "story_id": "PRD-WOWGUAJI-BACK-0006",
+    "title": "Implement DataStore for local file storage",
+    "description": "Create DataStore service to handle saving and loading GameState to/from local files as per PRD 5.2.5.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "NG-0004"
+    ],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: DataStore.cs in Autoload: implements IDataStore interface. Methods: SaveGame(GameState state) writes to user://save.json using System.Text.Json. LoadGame() reads and deserializes, handles version migration by checking GameState.Ve",
+      "Verify: Manual testing in Godot: save and load game, verify data integrity and version migration logic."
+    ],
+    "test_strategy": [
+      "Manual testing in Godot: save and load game, verify data integrity and version migration logic."
+    ],
+    "taskmaster_id": 80,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.save.created",
+      "core.save.loaded",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "NG-0007",
+    "story_id": "PRD-WOWGUAJI-BACK-0007",
+    "title": "Implement GameState and Save System",
+    "description": "Define the GameState structure to store player progress, including skills, inventory, map, DLC, and lastOnlineTime.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "ci",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "dlc",
+      "inventory",
+      "map",
+      "offline",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a GameState class with properties: List<Skill> skills, List<Item> inventory, MapState map, DLCState dlc, DateTime lastOnlineTime, string currentActivityId. Implement auto-save on exit by setting lastOnlineTime = DateTime.N",
+      "Verify: Test saving and loading GameState with various data. Verify lastOnlineTime is correctly set on exit. Check that multiple save slots work independently."
+    ],
+    "test_strategy": [
+      "Test saving and loading GameState with various data. Verify lastOnlineTime is correctly set on exit. Check that multiple save slots work independently."
+    ],
+    "taskmaster_id": 90,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "NG-0008",
+    "story_id": "PRD-WOWGUAJI-BACK-0008",
+    "title": "Build Event System and Subscribers",
+    "description": "Implement a central event system and set up subscribers for quests, achievements, and UI updates.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "combat",
+      "inventory",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create an EventSystem class with Publish(event) and Subscribe<T>(Action<T>) methods. Set up QuestManager and AchievementTracker to subscribe to events like ItemAdded, SkillLeveledUp, CombatEnded. Update quest/achievement progress",
+      "Verify: Unit tests for event publishing and subscription. Verify quest/achievement updates trigger correctly. Test UI refresh on events."
+    ],
+    "test_strategy": [
+      "Unit tests for event publishing and subscription. Verify quest/achievement updates trigger correctly. Test UI refresh on events."
+    ],
+    "taskmaster_id": 91,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "NG-0009",
+    "story_id": "PRD-WOWGUAJI-BACK-0009",
+    "title": "Implement testing and CI strategy for DLC",
+    "description": "Establish a comprehensive testing plan and continuous integration pipeline for the DLC, covering unit, integration, and functional tests.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0015"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH09",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "combat",
+      "crafting",
+      "dlc",
+      "map",
+      "perf",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define a testing strategy as per PRD section 8. Create unit tests for each new class (DLCConfig, Material, Recipe, etc.). Write integration tests for area unlocking, recipe crafting, and ability granting. Implement functional tes",
+      "Verify: Execute the defined test suite to validate all DLC functionality. Use CI reports to ensure tests pass consistently. Manual testing for visual and gameplay polish."
+    ],
+    "test_strategy": [
+      "Execute the defined test suite to validate all DLC functionality. Use CI reports to ensure tests pass consistently. Manual testing for visual and gameplay polish."
+    ],
+    "taskmaster_id": 100,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "NG-0010",
+    "story_id": "PRD-WOWGUAJI-BACK-0010",
+    "title": "Document DLC implementation and create release package",
+    "description": "Document the DLC features, create user guides, and assemble the final release package for distribution.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "docs",
+    "depends_on": [
+      "NG-0009"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0015",
+      "ADR-0008"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH09",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "crafting",
+      "dlc",
+      "docs",
+      "perf",
+      "persistence",
+      "progression",
+      "release",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create documentation for the DLC, including a design document outlining all features (area, materials, recipes, quest, ability, decorations). Write user-facing guides or patch notes. Assemble the DLC package: include all assets (",
+      "Verify: Verify documentation accuracy against implemented features. Test DLC package installation and activation in a production-like environment. Ensure no missing dependencies or broken references."
+    ],
+    "test_strategy": [
+      "Verify documentation accuracy against implemented features. Test DLC package installation and activation in a production-like environment. Ensure no missing dependencies or broken references."
+    ],
+    "taskmaster_id": 105,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "NG-0011",
+    "story_id": "PRD-WOWGUAJI-BACK-0011",
+    "title": "Implement save/load system with version migration",
+    "description": "Develop the save/load functionality ensuring consistency after save, memory clear, and load, with correct version migration as per PRD 8.2.3.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "ci",
+    "depends_on": [
+      "NG-0014"
+    ],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a SaveLoadSystem using IDataStore for persistence. Implement methods to save game state, clear in-memory data, and load it back. Include versioning to handle migration of saved data (e.g., adding missing fields in newer ve",
+      "Verify: Unit tests for save and load cycles, verifying state consistency. Test version migration by saving with an old schema and loading with a new one."
+    ],
+    "test_strategy": [
+      "Unit tests for save and load cycles, verifying state consistency. Test version migration by saving with an old schema and loading with a new one."
+    ],
+    "taskmaster_id": 112,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.save.created",
+      "core.save.loaded",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "NG-0012",
+    "story_id": "PRD-WOWGUAJI-BACK-0012",
+    "title": "Set up CI pipeline for core unit tests",
+    "description": "Configure CI to run on every commit: build project, execute core unit tests, and output coverage reports as per PRD 8.4.1.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend the CI configuration (e.g., in GitHub Actions) to include steps for building the project, running all unit tests in the core module, and generating a coverage report using tools like JaCoCo. Initially, do not set a coverag",
+      "Verify: Manually trigger the CI pipeline and verify that it runs successfully, tests pass, and coverage reports are generated. Check logs for any failures."
+    ],
+    "test_strategy": [
+      "Manually trigger the CI pipeline and verify that it runs successfully, tests pass, and coverage reports are generated. Check logs for any failures."
+    ],
+    "taskmaster_id": 118,
+    "taskmaster_exported": true,
+    "contractRefs": []
+  },
+  {
+    "id": "NG-0013",
+    "story_id": "PRD-WOWGUAJI-BACK-0013",
+    "title": "Implement executable build with config packaging",
+    "description": "Set up the build process to generate an executable version with base and optional DLC configuration files as per PRD 8.4.2.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0008",
+      "ADR-0018"
+    ],
+    "chapter_refs": [
+      "CH01",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "dlc",
+      "persistence",
+      "progression",
+      "release",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Configure Windows export packaging: produce a Godot-exported EXE (and PCK if applicable) and bundle base/DLC config files. Prefer scripts/ci/export_windows.ps1 for CI-friendly packaging.",
+      "Verify: Run the build and verify that the executable is created with all necessary config files. Test running the executable to ensure it starts without errors."
+    ],
+    "test_strategy": [
+      "Run the build and verify that the executable is created with all necessary config files. Test running the executable to ensure it starts without errors."
+    ],
+    "taskmaster_id": 121,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "NG-0014",
+    "story_id": "PRD-WOWGUAJI-BACK-0014",
+    "title": "Implement Core services interfaces for DI",
+    "description": "Define interfaces for Rng, Time, DataStore, and Clock services as per PRD 8.3.1 to enable dependency injection and testability.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "ci",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0008",
+      "ADR-0018"
+    ],
+    "chapter_refs": [
+      "CH01",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "persistence",
+      "release",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create interfaces in a core package: IRng (for random number generation), ITime (for time-related operations), IDataStore (for data persistence), IClock (for timing/tick operations). These interfaces should abstract the core logi",
+      "Verify: Write unit tests that verify the interfaces can be implemented and mocked. Use NSubstitute to create fake implementations for testing."
+    ],
+    "test_strategy": [
+      "Write unit tests that verify the interfaces can be implemented and mocked. Use NSubstitute to create fake implementations for testing."
+    ],
+    "taskmaster_id": 122,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.save.created",
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "NG-0015",
+    "story_id": "PRD-WOWGUAJI-BACK-0015",
+    "title": "Set up dependency injection framework",
+    "description": "Set up manual dependency injection (composition root) to inject Core services as per PRD 8.3.1.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "NG-0014"
+    ],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Integrate a DI container or implement manual dependency injection to provide implementations of IRng, ITime, IDataStore, IClock to core systems. Ensure that in tests, these can be replaced with fake implementations. Example: Use ",
+      "Verify: Write a test that verifies DI works correctly by injecting a fake service and asserting its use in core logic."
+    ],
+    "test_strategy": [
+      "Write a test that verifies DI works correctly by injecting a fake service and asserting its use in core logic."
+    ],
+    "taskmaster_id": 123,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.autosave.completed",
+      "core.autosave.disabled",
+      "core.autosave.enabled",
+      "core.player.moved",
+      "core.save.created",
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "NG-0016",
+    "story_id": "MIGRATION-PH19-B1",
+    "title": "Add Sentry release health gate script",
+    "description": "Implement scripts/python/release_health_gate.py to query Sentry Releases/Sessions and enforce Crash-Free thresholds; write logs/ci/<YYYY-MM-DD>/release-health.json for traceability.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "ci",
+    "depends_on": [
+      "NG-0012"
+    ],
+    "adr_refs": [
+      "ADR-0003",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH03",
+      "CH07"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "observability",
+      "release",
+      "wowguaji"
+    ],
+    "owner": "platform",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Add scripts/python/release_health_gate.py (Python 3, Windows friendly) that reads SENTRY_AUTH_TOKEN/SENTRY_ORG/SENTRY_PROJECT/SENTRY_ENV and queries Sentry for Crash-Free Sessions/Users in a configurable time window.",
+      "Implement: Support env overrides for thresholds/window; emit JSON decision summary to logs/ci/<YYYY-MM-DD>/release-health.json and return non-zero on hard gate failure.",
+      "Verify: Add unit tests for response parsing and threshold decision logic (no network); add a dry-run mode that writes a deterministic sample output for CI wiring."
+    ],
+    "test_strategy": [
+      "Unit tests for decision logic; dry-run mode for CI integration without network."
+    ],
+    "taskmaster_id": null,
+    "taskmaster_exported": false,
+    "contractRefs": [
+      "core.health.updated"
+    ]
+  },
+  {
+    "id": "NG-0017",
+    "story_id": "MIGRATION-PH16-B3",
+    "title": "Integrate release health gate into GitHub Actions",
+    "description": "Wire release_health_gate.py into existing workflows (windows-release.yml / windows-release-tag.yml) and optionally windows-quality-gate.yml; ensure logs/ci/** artifacts are uploaded.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "ci",
+    "depends_on": [
+      "NG-0016"
+    ],
+    "adr_refs": [
+      "ADR-0003",
+      "ADR-0005",
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH03",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "observability",
+      "release",
+      "wowguaji"
+    ],
+    "owner": "platform",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Add a release-health step that runs py -3 scripts/python/release_health_gate.py with secrets and writes logs/ci/<date>/release-health.json.",
+      "Implement: Ensure release workflows upload logs/ci/** as artifacts even when the step fails (always()).",
+      "Verify: A workflow run without SENTRY_* secrets should skip gracefully or run dry-run, and still produce a clear log artifact."
+    ],
+    "test_strategy": [
+      "CI-only verification: run with and without secrets; assert artifact paths exist."
+    ],
+    "taskmaster_id": null,
+    "taskmaster_exported": false,
+    "contractRefs": [
+      "core.health.updated",
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "NG-0018",
+    "story_id": "MIGRATION-PH16-B4",
+    "title": "Add privacy compliance documentation template",
+    "description": "Create docs/privacy-compliance.md as a project-facing template covering PII handling, audit/log retention, and Sentry data scrubbing; link to ADR-0003/ADR-0019.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "docs",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0003",
+      "ADR-0019"
+    ],
+    "chapter_refs": [
+      "CH02",
+      "CH03"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "docs",
+      "observability",
+      "security",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Add docs/privacy-compliance.md documenting what must not be logged, what can be logged, retention guidance, and how Sentry BeforeSend scrubbing is configured (references only, no secrets).",
+      "Verify: Link-check passes and docs content is consistent with ADR-0003 (observability/release-health) and ADR-0019 (security baseline)."
+    ],
+    "test_strategy": [
+      "Docs-only: run link validation and encoding checks."
+    ],
+    "taskmaster_id": null,
+    "taskmaster_exported": false,
+    "contractRefs": [
+      "core.health.updated"
+    ]
+  },
+  {
+    "id": "NG-0019",
+    "story_id": "MIGRATION-PH16-B5",
+    "title": "Add logging guidelines documentation template",
+    "description": "Create docs/logging-guidelines.md as a single reference for structured logging conventions and logs/** artifact layout; link to ADR-0003 and avoid duplicating thresholds.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "docs",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0003"
+    ],
+    "chapter_refs": [
+      "CH03"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "docs",
+      "observability",
+      "wowguaji"
+    ],
+    "owner": "architecture",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Add docs/logging-guidelines.md defining logger namespaces, levels, required fields for JSONL audit logs, and how to write artifacts under logs/ci|unit|e2e|perf.",
+      "Verify: References ADR-0003 and does not embed hard thresholds that are defined elsewhere."
+    ],
+    "test_strategy": [
+      "Docs-only: run encoding scan and link validation."
+    ],
+    "taskmaster_id": null,
+    "taskmaster_exported": false,
+    "contractRefs": [
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "NG-0020",
+    "story_id": "MIGRATION-PH09-B4",
+    "title": "Add signal compliance checker and workflow",
+    "description": "Add scripts/python/check_signal_compliance.py plus a GitHub Actions workflow to validate public [Signal] delegates naming and XML docs; keep it soft-gate by default.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "ci",
+    "depends_on": [
+      "NG-0012"
+    ],
+    "adr_refs": [
+      "ADR-0004",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "contracts",
+      "signals",
+      "wowguaji"
+    ],
+    "owner": "platform",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Add scripts/python/check_signal_compliance.py that scans Game.Godot/**/*.cs for [Signal] delegates and enforces presence of XML docs and naming conventions.",
+      "Implement: Add .github/workflows/signal-compliance.yml that runs the checker and uploads logs/ci/** output (soft gate initially).",
+      "Verify: The checker reports violations with file/line and can be run locally via py -3."
+    ],
+    "test_strategy": [
+      "Unit tests for the checker parsing logic; CI workflow smoke run."
+    ],
+    "taskmaster_id": null,
+    "taskmaster_exported": false,
+    "contractRefs": [
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "NG-0021",
+    "story_id": "MIGRATION-PH15-B2",
+    "title": "Add performance baseline comparison gate (optional)",
+    "description": "Implement scripts/python/performance_gates.py to compare current perf JSON against benchmarks baseline and emit a report; optional dedicated workflow for perf-only runs.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "ci",
+    "depends_on": [
+      "NG-0012"
+    ],
+    "adr_refs": [
+      "ADR-0015",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH09"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "ci",
+      "perf",
+      "wowguaji"
+    ],
+    "owner": "platform",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Add scripts/python/performance_gates.py that compares baseline vs current metrics with tolerance config; write logs/perf/<YYYY-MM-DD>/summary.json and logs/ci/<YYYY-MM-DD>/perf-gate.json.",
+      "Verify: The script can run locally and in CI without requiring non-default tools; soft gate by default."
+    ],
+    "test_strategy": [
+      "Unit tests for baseline compare; CI smoke run with synthetic JSON."
+    ],
+    "taskmaster_id": null,
+    "taskmaster_exported": false,
+    "contractRefs": []
+  },
+  {
+    "id": "NG-0022",
+    "story_id": "MIGRATION-PH17-B1",
+    "title": "Add Python build driver wrapper (optional)",
+    "description": "Implement scripts/build_windows.py to wrap export_windows.ps1 and produce build metadata (build-info.json, hashes) and logs/ci/** summaries for release traceability.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "ci",
+    "depends_on": [
+      "NG-0013"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0008",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "back",
+      "build",
+      "ci",
+      "release",
+      "wowguaji"
+    ],
+    "owner": "platform",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Add scripts/build_windows.py with subcommands (debug/release) that calls scripts/ci/export_windows.ps1 and writes build/build-info.json plus logs/ci/<date>/export/summary.json.",
+      "Verify: Produces deterministic metadata and can be invoked locally via py -3 scripts/build_windows.py."
+    ],
+    "test_strategy": [
+      "Local smoke run; CI workflow wiring verification."
+    ],
+    "taskmaster_id": null,
+    "taskmaster_exported": false,
+    "contractRefs": [
+      "core.skill.levelled_up"
+    ]
+  }
+]

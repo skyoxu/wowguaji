@@ -28,19 +28,19 @@
 示例（C#）：
 
 ```csharp
-namespace Game.Core.Contracts.Guild;
+namespace Game.Core.Contracts.CoreLoop;
 
 /// <summary>
-/// Domain event: core.guild.member.joined
+/// Domain event: core.inventory.item.added
 /// </summary>
-public sealed record GuildMemberJoined(
-    string UserId,
-    string GuildId,
-    DateTimeOffset JoinedAt,
-    string Role
+public sealed record InventoryItemAdded(
+    string ItemId,
+    int Quantity,
+    string Reason,
+    DateTimeOffset OccurredAt
 )
 {
-    public const string EventType = "core.guild.member.joined";
+    public const string EventType = "core.inventory.item.added";
 }
 ```
 

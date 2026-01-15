@@ -268,8 +268,8 @@ This template comes pre-configured with the following technology stack:
 
 - Use when you need **semantic (LSP-aware)** changes: cross-file rename, API migration, test-driven fixes in large repos.
 - Typical prompts:
-  - “Rename `GuildService` -> `GuildManagerService` across repo, update imports/usages/tests; keep changes atomic.”
-  - “Change interface contract `GuildId` -> `GuildUID` and update affected DTOs + TS types; regenerate failing tests.”
+  - “Rename `CombatService` -> `DamageService` across repo, update imports/usages/tests; keep changes atomic.”
+  - “Change contract `RegionId` -> `RegionKey` and update affected DTOs + C# tests; keep changes scoped.”
 - Guardrails: propose a diff; run unit/E2E locally; large refactors go through PR with full review & CI.
 
 ### 2.5 Official Subagents — acceptance & audits
@@ -360,20 +360,19 @@ This template comes pre-configured with the following technology stack:
 - 要求：不可引用 Godot API（保持可单测）、命名清晰、不可暴露实现细节
   示例（C#）
 
-  namespace Game.Core.Contracts.Guild;
+  namespace Game.Core.Contracts.CoreLoop;
 
   /// <summary>
-  /// Domain event: ${DOMAIN_PREFIX}.guild.member.joined
-  /// 说明：用户加入公会
+  /// Domain event: ${DOMAIN_PREFIX}.inventory.item.added
   /// </summary>
-  public sealed record GuildMemberJoined(
-      string UserId,
-      string GuildId,
-      DateTimeOffset JoinedAt,
-      string Role // member | admin
+  public sealed record InventoryItemAdded(
+      string ItemId,
+      int Quantity,
+      string Reason,
+      DateTimeOffset OccurredAt
   )
   {
-      public const string EventType = "core.guild.member.joined";
+      public const string EventType = "core.inventory.item.added";
   }
 
 ### 6.2 测试与验收（xUnit + GdUnit4）
@@ -391,34 +390,32 @@ This template comes pre-configured with the following technology stack:
   示例（xUnit）
 
   using FluentAssertions;
-  using Game.Core.Contracts.Guild;
+  using Game.Core.Contracts.CoreLoop;
   using Xunit;
 
-  public class GuildContractsTests
+  public class CoreLoopContractsTests
   {
       [Fact]
-      public void Joined_event_has_expected_defaults()
+      public void Inventory_item_added_has_expected_event_type()
       {
-          var evt = new GuildMemberJoined("u1","g1",DateTimeOffset.UtcNow,"member");
-          GuildMemberJoined.EventType.Should().Be("core.guild.member.joined");
-          evt.Role.Should().Be("member");
+          InventoryItemAdded.EventType.Should().Be("core.inventory.item.added");
       }
   }
 
   示例（GdUnit4，片段）
 
-  # Tests/Scenes/test_guild_hud.gd
+  # Tests/Scenes/<module>/test_scene_smoke.gd
   extends "res://addons/gdUnit4/src/core/GdUnitTestSuite.gd"
 
   func test_hud_visible_and_signal_emitted() -> void:
-      var scene = preload("res://Scenes/Guild/GuildHud.tscn").instantiate()
+      var scene = preload("res://Scenes/<Module>/<Scene>.tscn").instantiate()
       add_child_autofree(scene)
       assert_bool(scene.visible).is_true()
-      # 断言信号发布
-      var emitted := false
-      scene.member_joined.connect(func(_u, _g): emitted = true)
-      scene.simulate_join("u1", "g1") # 你的模拟方法
-      assert_bool(emitted).is_true()
+      # Example only: adapt to your real signal names
+      # var emitted := false
+      # scene.some_signal.connect(func(): emitted = true)
+      # scene.trigger_something()
+      # assert_bool(emitted).is_true()
 
 ### 6.3 日志与工件（SSoT）
 

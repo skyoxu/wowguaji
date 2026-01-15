@@ -24,5 +24,5 @@ func test_score_panel_add10_emits_event_or_updates() -> void:
     var btn = panel.get_node("VBox/Buttons/Add10")
     btn.emit_signal("pressed")
     await get_tree().process_frame
-    assert_bool(_events.has("core.score.updated") or _events.has("score.changed")).is_true()
+    assert_bool(_events.has("core.score.updated")).is_true()
     panel.queue_free()

@@ -17,14 +17,26 @@ import json
 import os
 import re
 import shutil
+import site
 import subprocess
 import sys
 import xml.etree.ElementTree as ET
 
 
 def run_cmd(args, cwd=None, timeout=900_000):
-    p = subprocess.Popen(args, cwd=cwd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT,
-                         text=True, encoding='utf-8', errors='ignore')
+    try:
+        p = subprocess.Popen(
+            args,
+            cwd=cwd,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.STDOUT,
+            text=True,
+            encoding='utf-8',
+            errors='ignore',
+        )
+    except FileNotFoundError as e:
+        cmd = args[0] if args else "<empty>"
+        return 127, f"RUN_DOTNET status=fail stage=spawn missing_command={cmd} error={e}\n"
     try:
         out, _ = p.communicate(timeout=timeout/1000.0)
     except subprocess.TimeoutExpired:
@@ -36,6 +48,40 @@ def run_cmd(args, cwd=None, timeout=900_000):
 
 def ensure_dir(path):
     os.makedirs(path, exist_ok=True)
+
+
+def find_dotnet_exe() -> str:
+    """
+    Return an absolute path to dotnet.exe.
+
+    This repo runs on Windows, but the agent environment may not have dotnet on PATH.
+    Precedence:
+      1) DOTNET_EXE env var (absolute path).
+      2) shutil.which('dotnet') (PATH).
+      3) Common install locations (user-local and system-wide).
+    """
+
+    env = os.environ.get("DOTNET_EXE")
+    if env and os.path.isabs(env) and os.path.exists(env):
+        return env
+
+    found = shutil.which("dotnet")
+    if found:
+        return found
+
+    candidates = [
+        os.path.join(os.environ.get("LOCALAPPDATA", ""), "Microsoft", "dotnet", "dotnet.exe"),
+        os.path.join(os.environ.get("ProgramFiles", ""), "dotnet", "dotnet.exe"),
+        os.path.join(os.environ.get("ProgramFiles(x86)", ""), "dotnet", "dotnet.exe"),
+    ]
+    for c in candidates:
+        if c and os.path.isabs(c) and os.path.exists(c):
+            return c
+
+    raise FileNotFoundError(
+        "dotnet.exe not found. Set DOTNET_EXE to an absolute path, e.g. "
+        r"set DOTNET_EXE=C:\Users\<you>\AppData\Local\Microsoft\dotnet\dotnet.exe"
+    )
 
 
 def parse_cobertura(path):
@@ -102,8 +148,22 @@ def main():
         'status': 'fail',
     }
 
+    try:
+        dotnet_exe = find_dotnet_exe()
+    except FileNotFoundError as e:
+        summary['dotnet_exe'] = None
+        summary['status'] = 'missing_dotnet'
+        with io.open(os.path.join(out_dir, 'summary.json'), 'w', encoding='utf-8') as f:
+            json.dump(summary, f, ensure_ascii=False, indent=2)
+        with io.open(os.path.join(out_dir, 'dotnet-missing.log'), 'w', encoding='utf-8') as f:
+            f.write(str(e) + "\n")
+        print(f'RUN_DOTNET status=fail stage=spawn missing_command=dotnet out={out_dir}')
+        return 1
+
+    summary['dotnet_exe'] = dotnet_exe
+
     # Restore
-    rc, out = run_cmd(['dotnet', 'restore', args.solution], cwd=root)
+    rc, out = run_cmd([dotnet_exe, 'restore', args.solution], cwd=root)
     with io.open(os.path.join(out_dir, 'dotnet-restore.log'), 'w', encoding='utf-8') as f:
         f.write(out)
     summary['restore_rc'] = rc
@@ -114,7 +174,7 @@ def main():
         return 1
 
     # Test with coverage
-    rc, out = run_cmd(['dotnet', 'test', args.solution,
+    rc, out = run_cmd([dotnet_exe, 'test', args.solution,
                        f'-c', args.configuration,
                        '--collect:XPlat Code Coverage',
                        '--logger', 'trx;LogFileName=tests.trx'], cwd=root)

@@ -1,0 +1,5683 @@
+[
+  {
+    "id": "GM-0101",
+    "story_id": "PRD-WOWGUAJI-T2-0101",
+    "title": "Build crafting and equipment system",
+    "description": "Implement crafting where players use gathered resources to create items and equipment, which improve combat stats and efficiency.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0105"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define Recipe class with required resources, skill level, and output item. Create a CraftingManager to handle recipe validation and item creation. Integrate with inventory system to deduct resources and add crafted items. Equipme",
+      "Verify: Unit tests for recipe validation, resource deduction, and item creation. Integration test with UI to craft items and verify inventory updates."
+    ],
+    "test_strategy": [
+      "Unit tests for recipe validation, resource deduction, and item creation. Integration test with UI to craft items and verify inventory updates."
+    ],
+    "taskmaster_id": 1,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.crafting.completed",
+      "core.equipment.equipped",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.recipe.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0102",
+    "story_id": "PRD-WOWGUAJI-T2-0102",
+    "title": "Integrate and test full gameplay loop",
+    "description": "Assemble all systems into a cohesive whole and test the complete MVP loop from new game to boss defeat and DLC integration.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0105",
+      "GM-0106",
+      "GM-0101",
+      "GM-0103",
+      "GM-0107",
+      "GM-0104",
+      "GM-0108",
+      "GM-0109"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0006"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "map",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a test scene or sequence that simulates the full player journey: start new game select skill gather resources craft equipment combat unlock regions defeat stage boss complete key task save and reload verify DLC connectivit",
+      "Verify: End-to-end integration testing of the entire gameplay loop. Verify that the loop is repeatable and all features work together as specified in the PRD."
+    ],
+    "test_strategy": [
+      "End-to-end integration testing of the entire gameplay loop. Verify that the loop is repeatable and all features work together as specified in the PRD."
+    ],
+    "taskmaster_id": 2,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.game.ended",
+      "core.game.started",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0103",
+    "story_id": "PRD-WOWGUAJI-T2-0103",
+    "title": "Create combat system with automatic battles and loot drops",
+    "description": "Develop the combat system where players select monsters or regions for automatic battles, gaining gold and loot drops, with risk/reward mechanics.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0106"
+    ],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "inventory",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Implement a CombatManager that simulates battles based on player stats (from equipment) vs. monster stats. Use a simple turn-based or time-based auto-resolve system. Include loot tables for monsters with drop chances for items an",
+      "Verify: Unit tests for combat resolution and loot drops. Verify that combat outcomes affect player resources and inventory correctly."
+    ],
+    "test_strategy": [
+      "Unit tests for combat resolution and loot drops. Verify that combat outcomes affect player resources and inventory correctly."
+    ],
+    "taskmaster_id": 3,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked"
+    ]
+  },
+  {
+    "id": "GM-0104",
+    "story_id": "PRD-WOWGUAJI-T2-0104",
+    "title": "Design and integrate map DLC system",
+    "description": "Implement the map DLC system as a minimal viable integration, allowing new regions from DLC to be visible, accessible, and interconnected with the main world.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [
+      "GM-0107"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0006",
+      "ADR-0007"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "map",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend the region system to support DLC regions. Store DLC data separately (e.g., in a 'DLC' folder) and load it if available. Ensure DLC regions can be unlocked and provide resources/recipes that feed back into the main game (e.",
+      "Verify: Test DLC loading by adding a mock DLC file and verifying regions appear in-game. Validate that DLC resources are usable in main-world systems like crafting."
+    ],
+    "test_strategy": [
+      "Test DLC loading by adding a mock DLC file and verifying regions appear in-game. Validate that DLC resources are usable in main-world systems like crafting."
+    ],
+    "taskmaster_id": 4,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0105",
+    "story_id": "PRD-WOWGUAJI-T2-0105",
+    "title": "Implement skill system with progression and unlocking",
+    "description": "Develop the skill system where players can select skills (e.g., Mining, Crafting, Combat) to gain experience and level up, unlocking higher-tier resources, recipes, and region conditions.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a Skill class with properties: Name, Level, Experience, NextLevelXP, UnlockedRecipes, UnlockedRegions. Implement methods to add experience and check for level-ups. When a skill levels up, update unlocked content based on p",
+      "Verify: Unit tests for XP gain, level-up logic, and unlocking mechanics. Integration test with UI to verify skill progression updates correctly."
+    ],
+    "test_strategy": [
+      "Unit tests for XP gain, level-up logic, and unlocking mechanics. Integration test with UI to verify skill progression updates correctly."
+    ],
+    "taskmaster_id": 5,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0106",
+    "story_id": "PRD-WOWGUAJI-T2-0106",
+    "title": "Develop idle activity system for gathering and combat",
+    "description": "Implement the core idle gameplay loop where players choose an activity (gathering or combat) and gain resources/experience over time, with support for offline progression.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0105"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0006",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "gathering",
+      "offline",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create an ActivityManager that handles active skill selection and simulates time-based progression. Use Godot's Timer nodes or delta time calculations for real-time updates. For offline gains, calculate elapsed time since last sa",
+      "Verify: Test real-time progression with in-game timers. Simulate offline scenarios by manipulating save times and verifying calculated yields match expected values."
+    ],
+    "test_strategy": [
+      "Test real-time progression with in-game timers. Simulate offline scenarios by manipulating save times and verifying calculated yields match expected values."
+    ],
+    "taskmaster_id": 6,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0107",
+    "story_id": "PRD-WOWGUAJI-T2-0107",
+    "title": "Implement region unlocking and progression",
+    "description": "Develop the region system where new areas are unlocked based on skill levels, combat achievements, or task conditions, enabling world expansion.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0105",
+      "GM-0103"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "gathering",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a Region class with properties: Name, IsUnlocked, UnlockConditions (e.g., Mining Level 20, Defeat Boss X). Implement a RegionManager to check conditions and unlock regions when met. Unlocked regions should provide access t",
+      "Verify: Unit tests for unlock condition validation. Integration test to verify that unlocking a region updates available activities and UI."
+    ],
+    "test_strategy": [
+      "Unit tests for unlock condition validation. Integration test to verify that unlocking a region updates available activities and UI."
+    ],
+    "taskmaster_id": 8,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0108",
+    "story_id": "PRD-WOWGUAJI-T2-0108",
+    "title": "Develop task/achievement system for key goals",
+    "description": "Create a task or achievement system to define key goals (e.g., defeat stage boss, complete critical task) that drive progression and provide rewards.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0103",
+      "GM-0107"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define Task class with objectives (e.g., 'Defeat Boss X', 'Craft Item Y'), rewards, and completion status. Implement a TaskManager to track progress and mark tasks as complete when conditions are met. Integrate with other systems",
+      "Verify: Unit tests for task completion logic. Integration test to verify that completing a task updates game state and provides rewards."
+    ],
+    "test_strategy": [
+      "Unit tests for task completion logic. Integration test to verify that completing a task updates game state and provides rewards."
+    ],
+    "taskmaster_id": 9,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0109",
+    "story_id": "PRD-WOWGUAJI-T2-0109",
+    "title": "Balance and tune game economy and progression",
+    "description": "Adjust numerical values for skills, resources, combat, and crafting to ensure a balanced and engaging progression loop, with appropriate offline gains.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0105",
+      "GM-0106",
+      "GM-0101",
+      "GM-0103",
+      "GM-0107"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "crafting",
+      "gameplay",
+      "map",
+      "offline",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create configuration files (e.g., JSON) for tuning variables like XP rates, resource yields, combat stats, and unlock conditions. Iteratively test and adjust values to achieve a smooth progression from start to boss defeat. Ensur",
+      "Verify: Playtesting to assess progression pace and difficulty. Use automated tests to verify that balance changes affect game systems as intended."
+    ],
+    "test_strategy": [
+      "Playtesting to assess progression pace and difficulty. Use automated tests to verify that balance changes affect game systems as intended."
+    ],
+    "taskmaster_id": 10,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0110",
+    "story_id": "PRD-WOWGUAJI-T2-0110",
+    "title": "Implement UI Integration for Core Features",
+    "description": "Develop basic UI components to display gathering, crafting, combat, and inventory.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0118",
+      "GM-0113",
+      "GM-0123",
+      "GM-0117"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create UI views using framework (e.g., React, or in-game UI). Components: GatheringPanel (show active resource, progress), CraftingPanel (recipe list, materials), CombatPanel (enemy HP, player HP, status effects), InventoryPanel ",
+      "Verify: Manual testing of UI responsiveness and event handling. Unit tests for UI components if using testable framework. Verify rare drop highlights work."
+    ],
+    "test_strategy": [
+      "Manual testing of UI responsiveness and event handling. Unit tests for UI components if using testable framework. Verify rare drop highlights work."
+    ],
+    "taskmaster_id": 11,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0111",
+    "story_id": "PRD-WOWGUAJI-T2-0111",
+    "title": "Final Integration and End-to-End Testing",
+    "description": "Combine all systems, run comprehensive tests, and prepare for deployment.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0110",
+      "GM-0120",
+      "GM-0121"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0015",
+      "ADR-0008",
+      "ADR-0018"
+    ],
+    "chapter_refs": [
+      "CH01",
+      "CH06",
+      "CH07",
+      "CH09",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "perf",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Integrate all modules: gathering, skills, crafting, combat, inventory, UI, persistence. Set up a full game loop. Conduct end-to-end tests: simulate player gathering resources, leveling skills, crafting items, fighting enemies. Ch",
+      "Verify: End-to-end tests covering typical user flows. Load testing for multiple concurrent actions. User acceptance testing with sample scenarios. Fix any integration issues found."
+    ],
+    "test_strategy": [
+      "End-to-end tests covering typical user flows. Load testing for multiple concurrent actions. User acceptance testing with sample scenarios. Fix any integration issues found."
+    ],
+    "taskmaster_id": 12,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0112",
+    "story_id": "PRD-WOWGUAJI-T2-0112",
+    "title": "Create Crafting Skill System",
+    "description": "Develop crafting functionality for initial skill (e.g., forging or cooking) with recipe management.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0119"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Implement CraftingSkill class similar to GatheringSkill. Define Recipe data model: materialsRequired (array of {itemId, quantity}), product, craftCycleSeconds, expGiven, unlockConditions. Start with one crafting skill as minimal ",
+      "Verify: Unit tests for recipe validation and crafting skill leveling. Test unlock conditions based on skill level or milestones."
+    ],
+    "test_strategy": [
+      "Unit tests for recipe validation and crafting skill leveling. Test unlock conditions based on skill level or milestones."
+    ],
+    "taskmaster_id": 13,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0113",
+    "story_id": "PRD-WOWGUAJI-T2-0113",
+    "title": "Implement Crafting Cycle and Production",
+    "description": "Develop the crafting loop: select recipe, check materials, deduct, timer, and produce items.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [
+      "GM-0112"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create CraftingManager with methods: startCrafting(playerId, recipeId). Check material availability in inventory; if insufficient, return error. Deduct materials. Start timer based on craftCycleSeconds. On completion: add product",
+      "Verify: Unit tests for material checks and deductions. Integration tests with timers and inventory updates. Validate EXP gain."
+    ],
+    "test_strategy": [
+      "Unit tests for material checks and deductions. Integration tests with timers and inventory updates. Validate EXP gain."
+    ],
+    "taskmaster_id": 14,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0114",
+    "story_id": "PRD-WOWGUAJI-T2-0114",
+    "title": "Implement Combat Drop and Victory/Defeat Logic",
+    "description": "Add loot drops on victory and handle win/loss conditions with light penalties.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0123"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "inventory",
+      "offline",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: On enemy HP 0: victory. Roll drops from enemy's dropTable using weighted random. Add gold and items to player inventory. On player HP 0: defeat. Apply light penalty: lose current battle loot (if any) and interrupt combat. Do not ",
+      "Verify: Unit tests for drop table randomness and victory/defeat conditions. Test penalty application. Validate no offline combat simulation."
+    ],
+    "test_strategy": [
+      "Unit tests for drop table randomness and victory/defeat conditions. Test penalty application. Validate no offline combat simulation."
+    ],
+    "taskmaster_id": 15,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged"
+    ]
+  },
+  {
+    "id": "GM-0115",
+    "story_id": "PRD-WOWGUAJI-T2-0115",
+    "title": "Add Rare Drop System for Gathering",
+    "description": "Implement low-probability rare drops during gathering with UI highlight notifications.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0118"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "gathering",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend gathering cycle to include rare drop checks. Use random number generation against probability (e.g., 1% chance). If triggered, select item from rareDropTable (array of {itemId, weight}). Add rare item to inventory. Emit ev",
+      "Verify: Unit tests for probability logic and drop table selection. Integration tests to ensure UI events are emitted. Mock random for deterministic testing."
+    ],
+    "test_strategy": [
+      "Unit tests for probability logic and drop table selection. Integration tests to ensure UI events are emitted. Mock random for deterministic testing."
+    ],
+    "taskmaster_id": 17,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0116",
+    "story_id": "PRD-WOWGUAJI-T2-0116",
+    "title": "Implement Gathering Skill System",
+    "description": "Develop core gathering functionality for initial skills (e.g., mining, logging) with leveling and experience.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0119"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "gathering",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Implement GatheringSkill class extending base Skill. Manage EXP gain per cycle. Level up logic: on EXP threshold, increase level, unlock new resource points per PRD 4.2.1. Start with 2-3 skills as minimal set. Use event system to",
+      "Verify: Unit tests for EXP calculation, level-up triggers, and unlocking mechanics. Integration tests with resource points."
+    ],
+    "test_strategy": [
+      "Unit tests for EXP calculation, level-up triggers, and unlocking mechanics. Integration tests with resource points."
+    ],
+    "taskmaster_id": 18,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0117",
+    "story_id": "PRD-WOWGUAJI-T2-0117",
+    "title": "Create Inventory Management System",
+    "description": "Develop a unified inventory for resources, crafted items, and combat drops.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [
+      "GM-0118",
+      "GM-0113",
+      "GM-0114"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Implement Inventory class with methods: addItem(itemId, quantity), removeItem(itemId, quantity), getQuantity(itemId). Support stacking. Integrate with gathering, crafting, and combat systems to update inventory on events. Use per",
+      "Verify: Unit tests for inventory operations (add, remove, stack). Integration tests with other systems to ensure consistency. Test edge cases like insufficient items."
+    ],
+    "test_strategy": [
+      "Unit tests for inventory operations (add, remove, stack). Integration tests with other systems to ensure consistency. Test edge cases like insufficient items."
+    ],
+    "taskmaster_id": 19,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.combat.started",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.loot.dropped",
+      "core.player.damaged",
+      "core.player.moved",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0118",
+    "story_id": "PRD-WOWGUAJI-T2-0118",
+    "title": "Implement Gathering Cycle and Resource Yield",
+    "description": "Develop the core loop for gathering cycles, producing resources and experience periodically.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [
+      "GM-0128"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Use setInterval or game loop to trigger cycle events. On each cycle: add resources (main/bye products) to player inventory, add EXP to skill. Handle concurrency: player can only gather one resource at a time. Implement pause/resu",
+      "Verify: Test cycle timing accuracy with mock timers. Validate resource and EXP increments. Test concurrent gathering prevention."
+    ],
+    "test_strategy": [
+      "Test cycle timing accuracy with mock timers. Validate resource and EXP increments. Test concurrent gathering prevention."
+    ],
+    "taskmaster_id": 20,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0119",
+    "story_id": "PRD-WOWGUAJI-T2-0119",
+    "title": "Define Data Models for Resources and Skills",
+    "description": "Create data structures for resource points, skills, and related entities based on PRD specifications.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define interfaces/classes in code: ResourcePoint with fields: id, name, requiredSkill, requiredLevel, mainProduct, byProduct, baseCycleSeconds, yieldPerCycle, rareDropTable (optional). Skill with fields: id, name, exp, level, unl",
+      "Verify: Unit tests to validate data model creation, serialization/deserialization. Test adding new skills and resource points dynamically."
+    ],
+    "test_strategy": [
+      "Unit tests to validate data model creation, serialization/deserialization. Test adding new skills and resource points dynamically."
+    ],
+    "taskmaster_id": 21,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.dlc.enabled",
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0120",
+    "story_id": "PRD-WOWGUAJI-T2-0120",
+    "title": "Add Persistence and Save/Load Functionality",
+    "description": "Implement data saving for player progress, skills, inventory, and game state.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0116",
+      "GM-0112",
+      "GM-0126",
+      "GM-0117"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "inventory",
+      "map",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Use local storage or a backend database to save game state. Serialize player data: skills (EXP, level), inventory, combat stats, unlocked milestones. Implement save() on key events (e.g., level up, inventory change) and load() on",
+      "Verify: Unit tests for serialization/deserialization. Integration tests to save and load game state. Verify no data loss on reload."
+    ],
+    "test_strategy": [
+      "Unit tests for serialization/deserialization. Integration tests to save and load game state. Verify no data loss on reload."
+    ],
+    "taskmaster_id": 22,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0121",
+    "story_id": "PRD-WOWGUAJI-T2-0121",
+    "title": "Implement Extension Hooks for Future Features",
+    "description": "Add placeholder structures for planned extensions like fatigue, tool quality, and recipe drops.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [
+      "GM-0119",
+      "GM-0116",
+      "GM-0112"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend data models with optional fields: fatigue in gathering, toolQuality modifiers, regionRestricted flags, rareSpawn mechanics. Add event hooks for future systems: e.g., onGatheringCycle, check fatigue. For recipe drops, add d",
+      "Verify: Unit tests to ensure extension fields don't break existing functionality. Verify hooks are callable and configurable."
+    ],
+    "test_strategy": [
+      "Unit tests to ensure extension fields don't break existing functionality. Verify hooks are callable and configurable."
+    ],
+    "taskmaster_id": 23,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0122",
+    "story_id": "PRD-WOWGUAJI-T2-0122",
+    "title": "Develop Light Strategy Options for Combat",
+    "description": "Add entry-level strategy elements like attack styles and damage type weaknesses.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0123"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Implement attack styles: steady (normal), fast (lower damage, higher frequency), heavy (higher damage, lower frequency). Add enemy weakness: certain enemies take more damage from specific styles. This is a lightweight addition pe",
+      "Verify: Unit tests for attack style modifiers and weakness multipliers. Integration tests with combat ticks. Ensure it doesn't complicate core loop."
+    ],
+    "test_strategy": [
+      "Unit tests for attack style modifiers and weakness multipliers. Integration tests with combat ticks. Ensure it doesn't complicate core loop."
+    ],
+    "taskmaster_id": 24,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0123",
+    "story_id": "PRD-WOWGUAJI-T2-0123",
+    "title": "Implement Automatic Combat Tick System",
+    "description": "Develop the core combat loop with automatic ticks based on attack intervals.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [
+      "GM-0126"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create CombatManager to handle battles. Method: startCombat(playerId, enemyId). Use game loop or setInterval for ticks at attack interval (e.g., every 1 second). Each tick: calculate damage (player attack vs enemy defense, consid",
+      "Verify: Unit tests for damage calculation and HP reduction. Integration tests with timer loops. Validate combat flow from start to end."
+    ],
+    "test_strategy": [
+      "Unit tests for damage calculation and HP reduction. Integration tests with timer loops. Validate combat flow from start to end."
+    ],
+    "taskmaster_id": 25,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged"
+    ]
+  },
+  {
+    "id": "GM-0124",
+    "story_id": "PRD-WOWGUAJI-T2-0124",
+    "title": "Add Status Effect System for Combat",
+    "description": "Implement fixed rules for status effects (strength, weakness, vulnerable, poison) in combat.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0126",
+      "GM-0123"
+    ],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define status effect classes with properties: type, magnitude, duration (in ticks). Apply effects at combat start or via skills (future). Each tick: strength increases damage by X, weakness reduces damage by Y, vulnerable increas",
+      "Verify: Unit tests for each status effect's impact on damage. Test duration and decay mechanics. Integration with combat ticks."
+    ],
+    "test_strategy": [
+      "Unit tests for each status effect's impact on damage. Test duration and decay mechanics. Integration with combat ticks."
+    ],
+    "taskmaster_id": 26,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0125",
+    "story_id": "PRD-WOWGUAJI-T2-0125",
+    "title": "Develop Skill Milestone and Unlock System",
+    "description": "Implement milestone triggers at key levels (e.g., 10, 20) with unlocks and notifications.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0116"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define milestone levels in configuration (e.g., [10, 20, ..., max]). On level up, check if new level matches a milestone. If yes, trigger unlocks: new resource points, recipes, area conditions per PRD 4.2.2. Emit event for UI pro",
+      "Verify: Unit tests for milestone detection and unlock logic. Test with various level progressions. Verify events are fired correctly."
+    ],
+    "test_strategy": [
+      "Unit tests for milestone detection and unlock logic. Test with various level progressions. Verify events are fired correctly."
+    ],
+    "taskmaster_id": 27,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0126",
+    "story_id": "PRD-WOWGUAJI-T2-0126",
+    "title": "Define Combat Data Models",
+    "description": "Create data structures for enemies, player stats, and combat attributes.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define interfaces: Enemy with id, name, hp, attack, defense, dropTable, skillCycle (optional). PlayerStats with hp, attack, defense, equipment, states. Combat attributes: hit/dodge (optional), shield/block (optional). Status effe",
+      "Verify: Unit tests for data model creation and validation. Test status effect application logic."
+    ],
+    "test_strategy": [
+      "Unit tests for data model creation and validation. Test status effect application logic."
+    ],
+    "taskmaster_id": 28,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0127",
+    "story_id": "PRD-WOWGUAJI-T2-0127",
+    "title": "Implement Global Passive Bonuses from Skills",
+    "description": "Add skill synergies that provide passive bonuses like gathering speed or drop rate increases.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0116",
+      "GM-0118"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "gameplay",
+      "gathering",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define passive bonuses in skill data: e.g., mining level 5 gives +5% gathering speed. Create a BonusManager to aggregate bonuses from all skills. Apply bonuses to relevant systems: gathering cycle time reduction, drop rate multip",
+      "Verify: Unit tests for bonus calculation and application. Integration tests with gathering system to verify speed increases. Test multiple skill synergies."
+    ],
+    "test_strategy": [
+      "Unit tests for bonus calculation and application. Integration tests with gathering system to verify speed increases. Test multiple skill synergies."
+    ],
+    "taskmaster_id": 29,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.gathering.started",
+      "core.gathering.stopped",
+      "core.inventory.item.added",
+      "core.resource.generated",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0128",
+    "story_id": "PRD-WOWGUAJI-T2-0128",
+    "title": "Create Resource Point Management",
+    "description": "Implement resource point data and logic for gathering cycles, including start, stop, and switching.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0119",
+      "GM-0116"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "gathering",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create ResourcePointManager to handle active gathering sessions. Methods: startGathering(playerId, resourcePointId), stopGathering(playerId), switchGathering(playerId, newResourcePointId). Use timers for cycles: each cycle yields",
+      "Verify: Unit tests for start/stop/switch logic. Integration tests with timers and skill checks. Validate cycle timing and yield amounts."
+    ],
+    "test_strategy": [
+      "Unit tests for start/stop/switch logic. Integration tests with timers and skill checks. Validate cycle timing and yield amounts."
+    ],
+    "taskmaster_id": 30,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0129",
+    "story_id": "PRD-WOWGUAJI-T2-0129",
+    "title": "Implement quest progression and tracking system",
+    "description": "Build system to track active quests, update objectives, and complete quests.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "docs",
+    "depends_on": [
+      "GM-0141"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0006"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "docs",
+      "gameplay",
+      "inventory",
+      "map",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create QuestManager class with activeQuests list. Methods: startQuest, updateObjective (called from other systems like inventory or combat), completeQuest. On completion, grant rewards (add items, unlock recipes). Save progress i",
+      "Verify: Integration tests for objective updates (e.g., collecting items triggers quest progress). Validate reward distribution on completion."
+    ],
+    "test_strategy": [
+      "Integration tests for objective updates (e.g., collecting items triggers quest progress). Validate reward distribution on completion."
+    ],
+    "taskmaster_id": 31,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0130",
+    "story_id": "PRD-WOWGUAJI-T2-0130",
+    "title": "Add DLC resource and recipe integration",
+    "description": "Implement linkage where DLC materials can be used in main world crafting and recipes.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0144",
+      "GM-0143"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend crafting system to accept DLC items as ingredients if DLC is enabled. Recipes that use DLC materials should be available only when DLC is enabled. Update recipe validation logic. Pseudo-code: function canCraft(recipe) { re",
+      "Verify: Test crafting with DLC materials when enabled/disabled. Verify recipes are accessible only with DLC enabled."
+    ],
+    "test_strategy": [
+      "Test crafting with DLC materials when enabled/disabled. Verify recipes are accessible only with DLC enabled."
+    ],
+    "taskmaster_id": 32,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked"
+    ]
+  },
+  {
+    "id": "GM-0131",
+    "story_id": "PRD-WOWGUAJI-T2-0131",
+    "title": "Add quest and achievement UI",
+    "description": "Implement UI to display active quests, objectives, and unlocked achievements.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0129",
+      "GM-0145"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create quest log UI showing active quests with progress bars for objectives. Achievement UI lists unlocked achievements with rewards. Use tabs or separate screens. Update in real-time as quests progress. Pseudo-code: function upd",
+      "Verify: UI tests to ensure quest and achievement lists update correctly on progression events. Verify display matches backend data."
+    ],
+    "test_strategy": [
+      "UI tests to ensure quest and achievement lists update correctly on progression events. Verify display matches backend data."
+    ],
+    "taskmaster_id": 33,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0132",
+    "story_id": "PRD-WOWGUAJI-T2-0132",
+    "title": "Implement save/load system for player progress",
+    "description": "Add persistence for inventory, quests, achievements, region unlocks, and DLC states.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [
+      "GM-0139",
+      "GM-0129",
+      "GM-0145",
+      "GM-0135",
+      "GM-0143"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0006"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "dlc",
+      "gameplay",
+      "inventory",
+      "map",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create SaveData class encompassing all player states: inventory items, quest progress, unlocked achievements, region unlocks, enabledDLCs. Serialize to JSON (System.Text.Json) and save under Godot user://. Load on game start with version migration if needed.",
+      "Verify: Test saving and loading with various game states. Verify data integrity and that loaded game reflects saved state."
+    ],
+    "test_strategy": [
+      "Test saving and loading with various game states. Verify data integrity and that loaded game reflects saved state."
+    ],
+    "taskmaster_id": 34,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0133",
+    "story_id": "PRD-WOWGUAJI-T2-0133",
+    "title": "Design region data structure for world map",
+    "description": "Create data model for regions including attached points (gathering, monsters, shops) and unlock rules.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "gathering",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define Region class with fields: id, name, isUnlocked, unlockConditions (skill level, quest, boss kill), attachedPoints: GatheringPoint[], MonsterPool[], Shop[]. Store in RegionDatabase. Pseudo-code: class Region { id: string; un",
+      "Verify: Unit tests for region creation and unlock condition storage. Validate that attached points are correctly associated."
+    ],
+    "test_strategy": [
+      "Unit tests for region creation and unlock condition storage. Validate that attached points are correctly associated."
+    ],
+    "taskmaster_id": 35,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0134",
+    "story_id": "PRD-WOWGUAJI-T2-0134",
+    "title": "Implement inventory and equipment UI",
+    "description": "Build user interface for viewing and managing inventory and equipped items.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0139",
+      "GM-0136"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create UI panels for inventory (grid of slots with item icons and quantities) and equipment (slots for each equipment type). Support drag-and-drop or click to equip/unequip. Include tooltips showing item details. Use responsive d",
+      "Verify: UI tests for drag-and-drop, equipping items, and tooltip display. Verify updates reflect backend changes."
+    ],
+    "test_strategy": [
+      "UI tests for drag-and-drop, equipping items, and tooltip display. Verify updates reflect backend changes."
+    ],
+    "taskmaster_id": 36,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added"
+    ]
+  },
+  {
+    "id": "GM-0135",
+    "story_id": "PRD-WOWGUAJI-T2-0135",
+    "title": "Implement region unlocking logic",
+    "description": "Build system to check unlock conditions and unlock regions based on player progress.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0129",
+      "GM-0133"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0006",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "map",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create RegionManager with method checkUnlockConditions(regionId). Evaluate conditions against player data (skill levels, completed quests, boss kills). On unlock, update region's isUnlocked flag and save to player data. Pseudo-co",
+      "Verify: Integration tests with player data to verify unlocking works for various conditions (skill, quest, boss)."
+    ],
+    "test_strategy": [
+      "Integration tests with player data to verify unlocking works for various conditions (skill, quest, boss)."
+    ],
+    "taskmaster_id": 37,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0136",
+    "story_id": "PRD-WOWGUAJI-T2-0136",
+    "title": "Create equipment slots and equipping mechanism",
+    "description": "Implement equipment slots (weapon, armor, accessories) and logic to equip items affecting player stats.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0144",
+      "GM-0139"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "inventory",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define EquipmentSlots enum: Weapon, Armor, Accessory1, Accessory2, etc. Create EquipmentManager class with slots dictionary. Equip method validates item type matches slot, unequips previous item. On equip/unequip, update player's",
+      "Verify: Unit tests for equipping/unequipping, stat updates, slot validation. Verify that only equipment items can be equipped."
+    ],
+    "test_strategy": [
+      "Unit tests for equipping/unequipping, stat updates, slot validation. Verify that only equipment items can be equipped."
+    ],
+    "taskmaster_id": 38,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked"
+    ]
+  },
+  {
+    "id": "GM-0137",
+    "story_id": "PRD-WOWGUAJI-T2-0137",
+    "title": "Implement region detail page",
+    "description": "Create UI page showing gathering points, monster pools, and shops for a selected region.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0138"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Detail page lists attached points from region data. For gathering points, show resource types; for monsters, show enemy details; for shops, list items for sale. Include back button to map. Use scrollable lists. Pseudo-code: funct",
+      "Verify: UI tests to ensure all attached points are displayed correctly. Verify navigation from map to details works."
+    ],
+    "test_strategy": [
+      "UI tests to ensure all attached points are displayed correctly. Verify navigation from map to details works."
+    ],
+    "taskmaster_id": 39,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0138",
+    "story_id": "PRD-WOWGUAJI-T2-0138",
+    "title": "Create world map UI",
+    "description": "Implement UI to display regions, their unlock status, and allow navigation to region details.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0133",
+      "GM-0135"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Build a map view showing regions as nodes. Use colors/icons for unlocked/locked status. On hover/click, show tooltip with unlock conditions. Clicking an unlocked region opens a detail page with attached points. Use Godot Control UI.",
+      "Verify: UI tests to verify correct display based on unlock status. Click interactions open correct details."
+    ],
+    "test_strategy": [
+      "UI tests to verify correct display based on unlock status. Click interactions open correct details."
+    ],
+    "taskmaster_id": 40,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0139",
+    "story_id": "PRD-WOWGUAJI-T2-0139",
+    "title": "Implement inventory system with stacking and capacity",
+    "description": "Build the player's inventory/backpack system supporting item stacking, categorization, and capacity limits.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0144"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create Inventory class with slots array. Each slot holds item id and quantity. Implement addItem, removeItem, stackItems methods. Support global warehouse with unlimited or capped capacity. Include search and filter by item type.",
+      "Verify: Test adding/removing items, stacking logic, capacity limits, and search functionality. Edge cases: overstacking, empty slots."
+    ],
+    "test_strategy": [
+      "Test adding/removing items, stacking logic, capacity limits, and search functionality. Edge cases: overstacking, empty slots."
+    ],
+    "taskmaster_id": 41,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.player.moved"
+    ]
+  },
+  {
+    "id": "GM-0140",
+    "story_id": "PRD-WOWGUAJI-T2-0140",
+    "title": "Create DLC task chain integration with main world",
+    "description": "Implement quests in main world that guide players to DLC entry and conditions.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0141",
+      "GM-0129",
+      "GM-0143"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "dlc",
+      "gameplay",
+      "inventory",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Add main world quests that have objectives related to DLC (e.g., 'Unlock DLC region'). These quests should check DLC enablement and progression. On completion, they might unlock DLC content or provide entry items. Pseudo-code: cl",
+      "Verify: Test that main world quests correctly reference DLC and unlock conditions work with DLC enabled/disabled."
+    ],
+    "test_strategy": [
+      "Test that main world quests correctly reference DLC and unlock conditions work with DLC enabled/disabled."
+    ],
+    "taskmaster_id": 42,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0141",
+    "story_id": "PRD-WOWGUAJI-T2-0141",
+    "title": "Design and implement quest data structure",
+    "description": "Create the data model for quests including objectives, rewards, and progression tracking.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define Quest class with fields: id, title, description, objectives (list of Objective), rewards (items, recipes, passives), prerequisiteQuests, isCompleted. Objective types: CollectItem, KillMonster, CraftItem, etc. Store in Ques",
+      "Verify: Unit tests for quest creation, objective tracking, and reward assignment. Verify that prerequisites are checked."
+    ],
+    "test_strategy": [
+      "Unit tests for quest creation, objective tracking, and reward assignment. Verify that prerequisites are checked."
+    ],
+    "taskmaster_id": 43,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added"
+    ]
+  },
+  {
+    "id": "GM-0142",
+    "story_id": "PRD-WOWGUAJI-T2-0142",
+    "title": "Design DLC data structure with ID namespace",
+    "description": "Create data model for DLCs including new regions, items, recipes, and tasks, with independent ID naming.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0144",
+      "GM-0141",
+      "GM-0133"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "inventory",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define DLC class with fields: id, name, enabled, content: { regions: Region[], items: Item[], quests: Quest[] }. Use ID prefix like 'DLC1_' for all DLC content to avoid conflicts. Store in DLCDatabase. Pseudo-code: class DLC { id",
+      "Verify: Unit tests to verify ID uniqueness and prefix application. Ensure DLC data can be loaded independently."
+    ],
+    "test_strategy": [
+      "Unit tests to verify ID uniqueness and prefix application. Ensure DLC data can be loaded independently."
+    ],
+    "taskmaster_id": 44,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "GM-0143",
+    "story_id": "PRD-WOWGUAJI-T2-0143",
+    "title": "Implement DLC enablement and data compatibility",
+    "description": "Add system to enable/disable DLCs, with data preservation and content activation.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [
+      "GM-0142"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0006",
+      "ADR-0007"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "dlc",
+      "gameplay",
+      "inventory",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create DLCManager with methods enableDLC(dlcId), disableDLC(dlcId). When enabled, load DLC content into respective databases (ItemDatabase, QuestDatabase, etc.). Save EnabledDLCs list in player save file. Disabled DLCs keep data ",
+      "Verify: Integration tests for enabling/disabling DLCs, verifying content appears/disappears in game. Check save data integrity."
+    ],
+    "test_strategy": [
+      "Integration tests for enabling/disabling DLCs, verifying content appears/disappears in game. Check save data integrity."
+    ],
+    "taskmaster_id": 45,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "GM-0144",
+    "story_id": "PRD-WOWGUAJI-T2-0144",
+    "title": "Design and implement core item data structure",
+    "description": "Create the foundational data model for all item types (resource, equipment, consumable, quest item, currency) with necessary attributes.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define Item class with fields: id, name, type, stackable, maxStack, icon, description. Create subclasses for each type: EquipmentItem (with base stats like attack, defense, HP), ConsumableItem (with cooldown, effect), ResourceIte",
+      "Verify: Unit tests to verify item creation, type assignment, and attribute storage. Validate that equipment items have stats, consumables have cooldown fields."
+    ],
+    "test_strategy": [
+      "Unit tests to verify item creation, type assignment, and attribute storage. Validate that equipment items have stats, consumables have cooldown fields."
+    ],
+    "taskmaster_id": 46,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.health.updated",
+      "core.inventory.item.added"
+    ]
+  },
+  {
+    "id": "GM-0145",
+    "story_id": "PRD-WOWGUAJI-T2-0145",
+    "title": "Create achievement system with milestones",
+    "description": "Implement achievements for skill milestones, boss kills, collection, etc., with rewards.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0141"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define Achievement class similar to Quest but with unlock conditions (e.g., skillLevel >= 10, killCount >= 5). Create AchievementManager to track unlocked achievements and check conditions periodically or on events. Rewards are c",
+      "Verify: Unit tests for condition checking and achievement unlocking. Verify rewards are applied correctly."
+    ],
+    "test_strategy": [
+      "Unit tests for condition checking and achievement unlocking. Verify rewards are applied correctly."
+    ],
+    "taskmaster_id": 47,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0146",
+    "story_id": "PRD-WOWGUAJI-T2-0146",
+    "title": "Implement DLC milestone global passives",
+    "description": "Add system where completing DLC milestones grants global bonuses (drop rate, craft speed, HP).",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0129",
+      "GM-0143"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define DLC milestones as special quests or achievements in DLC content. On completion, apply passive bonuses to player stats globally. Store bonuses in player data and apply modifiers to relevant calculations (e.g., dropRate += 0",
+      "Verify: Integration tests to verify bonuses are applied after milestone completion and affect game mechanics correctly."
+    ],
+    "test_strategy": [
+      "Integration tests to verify bonuses are applied after milestone completion and affect game mechanics correctly."
+    ],
+    "taskmaster_id": 48,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0147",
+    "story_id": "PRD-WOWGUAJI-T2-0147",
+    "title": "Add extensibility hooks for future features",
+    "description": "Implement placeholder systems and data fields for planned expansions like durability, sets, daily quests.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0144",
+      "GM-0141",
+      "GM-0133"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend Item class with durability field (for equipment). Add setBonus field to EquipmentItem for future set effects. In Quest, add fields for daily/weekly reset. In Region, add fields for events and weather. Keep these unused but",
+      "Verify: Unit tests to ensure new fields exist and can be set/get without breaking existing functionality."
+    ],
+    "test_strategy": [
+      "Unit tests to ensure new fields exist and can be set/get without breaking existing functionality."
+    ],
+    "taskmaster_id": 49,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0148",
+    "story_id": "PRD-WOWGUAJI-T2-0148",
+    "title": "Implement consumable usage with cooldowns",
+    "description": "Add functionality for using consumables (food/potions) with cooldown management and carry limits.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0144",
+      "GM-0139"
+    ],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend ConsumableItem with effect fields (heal amount, buff type). Create ConsumableManager to handle useConsumable method, applying effects to player. Track cooldowns per consumable type using timestamps. Enforce carry limits in",
+      "Verify: Test consumable effects, cooldown enforcement, and inventory updates. Validate that effects are applied correctly (e.g., HP restored)."
+    ],
+    "test_strategy": [
+      "Test consumable effects, cooldown enforcement, and inventory updates. Validate that effects are applied correctly (e.g., HP restored)."
+    ],
+    "taskmaster_id": 50,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.region.unlocked"
+    ]
+  },
+  {
+    "id": "GM-0149",
+    "story_id": "PRD-WOWGUAJI-T2-0149",
+    "title": "Implement data models for skills, inventory, and activities",
+    "description": "Define classes for skills (level, progress), inventory items, and activities (collecting, crafting, combat) with serializable properties.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [
+      "GM-0161"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create Skill class with fields: id, name, level, experience, maxLevel. Create Item class: id, name, type, quantity. Create Activity classes: CollectActivity (resourceId, cycleTime, outputRate), CraftActivity (recipeId, craftTime)",
+      "Verify: Create test scripts to instantiate data models, modify values, and verify serialization works. Test activity update logic with mock TimeService ticks."
+    ],
+    "test_strategy": [
+      "Create test scripts to instantiate data models, modify values, and verify serialization works. Test activity update logic with mock TimeService ticks."
+    ],
+    "taskmaster_id": 52,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0150",
+    "story_id": "PRD-WOWGUAJI-T2-0150",
+    "title": "Develop crafting activity system",
+    "description": "Implement crafting with recipes and cycles, including UI for craft page.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0149",
+      "GM-0154"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create Recipe class with required items, output items, and craftTime. CraftActivity manages ongoing crafts, deducting inputs and adding outputs after craftTime. Integrate with TimeService ticks. CraftPage UI lists recipes, shows ",
+      "Verify: Test crafting with sample recipes, verify inventory changes correctly. Validate UI shows progress and blocks insufficient ingredients."
+    ],
+    "test_strategy": [
+      "Test crafting with sample recipes, verify inventory changes correctly. Validate UI shows progress and blocks insufficient ingredients."
+    ],
+    "taskmaster_id": 53,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added"
+    ]
+  },
+  {
+    "id": "GM-0151",
+    "story_id": "PRD-WOWGUAJI-T2-0151",
+    "title": "Create offline calculation system",
+    "description": "Calculate for collecting and crafting activities based on offline time, with configurable cap (e.g., 8-12 hours) and hard initially.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [
+      "GM-0149"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0006",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "offline",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: On game start, compute offline time as current time minus lastOnlineTime from save. Cap offline time at capHours (configurable parameter, e.g., 8 hours). For each collect and craft activity, calculate based on output rates and ca",
+      "Verify: Simulate offline times (e.g., 1 hour, 10 hours) and verify calculation matches expected output. Test cap enforcement and no combat ."
+    ],
+    "test_strategy": [
+      "Simulate offline times (e.g., 1 hour, 10 hours) and verify calculation matches expected output. Test cap enforcement and no combat ."
+    ],
+    "taskmaster_id": 54,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0152",
+    "story_id": "PRD-WOWGUAJI-T2-0152",
+    "title": "Implement professional synergy (WoW )",
+    "description": "Add and / mechanics.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0158",
+      "GM-0150"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define professions (e.g., Mining, Herbalism for collecting; Blacksmithing, Alchemy for crafting). Modify collecting activities to sometimes yield bonus materials if player has related profession skill. Crafting recipes can provid",
+      "Verify: Test collecting with/without professions, verify bonus outputs. Test crafting buffs apply correctly."
+    ],
+    "test_strategy": [
+      "Test collecting with/without professions, verify bonus outputs. Test crafting buffs apply correctly."
+    ],
+    "taskmaster_id": 55,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0153",
+    "story_id": "PRD-WOWGUAJI-T2-0153",
+    "title": "Add UI feedback systems",
+    "description": "Implement upgrade prompts, rare drop highlights, combat drop panels, and offline panels.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0160",
+      "GM-0158",
+      "GM-0150",
+      "GM-0156",
+      "GM-0151"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "gameplay",
+      "inventory",
+      "offline",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create FeedbackManager to handle popups and highlights. On skill upgrade, show a prompt with new level. On rare drop, highlight item in UI with special effect. After combat, display a panel with loot list. On game start after off",
+      "Verify: Trigger each feedback event (e.g., simulate rare drop), verify UI appears correctly and dismisses. Test offline panel shows correct amounts."
+    ],
+    "test_strategy": [
+      "Trigger each feedback event (e.g., simulate rare drop), verify UI appears correctly and dismisses. Test offline panel shows correct amounts."
+    ],
+    "taskmaster_id": 56,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.score.updated",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0154",
+    "story_id": "PRD-WOWGUAJI-T2-0154",
+    "title": "Implement pagination system for different game pages",
+    "description": "Create UI pages for collecting, crafting, combat, inventory, tasks, map, and settings with navigation.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "docs",
+    "depends_on": [
+      "GM-0160"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "crafting",
+      "docs",
+      "gameplay",
+      "inventory",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Design a PageManager to handle switching between pages. Each page is a separate UI panel (CollectPage, CraftPage, etc.) that can be enabled/disabled. Use a tab bar or menu buttons for navigation. Ensure smooth transitions and sta",
+      "Verify: Test each page opens correctly via navigation, no overlapping UI. Verify page state resets appropriately when switching."
+    ],
+    "test_strategy": [
+      "Test each page opens correctly via navigation, no overlapping UI. Verify page state resets appropriately when switching."
+    ],
+    "taskmaster_id": 57,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0155",
+    "story_id": "PRD-WOWGUAJI-T2-0155",
+    "title": "Implement inventory system with backpack UI",
+    "description": "Create inventory management and backpack page to view and manage items.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0149",
+      "GM-0154"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend Inventory class with methods Add, Remove, GetQuantity. BackpackPage UI displays a grid of items with icons and quantities. Use ScrollView for scalability. Implement basic item interactions (e.g., tooltips). Ensure inventor",
+      "Verify: Add/remove items via gameplay, verify backpack UI updates correctly. Test edge cases like zero quantity."
+    ],
+    "test_strategy": [
+      "Add/remove items via gameplay, verify backpack UI updates correctly. Test edge cases like zero quantity."
+    ],
+    "taskmaster_id": 58,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.player.moved"
+    ]
+  },
+  {
+    "id": "GM-0156",
+    "story_id": "PRD-WOWGUAJI-T2-0156",
+    "title": "Develop combat activity system",
+    "description": "Implement combat mechanics with attack intervals, damage , and death , including UI for combat page.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0149",
+      "GM-0154"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create Enemy class with health, attack damage, attackInterval. CombatActivity handles combat between player and enemy, updating on ticks. On each tick, reduce enemy health by player damage; if enemy health <= 0, award drops and e",
+      "Verify: Simulate combat with mock enemies, verify health decreases correctly and drops are awarded. Test combat start/stop and UI updates."
+    ],
+    "test_strategy": [
+      "Simulate combat with mock enemies, verify health decreases correctly and drops are awarded. Test combat start/stop and UI updates."
+    ],
+    "taskmaster_id": 59,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged"
+    ]
+  },
+  {
+    "id": "GM-0157",
+    "story_id": "PRD-WOWGUAJI-T2-0157",
+    "title": "Implement map system with map page",
+    "description": "Create map unlocking and display, including UI for map page.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0149",
+      "GM-0154"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: MapArea class with id, isUnlocked, requirements (e.g., task completion). MapPage UI shows a map image with areas; locked areas are grayed out. Unlock areas when requirements are met. This ties into task system for unlocking. Pseu",
+      "Verify: Unlock map areas by meeting requirements, verify UI updates correctly. Test locked state persistence."
+    ],
+    "test_strategy": [
+      "Unlock map areas by meeting requirements, verify UI updates correctly. Test locked state persistence."
+    ],
+    "taskmaster_id": 60,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0158",
+    "story_id": "PRD-WOWGUAJI-T2-0158",
+    "title": "Develop collecting activity system",
+    "description": "Implement collecting mechanics with periodic output based on tick system, including UI for collect page.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0149",
+      "GM-0154"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend CollectActivity class to integrate with TimeService ticks. On each tick, update timer; when cycleTime is reached, add output items to inventory. Create CollectPage UI showing available resources, current collection activit",
+      "Verify: Run game with TimeService, verify items are added at correct intervals. Test start/stop functionality and UI updates."
+    ],
+    "test_strategy": [
+      "Run game with TimeService, verify items are added at correct intervals. Test start/stop functionality and UI updates."
+    ],
+    "taskmaster_id": 61,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added"
+    ]
+  },
+  {
+    "id": "GM-0159",
+    "story_id": "PRD-WOWGUAJI-T2-0159",
+    "title": "Create task system with task page",
+    "description": "Implement tasks (quests) with objectives and rewards, including UI for task page.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0149",
+      "GM-0154"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Define Task class with fields: id, description, objectives (e.g., collect X items), rewards, isCompleted. TaskManager tracks active tasks and checks completion on game events. TaskPage UI lists tasks with progress bars and claim ",
+      "Verify: Create test tasks, complete objectives, verify rewards are given and UI updates. Test task completion tracking."
+    ],
+    "test_strategy": [
+      "Create test tasks, complete objectives, verify rewards are given and UI updates. Test task completion tracking."
+    ],
+    "taskmaster_id": 62,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added"
+    ]
+  },
+  {
+    "id": "GM-0160",
+    "story_id": "PRD-WOWGUAJI-T2-0160",
+    "title": "Build main dashboard UI",
+    "description": "Implement the main interface with skill overview (level/progress), current activity (output rate/remaining time/current goal), and quick switching.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "docs",
+    "depends_on": [
+      "GM-0161",
+      "GM-0149"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "docs",
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Use Godot Control UI (Control, Label, TextureRect, ProgressBar, Button). Create a MainDashboard scene with sections for skill overview, current activity, and quick switching. Bind UI to game state via adapter/controller scripts.",
+      "Verify: Manual UI testing in Godot editor plus GdUnit4 smoke tests for key UI bindings and button actions."
+    ],
+    "test_strategy": [
+      "Manual UI testing in Godot editor plus GdUnit4 smoke tests for key UI bindings and button actions."
+    ],
+    "taskmaster_id": 63,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.score.updated",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0161",
+    "story_id": "PRD-WOWGUAJI-T2-0161",
+    "title": "Set up project structure and core services",
+    "description": "Initialize the project with necessary directories, set up TimeService for tick-based progression, and create a basic game state manager.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Ensure the Godot 4.5 (C#/.NET 8) project structure is in place and add a tick-based TimeService (autoload) plus a GameStateManager. Keep domain logic in Game.Core and use adapters for Godot APIs.",
+      "Verify: Unit tests for tick scheduling logic (xUnit) and a GdUnit4 smoke test that the autoloads initialize and emit a tick in headless mode."
+    ],
+    "test_strategy": [
+      "Unit tests for tick scheduling logic (xUnit) and a GdUnit4 smoke test that the autoloads initialize and emit a tick in headless mode."
+    ],
+    "taskmaster_id": 64,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.save.loaded",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0162",
+    "story_id": "PRD-WOWGUAJI-T2-0162",
+    "title": "Add rare spawn system",
+    "description": "Implement / / with unique material drops.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [
+      "GM-0158",
+      "GM-0156"
+    ],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create RareSpawnManager that spawns rare resources or elites in regions based on timer or probability. When spawned",
+      "Verify: Add automated tests and write artifacts under logs/ci/<date>/."
+    ],
+    "test_strategy": [
+      "Add automated tests and write artifacts under logs/ci/<date>/."
+    ],
+    "taskmaster_id": 65,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked"
+    ]
+  },
+  {
+    "id": "GM-0163",
+    "story_id": "PRD-WOWGUAJI-T2-0163",
+    "title": "Implement GatheringScreen and CraftingScreen UI",
+    "description": "Create UI screens for gathering and crafting operations as per PRD 5.3.2c.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0177",
+      "GM-0166",
+      "GM-0176"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: GatheringScreen.tscn: display gathering nodes, progress bars for cooldowns. CraftingScreen.tscn: list recipes, material requirements, craft button. Both call Core managers (ResourceManager, CraftingManager) on player input. Updat",
+      "Verify: Manual testing: perform gathering and crafting actions, verify UI reflects core state and outputs."
+    ],
+    "test_strategy": [
+      "Manual testing: perform gathering and crafting actions, verify UI reflects core state and outputs."
+    ],
+    "taskmaster_id": 66,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0164",
+    "story_id": "PRD-WOWGUAJI-T2-0164",
+    "title": "Implement CombatScreen UI for battle display",
+    "description": "Create CombatScreen to show HP, status, and combat controls as per PRD 5.3.2d.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0173",
+      "GM-0175",
+      "GM-0176"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: CombatScreen.tscn: display player and enemy HP bars, status effects, attack animations. Buttons: Start Combat (calls CombatManager), Stop. Subscribe to EventBus for combat events (e.g., damage dealt, loot awarded) to update UI.",
+      "Verify: Manual testing: start combat, observe UI updates, verify loot display on combat end."
+    ],
+    "test_strategy": [
+      "Manual testing: start combat, observe UI updates, verify loot display on combat end."
+    ],
+    "taskmaster_id": 68,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged"
+    ]
+  },
+  {
+    "id": "GM-0165",
+    "story_id": "PRD-WOWGUAJI-T2-0165",
+    "title": "Implement MapScreen and offline reward dialog",
+    "description": "Create MapScreen for region display and OfflineRewardDialog for offline as per PRD 5.3.2g and h.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0168",
+      "GM-0172",
+      "GM-0176"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "map",
+      "offline",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: MapScreen.tscn: world map with regions, lock icons for locked areas. OfflineRewardDialog.tscn: popup on game start showing rewards calculated by TimeService and ActivitySystem. Use EventBus to trigger dialog.",
+      "Verify: Manual testing: open MapScreen, verify region states. Simulate offline time, verify reward dialog shows correct amounts."
+    ],
+    "test_strategy": [
+      "Manual testing: open MapScreen, verify region states. Simulate offline time, verify reward dialog shows correct amounts."
+    ],
+    "taskmaster_id": 69,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.offline.rewards.granted",
+      "core.region.unlocked",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0166",
+    "story_id": "PRD-WOWGUAJI-T2-0166",
+    "title": "Implement CraftingManager and recipe system",
+    "description": "Create CraftingManager to handle crafting recipes, material deduction, and product generation as per PRD 5.3.1e.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0169"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: CraftingManager.cs in Game.Core: load recipes from JSON, validate materials via InventoryManager, deduct items, add products. Add experience to relevant skill. Publish events for crafting completion.",
+      "Verify: Unit tests: test recipe validation, material deduction, product addition, and experience gain."
+    ],
+    "test_strategy": [
+      "Unit tests: test recipe validation, material deduction, product addition, and experience gain."
+    ],
+    "taskmaster_id": 70,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0167",
+    "story_id": "PRD-WOWGUAJI-T2-0167",
+    "title": "Implement InventoryScreen and equipment management",
+    "description": "Create InventoryScreen for backpack and equipment management as per PRD 5.3.2e.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0169",
+      "GM-0176"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: InventoryScreen.tscn: grid of item slots, equipment slots. Allow drag-and-drop or click to equip/unequip. Call InventoryManager methods. Update UI on ItemAdded event.",
+      "Verify: Manual testing: add items, equip/unequip, verify UI and core state sync."
+    ],
+    "test_strategy": [
+      "Manual testing: add items, equip/unequip, verify UI and core state sync."
+    ],
+    "taskmaster_id": 71,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0168",
+    "story_id": "PRD-WOWGUAJI-T2-0168",
+    "title": "Implement MapManager and region unlocking",
+    "description": "Create MapManager to handle regions, unlock conditions, and content attachment as per PRD 5.3.1l.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: MapManager.cs in Game.Core: maintains list of Region objects with unlock conditions (e.g., skill level, quest completion). Method UnlockRegion(string regionId) checks conditions and updates GameState. Publishes RegionUnlocked eve",
+      "Verify: Unit tests: test unlock conditions, verify event publishing and GameState update."
+    ],
+    "test_strategy": [
+      "Unit tests: test unlock conditions, verify event publishing and GameState update."
+    ],
+    "taskmaster_id": 72,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.region.unlocked",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0169",
+    "story_id": "PRD-WOWGUAJI-T2-0169",
+    "title": "Implement InventoryManager and item system",
+    "description": "Create InventoryManager to handle backpack, bank, stacking, and equipment as per PRD 5.3.1i.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: InventoryManager.cs in Game.Core: manage list of Item slots with stacking logic. Methods: AddItem(string itemId, int quantity), RemoveItem, EquipItem. Publish ItemAdded event. Aggregate character attributes from equipped items.",
+      "Verify: Unit tests: add/remove items, test stacking, verify events and attribute calculations."
+    ],
+    "test_strategy": [
+      "Unit tests: add/remove items, test stacking, verify events and attribute calculations."
+    ],
+    "taskmaster_id": 74,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.player.moved"
+    ]
+  },
+  {
+    "id": "GM-0170",
+    "story_id": "PRD-WOWGUAJI-T2-0170",
+    "title": "Implement QuestManager and AchievementTracker",
+    "description": "Create QuestManager for quest state machine and AchievementTracker for achievement detection as per PRD 5.3.1j and k.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: QuestManager.cs: manages quests with states (NotStarted, InProgress, Completed, Rewarded). Subscribes to EventBus events to update quest objectives. AchievementTracker.cs: similar, tracks achievements and marks them complete. Bot",
+      "Verify: Unit tests: simulate event triggers, verify quest/achievement state transitions and GameState updates."
+    ],
+    "test_strategy": [
+      "Unit tests: simulate event triggers, verify quest/achievement state transitions and GameState updates."
+    ],
+    "taskmaster_id": 75,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0171",
+    "story_id": "PRD-WOWGUAJI-T2-0171",
+    "title": "Implement SkillScreen UI and activity start",
+    "description": "Create SkillScreen UI to display skills and allow starting activities as per PRD 5.3.2b and 5.4.1.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0179",
+      "GM-0176"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: SkillScreen.tscn with list of skills (e.g., using ItemList). On skill selection, show Start Activity button that calls Core's ActivitySystem.StartActivity(skillId). Subscribe to EventBus to update UI on skill changes. Use C# scri",
+      "Verify: Manual testing: open SkillScreen, start activity, verify UI updates and core logic triggers."
+    ],
+    "test_strategy": [
+      "Manual testing: open SkillScreen, start activity, verify UI updates and core logic triggers."
+    ],
+    "taskmaster_id": 76,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0172",
+    "story_id": "PRD-WOWGUAJI-T2-0172",
+    "title": "Implement TimeService and ActivitySystem core",
+    "description": "Create TimeService to track offline time and ActivitySystem to manage activity ticks as per PRD 5.4.3.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "crafting",
+      "gameplay",
+      "gathering",
+      "offline",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: TimeService.cs in Autoload: store LastOnlineTime, calculate offline delta on game start. ActivitySystem in Game.Core: class with Tick(float delta) method that iterates through active activities (Gathering, Crafting, Combat) and c",
+      "Verify: Unit tests for TimeService delta calculation. Integration test: simulate time passage and verify ActivitySystem triggers ticks correctly."
+    ],
+    "test_strategy": [
+      "Unit tests for TimeService delta calculation. Integration test: simulate time passage and verify ActivitySystem triggers ticks correctly."
+    ],
+    "taskmaster_id": 77,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0173",
+    "story_id": "PRD-WOWGUAJI-T2-0173",
+    "title": "Implement CombatManager and DamageCalculator",
+    "description": "Create CombatManager for battle state and DamageCalculator for pure damage computation as per PRD 5.3.1f and g.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0172"
+    ],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: CombatManager.cs: manages combat state, enemy HP, attack intervals via ActivitySystem ticks. DamageCalculator.cs: static class with method CalculateDamage(attackerStats, defenderStats) returning damage value. Use formulas based o",
+      "Verify: Unit tests for DamageCalculator with various inputs. Integration test: simulate combat tick and verify damage application."
+    ],
+    "test_strategy": [
+      "Unit tests for DamageCalculator with various inputs. Integration test: simulate combat tick and verify damage application."
+    ],
+    "taskmaster_id": 78,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0174",
+    "story_id": "PRD-WOWGUAJI-T2-0174",
+    "title": "Implement DlcManager for DLC content handling",
+    "description": "Create DlcManager to enable DLCs, register content, and apply linkage rules as per PRD 5.3.1m and 5.5.4.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0006",
+      "ADR-0007"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "inventory",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: DlcManager.cs in Game.Core: loads DLCManifest JSON, registers additional skills, items, recipes, etc., with DLC1_ prefix. Methods: EnableDlc(string dlcId), MergeContent(). Updates GameState.EnabledDLCs.",
+      "Verify: Unit tests: enable DLC, verify content is registered and accessible in GameState."
+    ],
+    "test_strategy": [
+      "Unit tests: enable DLC, verify content is registered and accessible in GameState."
+    ],
+    "taskmaster_id": 79,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0175",
+    "story_id": "PRD-WOWGUAJI-T2-0175",
+    "title": "Implement LootGenerator and drop system",
+    "description": "Create LootGenerator to handle item drops from combat based on loot tables as per PRD 5.3.1h.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0169"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: LootGenerator.cs in Game.Core: uses RngService with seed for reproducibility. Method GenerateLoot(string enemyId) returns list of Item IDs based on weighted loot tables defined in JSON. Integrate with CombatManager to award loot ",
+      "Verify: Unit tests: verify loot generation matches probabilities with fixed seed, and items are correctly added to inventory."
+    ],
+    "test_strategy": [
+      "Unit tests: verify loot generation matches probabilities with fixed seed, and items are correctly added to inventory."
+    ],
+    "taskmaster_id": 81,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged"
+    ]
+  },
+  {
+    "id": "GM-0176",
+    "story_id": "PRD-WOWGUAJI-T2-0176",
+    "title": "Create main UI scene and navigation",
+    "description": "Build MainScene in Godot with UI for new game, continue, and settings as per PRD 5.3.2a.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0178"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: In Game/Godot, create MainScene.tscn using Control nodes. Add buttons: New Game (calls Core to create new GameState), Continue (loads via DataStore), Settings (opens config). Use Godot's signals to connect buttons to C# scripts i",
+      "Verify: Manual testing in Godot: run scene, click buttons, verify navigation and core calls work without errors."
+    ],
+    "test_strategy": [
+      "Manual testing in Godot: run scene, click buttons, verify navigation and core calls work without errors."
+    ],
+    "taskmaster_id": 82,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.save.created",
+      "core.save.loaded",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0177",
+    "story_id": "PRD-WOWGUAJI-T2-0177",
+    "title": "Implement GatheringModel and ResourceManager",
+    "description": "Create GatheringModel for gathering point data and ResourceManager to handle resource collection as per PRD 5.3.1d.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0172"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "gathering",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: GatheringModel.cs: defines gathering node with ID, resource yield, cooldown. ResourceManager.cs: manages active gathering activities, validates conditions, and generates resources on tick via ActivitySystem. Use RngService for ra",
+      "Verify: Unit tests: simulate gathering tick, verify resource generation and event publishing."
+    ],
+    "test_strategy": [
+      "Unit tests: simulate gathering tick, verify resource generation and event publishing."
+    ],
+    "taskmaster_id": 83,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0178",
+    "story_id": "PRD-WOWGUAJI-T2-0178",
+    "title": "Set up Godot project with C# and folder structure",
+    "description": "Initialize a Godot 4.x project with C# support and create the layered folder structure as per PRD: Game.Core, Game.Godot, Autoload services, and Content for JSON configs.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a new Godot 4.x project with C# as the scripting language. Set up folders: Game/Core (for domain logic), Game/Godot (for scenes and UI), Autoload (for services like EventBus), Content (for JSON configs). Ensure .csproj ref",
+      "Verify: Verify project loads in Godot editor, C# scripts compile without errors, and folder structure is visible in the FileSystem dock."
+    ],
+    "test_strategy": [
+      "Verify project loads in Godot editor, C# scripts compile without errors, and folder structure is visible in the FileSystem dock."
+    ],
+    "taskmaster_id": 84,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.save.created",
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "GM-0179",
+    "story_id": "PRD-WOWGUAJI-T2-0179",
+    "title": "Implement SkillManager and experience system",
+    "description": "Create SkillManager to handle skill registration, experience gain, and level-ups as per PRD 5.3.1b.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: SkillManager.cs in Game.Core: maintains dictionary of Skill instances. Methods: AddExperience(string skillId, int exp), CheckLevelUp(). On level-up, update skill and publish SkillLeveledUp event via EventBus. Integrate with GameS",
+      "Verify: Unit tests: add experience, trigger level-up, verify event is published and GameState is updated."
+    ],
+    "test_strategy": [
+      "Unit tests: add experience, trigger level-up, verify event is published and GameState is updated."
+    ],
+    "taskmaster_id": 85,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.skill.levelled_up",
+      "core.skill.xp.changed",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0180",
+    "story_id": "PRD-WOWGUAJI-T2-0180",
+    "title": "Integrate and Polish Full Gameplay Flow",
+    "description": "Connect all systems, ensure end-to-end gameplay works from startup to exit, and add polish like UI popups for rewards.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0187",
+      "GM-0186",
+      "GM-0182",
+      "GM-0181",
+      "GM-0191",
+      "GM-0185"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0015",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH09",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "gathering",
+      "inventory",
+      "map",
+      "offline",
+      "perf",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Integrate all components: on startup, load GameState, run OfflineCalculator, show popup for offline rewards. During gameplay, ensure UI screens interact with core systems, events drive updates, and quests/map unlock correctly. Im",
+      "Verify: End-to-end testing of typical scenarios: startup, gathering, combat, quest completion, and exit. Verify all events are handled, UI updates correctly, and data is saved. Use integration tests and playtesting."
+    ],
+    "test_strategy": [
+      "End-to-end testing of typical scenarios: startup, gathering, combat, quest completion, and exit. Verify all events are handled, UI updates correctly, and data is saved. Use integration tests and playtesting."
+    ],
+    "taskmaster_id": 86,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0181",
+    "story_id": "PRD-WOWGUAJI-T2-0181",
+    "title": "Build UI Screens for Gameplay",
+    "description": "Create UI screens for SkillScreen, GatheringScreen, CombatScreen, and other gameplay interfaces.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0190"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Design and implement UI screens using a UI framework. SkillScreen shows skill list and allows selection. GatheringScreen displays resource nodes and a 'Start' button; on click, call ActivitySystem.StartGathering(nodeId). CombatSc",
+      "Verify: UI testing to ensure buttons trigger correct core calls. Verify event-driven updates (e.g., item counts refresh). Test screen transitions."
+    ],
+    "test_strategy": [
+      "UI testing to ensure buttons trigger correct core calls. Verify event-driven updates (e.g., item counts refresh). Test screen transitions."
+    ],
+    "taskmaster_id": 87,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0182",
+    "story_id": "PRD-WOWGUAJI-T2-0182",
+    "title": "Create Map and DLC Management",
+    "description": "Implement MapManager to handle region unlocking and DLC integration as per the PRD's map DLC instance.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "dlc",
+      "gameplay",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Develop MapManager with methods RegionUnlocked(regionId) and logic to unlock regions based on conditions (e.g., defeating a boss). Store map state in GameState. Integrate DLC content by checking DLCState. Emit RegionUnlocked even",
+      "Verify: Test region unlocking logic and event emission. Verify map state is saved/loaded. Check DLC integration if specified."
+    ],
+    "test_strategy": [
+      "Test region unlocking logic and event emission. Verify map state is saved/loaded. Check DLC integration if specified."
+    ],
+    "taskmaster_id": 88,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0183",
+    "story_id": "PRD-WOWGUAJI-T2-0183",
+    "title": "Develop Combat System",
+    "description": "Implement CombatManager for battle initialization, tick-based damage calculation, and victory/defeat conditions.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0188"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "inventory",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create CombatManager with StartBattle(enemyId, regionId) that initializes combatants' HP, attack, defense, and statuses. In Tick(), use DamageCalculator to compute damage, update HP, and apply status effects. Check for HP 0 to de",
+      "Verify: Test combat ticks, damage calculations, and HP updates. Verify victory/defeat logic and loot generation. Check event emissions."
+    ],
+    "test_strategy": [
+      "Test combat ticks, damage calculations, and HP updates. Verify victory/defeat logic and loot generation. Check event emissions."
+    ],
+    "taskmaster_id": 89,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked"
+    ]
+  },
+  {
+    "id": "GM-0184",
+    "story_id": "PRD-WOWGUAJI-T2-0184",
+    "title": "Create Gathering Activity Implementation",
+    "description": "Implement gathering logic including resource validation, tick-based production, and reward distribution.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0188"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Develop GatheringAction class that handles a specific gathering activity. In Tick(), increment a timer; when cycle completes, call ResourceManager to validate (e.g., level checks) and generate items/exp. Use InventoryManager.AddI",
+      "Verify: Test gathering ticks produce rewards correctly. Validate resource checks. Verify events are emitted and handled by other systems."
+    ],
+    "test_strategy": [
+      "Test gathering ticks produce rewards correctly. Validate resource checks. Verify events are emitted and handled by other systems."
+    ],
+    "taskmaster_id": 92,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0185",
+    "story_id": "PRD-WOWGUAJI-T2-0185",
+    "title": "Add Loot and Resource Generation",
+    "description": "Implement LootGenerator for combat drops and ResourceManager for gathering validation and rewards.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [
+      "GM-0184",
+      "GM-0183"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create LootGenerator with a method Roll(enemyId) that returns a list of items based on enemy type and RNG. ResourceManager should validate gathering nodes (check player level, unlocks) and generate appropriate resources/exp. For ",
+      "Verify: Test loot generation with mock enemies to ensure drops are within expected ranges. Validate resource generation logic and integration with activities."
+    ],
+    "test_strategy": [
+      "Test loot generation with mock enemies to ensure drops are within expected ranges. Validate resource generation logic and integration with activities."
+    ],
+    "taskmaster_id": 93,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0186",
+    "story_id": "PRD-WOWGUAJI-T2-0186",
+    "title": "Implement Quest and Achievement Tracking",
+    "description": "Develop QuestManager and AchievementTracker to monitor player actions and mark completions.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Build QuestManager with a list of quests, each having objectives (e.g., 'collect X items', 'reach skill level N'). Subscribe to relevant events and update progress. On completion, mark quest as done and potentially trigger reward",
+      "Verify: Test quest progress updates with mock events. Verify completion triggers and rewards. Check integration with event system."
+    ],
+    "test_strategy": [
+      "Test quest progress updates with mock events. Verify completion triggers and rewards. Check integration with event system."
+    ],
+    "taskmaster_id": 94,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0187",
+    "story_id": "PRD-WOWGUAJI-T2-0187",
+    "title": "Implement Offline Calculator System",
+    "description": "Create OfflineCalculator to compute rewards based on time since lastOnlineTime when the game starts.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "offline",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Implement OfflineCalculator class with a method CalculateOfflineRewards(GameState state) that uses lastOnlineTime and current time to simulate activities (e.g., gathering, combat) and generate items/exp. Emit OfflineRewardGranted",
+      "Verify: Unit tests with different time intervals to verify reward calculations. Test event emission and integration with UI for popup."
+    ],
+    "test_strategy": [
+      "Unit tests with different time intervals to verify reward calculations. Test event emission and integration with UI for popup."
+    ],
+    "taskmaster_id": 95,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0188",
+    "story_id": "PRD-WOWGUAJI-T2-0188",
+    "title": "Develop Skill and Activity Systems",
+    "description": "Implement SkillManager for skill exp/leveling and ActivitySystem for managing player activities like gathering and combat.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "gathering",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create SkillManager with methods GainExp(skill, exp) and level-up logic. Implement ActivitySystem with StartGathering(nodeId), StartBattle(enemyId, regionId), StopCurrent(), and Tick() method. Store currentActivityId in GameState",
+      "Verify: Unit tests for skill exp gain and level-ups. Test activity start/stop and tick progression. Verify currentActivityId is saved."
+    ],
+    "test_strategy": [
+      "Unit tests for skill exp gain and level-ups. Test activity start/stop and tick progression. Verify currentActivityId is saved."
+    ],
+    "taskmaster_id": 96,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0189",
+    "story_id": "PRD-WOWGUAJI-T2-0189",
+    "title": "Implement Inventory Management",
+    "description": "Create InventoryManager to handle item addition, removal, and capacity management (T2 may skip capacity).",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Build InventoryManager with methods AddItem(itemId, count), RemoveItem(itemId, count), GetItemCount(itemId). Use a dictionary or list to store items. Emit ItemAdded event on changes. For T2, skip capacity limits as per PRD. Pseud",
+      "Verify: Unit tests for adding/removing items. Verify event publishing. Test with multiple item types and edge cases."
+    ],
+    "test_strategy": [
+      "Unit tests for adding/removing items. Verify event publishing. Test with multiple item types and edge cases."
+    ],
+    "taskmaster_id": 97,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.player.moved"
+    ]
+  },
+  {
+    "id": "GM-0190",
+    "story_id": "PRD-WOWGUAJI-T2-0190",
+    "title": "Build Main Scene and UI Navigation",
+    "description": "Create the MainScene with UI for loading save lists, continuing, or starting a new game.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0006",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Design MainScene UI with buttons: 'Continue', 'New Game', 'Load Game'. Implement logic to read save slots from DataStore and display them. On selection, load GameState and transition to gameplay scene. Use a UI framework (e.g., U",
+      "Verify: UI testing to ensure buttons respond and correct scenes load. Verify save list displays correctly with mock data."
+    ],
+    "test_strategy": [
+      "UI testing to ensure buttons respond and correct scenes load. Verify save list displays correctly with mock data."
+    ],
+    "taskmaster_id": 98,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.save.created",
+      "core.save.loaded",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0191",
+    "story_id": "PRD-WOWGUAJI-T2-0191",
+    "title": "Implement TimeService and Tick Loop",
+    "description": "Create TimeService to drive game ticks for activities and offline calculations.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "offline",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Develop TimeService as a singleton that updates on a fixed interval (e.g., every second). In each tick, call ActivitySystem.Tick() to progress activities. Also, use it for combat ticks and other time-based logic. Integrate with t",
+      "Verify: Unit tests for tick intervals and activity progression. Verify that ticks correctly drive gathering and combat. Test integration with offline calculator."
+    ],
+    "test_strategy": [
+      "Unit tests for tick intervals and activity progression. Verify that ticks correctly drive gathering and combat. Test integration with offline calculator."
+    ],
+    "taskmaster_id": 99,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged"
+    ]
+  },
+  {
+    "id": "GM-0192",
+    "story_id": "PRD-WOWGUAJI-T2-0192",
+    "title": "Implement DLC1_MapToken acquisition and area unlock logic",
+    "description": "Create the quest or task in the main world high-level area that rewards the ' ' (DLC1_MapToken) and handle DLC-based unlock for North_Snowfield.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0198",
+      "GM-0199"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "dlc",
+      "gameplay",
+      "inventory",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Design a quest or task in an existing high-level area of the base game that, upon completion, rewards the player with DLC1_MapToken. If DLC is enabled, this token unlocks access to North_Snowfield (e.g., via a new map icon, NPC d",
+      "Verify: Test quest completion rewards token correctly. Verify North_Snowfield is accessible only when both token is possessed and DLC is enabled. Test token behavior when DLC is disabled (should be collectible only)."
+    ],
+    "test_strategy": [
+      "Test quest completion rewards token correctly. Verify North_Snowfield is accessible only when both token is possessed and DLC is enabled. Test token behavior when DLC is disabled (should be collectible only)."
+    ],
+    "taskmaster_id": 101,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0193",
+    "story_id": "PRD-WOWGUAJI-T2-0193",
+    "title": "Integrate DLC content with base game systems",
+    "description": "Ensure seamless integration of DLC materials, recipes, and abilities with existing base game systems like inventory, crafting, and UI.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0198",
+      "GM-0195",
+      "GM-0197"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0006",
+      "ADR-0007"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "inventory",
+      "map",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Update base game systems to recognize DLC content. Modify inventory system to handle DLC materials (DLC1_IceCrystal, DLC1_FrostHide) with proper icons and descriptions. Update crafting UI to filter or highlight DLC recipes when D",
+      "Verify: End-to-end integration testing: verify DLC materials can be collected, stored in inventory, used in crafting. Test UI displays correctly. Test save/load preserves DLC state. Performance test to ensure no degradation with DLC content"
+    ],
+    "test_strategy": [
+      "End-to-end integration testing: verify DLC materials can be collected, stored in inventory, used in crafting. Test UI displays correctly. Test save/load preserves DLC state. Performance test to ensure no degradation with DLC content."
+    ],
+    "taskmaster_id": 102,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0194",
+    "story_id": "PRD-WOWGUAJI-T2-0194",
+    "title": "Optimize and polish DLC content",
+    "description": "Refine DLC implementation for performance, balance, and user experience, including bug fixes and tuning.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0199",
+      "GM-0195",
+      "GM-0197",
+      "GM-0193"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0015",
+      "ADR-0004"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH09",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "gathering",
+      "perf",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: After initial implementation, optimize DLC content. Balance material drop rates, monster difficulty, and boss fight mechanics. Tune ' ' parameters (X%, Y%) for fair gameplay. Optimize asset loading for North_Snowfield area to pre",
+      "Verify: Performance testing: measure frame rate and load times in North_Snowfield. Balance testing: verify material availability and combat difficulty are appropriate. User acceptance testing with a focus group."
+    ],
+    "test_strategy": [
+      "Performance testing: measure frame rate and load times in North_Snowfield. Balance testing: verify material availability and combat difficulty are appropriate. User acceptance testing with a focus group."
+    ],
+    "taskmaster_id": 103,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0195",
+    "story_id": "PRD-WOWGUAJI-T2-0195",
+    "title": "Add new materials and integrate into base game recipes",
+    "description": "Implement the new materials DLC1_IceCrystal and DLC1_FrostHide, and create new base game recipes that require these materials.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0198"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Extend the game's crafting system to include DLC materials. Add DLC1_IceCrystal as a material for the new base forging recipe ' ' (Frost Weapon Enhancement), which enhances weapon stats. Add DLC1_FrostHide for the new base cookin",
+      "Verify: Unit tests for recipe validation and crafting logic. Integration tests: verify recipes appear in crafting UI when DLC enabled, crafting succeeds with correct materials, and effects (weapon enhancement, resistance/HP boost) are appli"
+    ],
+    "test_strategy": [
+      "Unit tests for recipe validation and crafting logic. Integration tests: verify recipes appear in crafting UI when DLC enabled, crafting succeeds with correct materials, and effects (weapon enhancement, resistance/HP boost) are applied correctly."
+    ],
+    "taskmaster_id": 104,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked"
+    ]
+  },
+  {
+    "id": "GM-0196",
+    "story_id": "PRD-WOWGUAJI-T2-0196",
+    "title": "Add cosmetic decorations for DLC completion",
+    "description": "Implement optional decorative elements in the main city, such as an ' ' (Ice Dragon Statue) or achievement display, that appear after DLC completion.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0199",
+      "GM-0197"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "dlc",
+      "gameplay",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: After the Ice Dragon is defeated and the DLC is completed, add cosmetic decorations to the main city. This could be a static model of an Ice Dragon statue placed in a prominent location, or an achievement badge in a UI display. T",
+      "Verify: Visual verification: after completing DLC, check that statue appears in main city and achievement badge is displayed. Ensure no unintended gameplay effects."
+    ],
+    "test_strategy": [
+      "Visual verification: after completing DLC, check that statue appears in main city and achievement badge is displayed. Ensure no unintended gameplay effects."
+    ],
+    "taskmaster_id": 106,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked"
+    ]
+  },
+  {
+    "id": "GM-0197",
+    "story_id": "PRD-WOWGUAJI-T2-0197",
+    "title": "Implement ' ' global passive ability",
+    "description": "Create the global passive ability granted after defeating the Ice Dragon boss, providing a configurable bonus to gathering speed and/or drop rate.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0199"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0006",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "dlc",
+      "gameplay",
+      "gathering",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: After the Ice Dragon is defeated, grant the player a permanent passive ability ' ' (Frost Blessing). This ability should provide a configurable bonus, e.g., +X% gathering speed and/or +Y% drop rate. Implement as a buff or passive",
+      "Verify: Unit tests for ability application and bonus calculations. Functional test: defeat Ice Dragon, verify ability is granted and active, then test gathering speed increase and drop rate improvement in various scenarios."
+    ],
+    "test_strategy": [
+      "Unit tests for ability application and bonus calculations. Functional test: defeat Ice Dragon, verify ability is granted and active, then test gathering speed increase and drop rate improvement in various scenarios."
+    ],
+    "taskmaster_id": 107,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0198",
+    "story_id": "PRD-WOWGUAJI-T2-0198",
+    "title": "Set up DLC development environment and data structures",
+    "description": "Create the foundational data structures and configuration files for the DLC system, including DLC definitions, material definitions, and area definitions.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0006",
+      "ADR-0007"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "map",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Implement a DLC configuration system using JSON or a database. Define DLC1 with ID 'DLC1_NorthSnowfield'. Create data structures for new materials (DLC1_IceCrystal, DLC1_FrostHide) with properties like name, type, icon, and descr",
+      "Verify: Unit tests to verify DLC configuration loading, material definitions are correctly parsed, and area metadata is accessible. Integration test to ensure DLC content is only available when DLC is enabled via a flag or ownership check."
+    ],
+    "test_strategy": [
+      "Unit tests to verify DLC configuration loading, material definitions are correctly parsed, and area metadata is accessible. Integration test to ensure DLC content is only available when DLC is enabled via a flag or ownership check."
+    ],
+    "taskmaster_id": 108,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded"
+    ]
+  },
+  {
+    "id": "GM-0199",
+    "story_id": "PRD-WOWGUAJI-T2-0199",
+    "title": "Implement new area 'North_Snowfield' with points of interest",
+    "description": "Develop the snowfield area including collection points ( , ), monster spawns ( , ), and boss encounter ( ).",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0198"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0006",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "dlc",
+      "gameplay",
+      "map",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create the game level or scene for North_Snowfield. Place collection nodes for ' ' (Ice Vein) and ' ' (Snow Pine Forest) that yield DLC1_IceCrystal and DLC1_FrostHide respectively. Implement monster spawners for ' ' (Snow Wolf) a",
+      "Verify: Functional testing: verify area loads correctly when conditions met, collection nodes yield correct materials, monsters spawn and drop loot, boss encounter triggers and can be defeated. Test area remains inaccessible without DLC or "
+    ],
+    "test_strategy": [
+      "Functional testing: verify area loads correctly when conditions met, collection nodes yield correct materials, monsters spawn and drop loot, boss encounter triggers and can be defeated. Test area remains inaccessible without DLC or map token."
+    ],
+    "taskmaster_id": 109,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0200",
+    "story_id": "PRD-WOWGUAJI-T2-0200",
+    "title": "Implement gathering chain integration test",
+    "description": "Develop the integration test for the gathering chain: StartGathering multiple ticks inventory/skill growth quest counter increase as per PRD 8.2.1.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [
+      "GM-0209",
+      "GM-0206",
+      "GM-0201"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0006"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "gathering",
+      "inventory",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create an integration test class that sets up the gathering system, mocks the necessary services (e.g., Time, DataStore), and simulates the full chain. Use fake implementations for IRng and IClock to control ticks. Verify that in",
+      "Verify: Integration test that runs the full gathering flow and asserts expected outcomes. Use mocked dependencies to isolate the core logic."
+    ],
+    "test_strategy": [
+      "Integration test that runs the full gathering flow and asserts expected outcomes. Use mocked dependencies to isolate the core logic."
+    ],
+    "taskmaster_id": 110,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0201",
+    "story_id": "PRD-WOWGUAJI-T2-0201",
+    "title": "Implement crafting system with material deduction",
+    "description": "Develop the crafting logic to check material sufficiency, deduct materials, and add products to inventory as per PRD 8.1.3.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0208"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a CraftingSystem class with methods to attempt crafting: check if required materials are available in inventory, deduct them if sufficient, and add the crafted item to inventory. Use a data store interface for inventory op",
+      "Verify: Unit tests covering insufficient materials, exact material matches, and correct inventory updates. Mock the data store to verify calls."
+    ],
+    "test_strategy": [
+      "Unit tests covering insufficient materials, exact material matches, and correct inventory updates. Mock the data store to verify calls."
+    ],
+    "taskmaster_id": 111,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added"
+    ]
+  },
+  {
+    "id": "GM-0202",
+    "story_id": "PRD-WOWGUAJI-T2-0202",
+    "title": "Create comprehensive unit test suite for core logic",
+    "description": "Develop a full set of unit tests covering all core logic areas: experience, loot, crafting, and battle systems.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0209",
+      "GM-0206",
+      "GM-0201",
+      "GM-0207"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "gameplay",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Write detailed unit tests for each core system implemented in tasks 3-6. Ensure tests cover all edge cases and requirements from PRD section 8.1. Use mocking for external dependencies. Aim for high code coverage.",
+      "Verify: Run the unit test suite and verify all tests pass. Use coverage tools to identify untested code and add tests as needed."
+    ],
+    "test_strategy": [
+      "Run the unit test suite and verify all tests pass. Use coverage tools to identify untested code and add tests as needed."
+    ],
+    "taskmaster_id": 113,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0203",
+    "story_id": "PRD-WOWGUAJI-T2-0203",
+    "title": "Implement battle chain integration test",
+    "description": "Develop the integration test for the battle chain: StartBattle tick loop loot drop quest completion area unlock as per PRD 8.2.2.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [
+      "GM-0206",
+      "GM-0207"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "inventory",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create an integration test that simulates a battle from start to finish. Mock IRng for predictable loot drops and IClock for tick control. After the battle, verify that loot is added to inventory, quests are marked complete, and ",
+      "Verify: Integration test covering the entire battle chain with assertions for each step. Use fake services to ensure deterministic behavior."
+    ],
+    "test_strategy": [
+      "Integration test covering the entire battle chain with assertions for each step. Use fake services to ensure deterministic behavior."
+    ],
+    "taskmaster_id": 114,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0204",
+    "story_id": "PRD-WOWGUAJI-T2-0204",
+    "title": "Final integration and system testing",
+    "description": "Perform end-to-end integration testing of the entire system, including all chains and save/load functionality.",
+    "status": "pending",
+    "priority": "P3",
+    "layer": "core",
+    "depends_on": [
+      "GM-0200",
+      "GM-0203",
+      "GM-0205"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0015",
+      "ADR-0004",
+      "ADR-0022"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH07",
+      "CH09",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "crafting",
+      "gameplay",
+      "gathering",
+      "perf",
+      "persistence",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create system tests that simulate real gameplay scenarios: gathering, battling, crafting, and saving/loading. Use fake implementations for all external services to ensure deterministic tests. Verify that all components work toget",
+      "Verify: Run system tests and assert that all integration points function as expected. Check for any regressions or inconsistencies in state management."
+    ],
+    "test_strategy": [
+      "Run system tests and assert that all integration points function as expected. Check for any regressions or inconsistencies in state management."
+    ],
+    "taskmaster_id": 115,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0205",
+    "story_id": "PRD-WOWGUAJI-T2-0205",
+    "title": "Implement UI-Core communication via events",
+    "description": "Develop an event system to allow UI to call use cases and Core to push state changes back to UI, avoiding UI logic duplication as per PRD 8.3.2.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create an event bus or observer pattern. Define events for state changes (e.g., InventoryUpdatedEvent, LevelUpEvent). UI components subscribe to these events and update accordingly. UI actions trigger use case methods in Core. Ex",
+      "Verify: Unit tests for event publishing and subscription. Integration tests simulating UI actions and verifying event-driven updates."
+    ],
+    "test_strategy": [
+      "Unit tests for event publishing and subscription. Integration tests simulating UI actions and verifying event-driven updates."
+    ],
+    "taskmaster_id": 116,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0206",
+    "story_id": "PRD-WOWGUAJI-T2-0206",
+    "title": "Implement loot drop system with seed-based reproducibility",
+    "description": "Develop the loot drop logic with fixed seed for reproducibility and handle weight boundaries as per PRD 8.1.2.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a LootDropSystem class that uses IRng for random number generation. Implement a method to roll loot based on weighted items, ensuring that with a fixed seed, the same sequence of drops occurs. Handle edge cases like zero w",
+      "Verify: Unit tests with fixed seeds to verify reproducibility. Test with various weight distributions, including zero-weight items and boundary conditions."
+    ],
+    "test_strategy": [
+      "Unit tests with fixed seeds to verify reproducibility. Test with various weight distributions, including zero-weight items and boundary conditions."
+    ],
+    "taskmaster_id": 117,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged"
+    ]
+  },
+  {
+    "id": "GM-0207",
+    "story_id": "PRD-WOWGUAJI-T2-0207",
+    "title": "Implement battle outcome logic with predictable results",
+    "description": "Develop the battle system to determine win/loss based on given attributes within fixed ticks, and handle state damage/decay as per PRD 8.1.4.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0208"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a BattleSystem class that simulates battles over ticks. Use attributes (e.g., health, attack) to compute outcomes deterministically. Implement state effects like damage over time or decay. Example pseudo-code: public class",
+      "Verify: Unit tests with fixed inputs to ensure predictable wins/losses within tick limits. Test state damage rules and edge cases."
+    ],
+    "test_strategy": [
+      "Unit tests with fixed inputs to ensure predictable wins/losses within tick limits. Test state damage rules and edge cases."
+    ],
+    "taskmaster_id": 119,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0208",
+    "story_id": "PRD-WOWGUAJI-T2-0208",
+    "title": "Set up project structure and testing framework",
+    "description": "Ensure .NET 8 solution structure and tests are ready (xUnit + FluentAssertions + NSubstitute + coverlet.collector) and CI scripts can run on Windows.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "adapter",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "gameplay",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Ensure solution/projects exist for Game.Core and unit tests. Use NuGet packages for FluentAssertions, NSubstitute, and coverlet.collector. Ensure dotnet test runs on Windows and produces logs/unit artifacts via existing scripts.",
+      "Verify: Verify that the project builds successfully and the test framework runs a simple placeholder test. Ensure the directory structure is correct and dependencies are resolved."
+    ],
+    "test_strategy": [
+      "Verify that the project builds successfully and the test framework runs a simple placeholder test. Ensure the directory structure is correct and dependencies are resolved."
+    ],
+    "taskmaster_id": 120,
+    "taskmaster_exported": true,
+    "contractRefs": []
+  },
+  {
+    "id": "GM-0209",
+    "story_id": "PRD-WOWGUAJI-T2-0209",
+    "title": "Implement experience and level system logic",
+    "description": "Develop the core logic for experience thresholds, level-up triggers, and unlock condition checks as per PRD 8.1.1.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [
+      "GM-0208"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "gameplay",
+      "map",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create a class ExperienceSystem with methods to add experience, check if level up is triggered based on thresholds, and handle unlock conditions. Use a data structure like a map for level thresholds. Example pseudo-code: public c",
+      "Verify: Write unit tests covering edge cases: exact threshold matches, multiple level-ups, unlock conditions. Use fixed inputs to ensure predictable outcomes."
+    ],
+    "test_strategy": [
+      "Write unit tests covering edge cases: exact threshold matches, multiple level-ups, unlock conditions. Use fixed inputs to ensure predictable outcomes."
+    ],
+    "taskmaster_id": 124,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0210",
+    "story_id": "PRD-WOWGUAJI-T2-0210",
+    "title": "Implement DlcManager and DLC Content Integration",
+    "description": "Set up DLC management system to handle DLC regions, content, and integration with main game.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0212",
+      "GM-0213"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0006"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "gathering",
+      "inventory",
+      "map",
+      "persistence",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: DlcManager loads DLC manifests (JSON/data files) to enable DLC content. Implement DLC regions: locked state with prompt, unlockable. Include at least 1 gathering point, 1 enemy type, and 1 quest chain entry in DLC. Ensure DLC mat",
+      "Verify: Unit tests for DLC loading and enabling. Integration tests to verify DLC content appears in game and feedback mechanisms work (resources and abilities)."
+    ],
+    "test_strategy": [
+      "Unit tests for DLC loading and enabling. Integration tests to verify DLC content appears in game and feedback mechanisms work (resources and abilities)."
+    ],
+    "taskmaster_id": 125,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.save.created",
+      "core.save.loaded",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0211",
+    "story_id": "PRD-WOWGUAJI-T2-0211",
+    "title": "Implement Core Unit Tests and Final Integration",
+    "description": "Write comprehensive unit tests for core systems and perform integration testing to ensure full game loop works.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "adapter",
+    "depends_on": [
+      "GM-0214",
+      "GM-0212",
+      "GM-0215",
+      "GM-0213",
+      "GM-0210"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0015"
+    ],
+    "chapter_refs": [
+      "CH07",
+      "CH09",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "combat",
+      "crafting",
+      "dlc",
+      "gameplay",
+      "gathering",
+      "map",
+      "offline",
+      "perf",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create unit tests for core systems as specified: experience formulas, drop rolls, crafting material deduction, combat victory/defeat . Integrate all systems and test the full game loop: new game gather/craft/combat growth unlock ",
+      "Verify: Automated unit tests using xUnit (+ FluentAssertions). Integration tests simulate player actions and verify expected outcomes. Manual testing for UI and gameplay feel; GdUnit4 smoke tests where engine behavior is involved."
+    ],
+    "test_strategy": [
+      "Automated unit tests using xUnit (+ FluentAssertions). Integration tests simulate player actions and verify expected outcomes. Manual testing for UI and gameplay feel; GdUnit4 smoke tests where engine behavior is involved."
+    ],
+    "taskmaster_id": 126,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.offline.rewards.granted",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0212",
+    "story_id": "PRD-WOWGUAJI-T2-0212",
+    "title": "Implement InventoryManager and CraftingManager",
+    "description": "Set up inventory system for item management and crafting system for recipe-based item creation.",
+    "status": "pending",
+    "priority": "P1",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0005",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "ci",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: InventoryManager handles player inventory with items, quantities, and capacity. CraftingManager manages recipes: check materials, consume them, and produce items. Include at least 1 crafting skill with 5 recipes. Integrate with S",
+      "Verify: Unit tests for inventory add/remove operations. Test crafting with sufficient/insufficient materials. Verify recipe outcomes and skill exp gain."
+    ],
+    "test_strategy": [
+      "Unit tests for inventory add/remove operations. Test crafting with sufficient/insufficient materials. Verify recipe outcomes and skill exp gain."
+    ],
+    "taskmaster_id": 127,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.inventory.item.added",
+      "core.player.moved",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0213",
+    "story_id": "PRD-WOWGUAJI-T2-0213",
+    "title": "Implement MapManager and RegionUnlocks",
+    "description": "Create map system to manage regions and unlock new areas based on combat/tasks/skill thresholds.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0214"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "map",
+      "progression",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: MapManager tracks available and locked regions. RegionUnlocks handles conditions to unlock new areas (e.g., defeat Boss, complete task, reach skill level). Ensure at least 1 new region can be unlocked via these means. Integrate w",
+      "Verify: Unit tests for unlock condition checking. Integration tests to verify region unlocking updates GameState and UI."
+    ],
+    "test_strategy": [
+      "Unit tests for unlock condition checking. Integration tests to verify region unlocking updates GameState and UI."
+    ],
+    "taskmaster_id": 128,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.region.unlocked",
+      "core.skill.levelled_up",
+      "core.state.manager.updated"
+    ]
+  },
+  {
+    "id": "GM-0214",
+    "story_id": "PRD-WOWGUAJI-T2-0214",
+    "title": "Implement EventBus for System Communication",
+    "description": "Set up an event bus to handle communication between game systems (e.g., skill updates, combat events).",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0004",
+      "ADR-0022",
+      "ADR-0020"
+    ],
+    "chapter_refs": [
+      "CH04",
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "crafting",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: Create an EventBus class using observer pattern or pub/sub. Define event types (e.g., SkillLevelUp, ItemCrafted, EnemyDefeated). Systems can subscribe to and publish events. Ensure it's lightweight and thread-safe if needed. Pseu",
+      "Verify: Unit tests for event subscription and publishing. Integration tests to verify systems communicate correctly via events."
+    ],
+    "test_strategy": [
+      "Unit tests for event subscription and publishing. Integration tests to verify systems communicate correctly via events."
+    ],
+    "taskmaster_id": 129,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged",
+      "core.skill.levelled_up"
+    ]
+  },
+  {
+    "id": "GM-0215",
+    "story_id": "PRD-WOWGUAJI-T2-0215",
+    "title": "Implement LootGenerator and Combat Rewards",
+    "description": "Set up loot generation system for enemy drops and combat rewards, including stage Boss drops.",
+    "status": "pending",
+    "priority": "P2",
+    "layer": "core",
+    "depends_on": [
+      "GM-0212"
+    ],
+    "adr_refs": [
+      "ADR-0011",
+      "ADR-0007",
+      "ADR-0021"
+    ],
+    "chapter_refs": [
+      "CH05",
+      "CH06",
+      "CH07",
+      "CH10"
+    ],
+    "overlay_refs": [],
+    "labels": [
+      "combat",
+      "gameplay",
+      "inventory",
+      "wowguaji"
+    ],
+    "owner": "gameplay",
+    "test_refs": [],
+    "acceptance": [
+      "Implement: LootGenerator uses RngService to roll for drops based on enemy loot tables. Integrate with InventoryManager to add loot to player inventory. Ensure Boss defeat gives appropriate rewards and triggers stage settlement. Include drop",
+      "Verify: Unit tests for loot generation with fixed seeds to verify drop rates. Integration tests to ensure loot is added to inventory after combat."
+    ],
+    "test_strategy": [
+      "Unit tests for loot generation with fixed seeds to verify drop rates. Integration tests to ensure loot is added to inventory after combat."
+    ],
+    "taskmaster_id": 130,
+    "taskmaster_exported": true,
+    "contractRefs": [
+      "core.combat.ended",
+      "core.health.updated",
+      "core.inventory.item.added",
+      "core.player.damaged"
+    ]
+  }
+]

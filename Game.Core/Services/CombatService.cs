@@ -1,5 +1,6 @@
 using Game.Core.Domain;
 using Game.Core.Domain.ValueObjects;
+using Game.Core.Contracts.Runtime;
 
 namespace Game.Core.Services;
 
@@ -22,9 +23,9 @@ public class CombatService
         // Placeholder for future type-based mitigation; for now apply raw amount
         player.TakeDamage(damage.EffectiveAmount);
         _ = _bus?.PublishAsync(new Contracts.DomainEvent(
-            Type: "player.damaged",
+            Type: PlayerDamaged.EventType,
             Source: nameof(CombatService),
-            Data: new { amount = damage.EffectiveAmount, type = damage.Type.ToString(), critical = damage.IsCritical },
+            Data: new PlayerDamaged(damage.EffectiveAmount, damage.Type.ToString(), damage.IsCritical, DateTimeOffset.UtcNow),
             Timestamp: DateTime.UtcNow,
             Id: $"dmg-{DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}"
         ));
@@ -54,9 +55,9 @@ public class CombatService
         var final = CalculateDamage(damage, config);
         player.TakeDamage(final);
         _ = _bus?.PublishAsync(new Contracts.DomainEvent(
-            Type: "player.damaged",
+            Type: PlayerDamaged.EventType,
             Source: nameof(CombatService),
-            Data: new { amount = final, type = damage.Type.ToString(), critical = damage.IsCritical },
+            Data: new PlayerDamaged(final, damage.Type.ToString(), damage.IsCritical, DateTimeOffset.UtcNow),
             Timestamp: DateTime.UtcNow,
             Id: $"dmg-{DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()}"
         ));

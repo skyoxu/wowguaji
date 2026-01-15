@@ -65,6 +65,7 @@ def main():
         'dotnet': {},
         'selfcheck': {},
         'encoding': {},
+        'contracts': {},
         'status': 'ok'
     }
     hard_fail = False
@@ -132,6 +133,20 @@ def main():
     rc3, out3 = run_cmd(['py', '-3', 'scripts/python/check_encoding.py', '--since-today'], cwd=root)
     enc_sum = read_json(os.path.join('logs', 'ci', date, 'encoding', 'session-summary.json')) or {}
     summary['encoding'] = enc_sum
+
+    # 4) Contracts rules + overlay back-link validation (hard gate)
+    rc4, out4 = run_cmd(['py', '-3', 'scripts/python/validate_contracts.py'], cwd=root)
+    rc5, out5 = run_cmd(['py', '-3', 'scripts/python/validate_contract_rules.py'], cwd=root)
+    summary['contracts'] = {
+        'validate_contracts_rc': rc4,
+        'validate_contract_rules_rc': rc5,
+    }
+    with io.open(os.path.join(ci_dir, 'contracts-validate-stdout.txt'), 'w', encoding='utf-8') as f:
+        f.write(out4)
+    with io.open(os.path.join(ci_dir, 'contract-rules-stdout.txt'), 'w', encoding='utf-8') as f:
+        f.write(out5)
+    if rc4 != 0 or rc5 != 0:
+        hard_fail = True
 
     summary['status'] = 'ok' if not hard_fail else 'fail'
     with io.open(os.path.join(ci_dir, 'ci-pipeline-summary.json'), 'w', encoding='utf-8') as f:
