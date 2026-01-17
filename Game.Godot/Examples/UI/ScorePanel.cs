@@ -1,5 +1,6 @@
 using Godot;
 using Game.Godot.Adapters;
+using Game.Core.Contracts.Runtime;
 using System.Text.Json;
 
 namespace Game.Godot.Scripts.UI;
@@ -36,12 +37,20 @@ public partial class ScorePanel : Control
         }
         // Fallback: publish UI event
         var bus = GetNodeOrNull<EventBusAdapter>("/root/EventBus");
-        bus?.PublishSimple("core.score.updated", "ui", "{\"value\":%d}".Replace("%d", amount.ToString()));
+        if (bus == null) return;
+
+        var evt = new ScoreUpdated(
+            Score: amount,
+            Added: amount,
+            OccurredAt: DateTimeOffset.UtcNow
+        );
+        var json = System.Text.Json.JsonSerializer.Serialize(evt);
+        bus.PublishSimple(ScoreUpdated.EventType, "ui", json);
     }
 
     private void OnDomainEventEmitted(string type, string source, string dataJson, string id, string specVersion, string dataContentType, string timestampIso)
     {
-        if (type == "core.score.updated" || type == "score.changed")
+        if (type == ScoreUpdated.EventType)
         {
             try
             {

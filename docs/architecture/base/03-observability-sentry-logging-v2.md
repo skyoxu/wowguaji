@@ -31,7 +31,7 @@ C4Context
     Rel(app, logs, "Write structured logs", "JSONL")
     Rel(app, sentry, "Telemetry (optional)", "HTTPS allowlist")
     Rel(dev, logs, "Inspect", "Files")
-    Rel(ops, sentry, "Monitor", "Web UI")
+    Rel(ops, sentry, "Monitor", "Sentry UI")
 ```
 
 ## 2) 日志策略（结构化 + 可归档）

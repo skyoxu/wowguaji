@@ -1,5 +1,6 @@
 using Godot;
 using Game.Godot.Adapters;
+using Game.Core.Contracts.Runtime;
 using System.Text.Json;
 
 namespace Game.Godot.Scripts.UI;
@@ -36,12 +37,21 @@ public partial class CombatPanel : Control
         }
         // Fallback: publish a simple damage event (HUD may not react)
         var bus = GetNodeOrNull<EventBusAdapter>("/root/EventBus");
-        bus?.PublishSimple("player.damaged", "ui", "{\"amount\":%d}".Replace("%d", amount.ToString()));
+        if (bus == null) return;
+
+        var evt = new PlayerDamaged(
+            Amount: amount,
+            DamageType: "ui",
+            Critical: false,
+            OccurredAt: DateTimeOffset.UtcNow
+        );
+        var json = System.Text.Json.JsonSerializer.Serialize(evt);
+        bus.PublishSimple(PlayerDamaged.EventType, "ui", json);
     }
 
     private void OnDomainEventEmitted(string type, string source, string dataJson, string id, string specVersion, string dataContentType, string timestampIso)
     {
-        if (type == "core.health.updated" || type == "player.health.changed")
+        if (type == HealthUpdated.EventType)
         {
             try
             {

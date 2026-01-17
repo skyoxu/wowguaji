@@ -1,264 +1,105 @@
 ---
 Story-ID: PRD-WOWGUAJI-VS-0001
-Title: wowguaji 首个垂直切片 - 公会管理循环（示例）
+Title: wowguaji T2 首个垂直切片 - 最小可玩闭环（放置RPG + 地图DLC）
 Status: Active
 ADR-Refs:
   - ADR-0018
+  - ADR-0011
   - ADR-0004
   - ADR-0005
+  - ADR-0006
+  - ADR-0019
+  - ADR-0003
   - ADR-0023
-  - ADR-0011
+  - ADR-0025
 Chapter-Refs:
   - CH01
+  - CH02
+  - CH03
   - CH04
   - CH05
   - CH06
   - CH07
   - CH10
 Overlay-Refs:
-  - docs/architecture/overlays/PRD-Guild-Manager/08/_index.md
-  - docs/architecture/overlays/PRD-Guild-Manager/08/08-Feature-Slice-Guild-Manager.md
-  - docs/architecture/overlays/PRD-Guild-Manager/08/ACCEPTANCE_CHECKLIST.md
+  - docs/architecture/overlays/PRD-WOWGUAJI-T2/08/_index.md
+  - docs/architecture/overlays/PRD-WOWGUAJI-T2/08/08-Feature-Slice-WOWGUAJI-T2.md
+  - docs/architecture/overlays/PRD-WOWGUAJI-T2/08/ACCEPTANCE_CHECKLIST.md
 Test-Refs: []
 ---
 
-# PRD-WOWGUAJI-VS-0001：首个垂直切片 - 公会管理循环（示例）
+# PRD-WOWGUAJI-VS-0001：T2 首个垂直切片 - 最小可玩闭环
 
-## 1. 引言与目标（引用 CH01）
+本 PRD 用于把 `docs/prd.txt`（T2 阶段单一事实来源）映射为“可执行的垂直切片”边界：明确闭环目标、约束、验收与 Overlay/任务回链。
 
-### 1.1 Story ID
-PRD-WOWGUAJI-VS-0001
+## 1. 背景与目标（引用 CH01）
 
-### 1.2 目标
-定义 wowguaji 首个可玩的垂直切片：基础公会管理循环（创建公会 -> 成员管理 -> 解散公会），作为后续功能迭代的基线。
+wowguaji 是一个 Windows-only 的 Godot 4.x（.NET/Mono）+ C# 单机离线放置类 RPG。T2 阶段目标是实现“最小可玩闭环（MVP Loop）”，可重复回归验证：
 
-### 1.3 技术栈（引用 ADR-0018）
-- 游戏引擎：Godot 4.5（Forward Plus 渲染器）
-- 主语言：C# .NET 8
-- 三层架构：
-  - **Game.Core**：纯 C# 领域层（不依赖 Godot API）
-  - **Game.Godot**：适配层（封装 Godot API，通过接口注入至 Core）
-  - **Tests**：xUnit（Core 单测）+ GdUnit4（场景集成测试）
+- 新档 -> 选择活动（采集/制作/战斗）-> 资源/经验增长
+- 制作/装备提升 -> 战斗收益与掉落
+- 区域解锁 -> 更高阶资源/配方/怪物
+- 存档/读档 + 离线收益结算（不包含离线战斗）
+- DLC 最小接入：DLC 区域可见/可解锁/可进入，并对主循环产生一次“资源/配方回馈”
 
-### 1.4 平台约束（引用 ADR-0011）
-- 运行时：Windows-only（不支持跨平台）
-- CI/CD：windows-latest 运行器，PowerShell (pwsh) shell
+## 2. 范围与非范围（引用 docs/prd.txt）
 
----
+### 2.1 T2 必须交付
 
-## 2. 输入/输出/状态
+- 采集（2–3 个技能落地，结构可扩展）
+- 制作（至少 1 个制作技能 + 若干配方）
+- 自动战斗（基础属性与掉落表）
+- 区域/地图与解锁条件
+- 任务链（新手引导/关键节点结算）
+- 存档（user://）与离线收益结算
+- DLC：数据可开关、内容可进入、至少一次回馈到主世界循环
 
-### 2.1 输入
-- **玩家操作**：
-  - 创建公会（输入：公会名称）
-  - 邀请成员（输入：用户 ID）
-  - 变更成员角色（输入：成员 ID, 新角色）
-  - 解散公会（输入：确认操作）
-- **数据源**：Guild 领域模型（持久化至 godot-sqlite DB）
+### 2.2 T2 明确不做（但需预留结构）
 
-### 2.2 输出
-- **领域事件**（引用 ADR-0004 Godot 变体）：
-  - `core.guild.created` — 公会创建成功
-  - `core.guild.member.joined` — 成员加入公会
-  - `core.guild.member.left` — 成员离开公会
-  - `core.guild.member.role_changed` — 成员角色变更
-  - `core.guild.disbanded` — 公会解散
-- **UI 反馈**：Godot Scene/Control 体系，通过 Signals 与 Core 通信
+- 多人联机/排行榜/交易系统
+- 深度 build（大天赋树/复杂循环）
+- 离线战斗（T2 口径：不模拟，避免离线死亡负反馈）
 
-### 2.3 状态
-- **Guild 实体**：
-  - `GuildId`：string（唯一标识）
-  - `CreatorId`：string（创建者用户 ID）
-  - `Name`：string（公会名称）
-  - `Members`：List<GuildMember>（成员列表）
-  - `CreatedAt`：DateTimeOffset（创建时间）
-- **GuildMember 实体**：
-  - `UserId`：string（用户 ID）
-  - `Role`：enum { Member, Admin }（成员角色）
+## 3. 约束与口径（引用 ADR/CH，不复制阈值）
 
----
+- 平台：Windows-only（ADR-0011）
+- 分层：Ports & Adapters（ADR-0018 / ADR-0007 / ADR-0021）
+- 契约与事件：CloudEvents 风格 + SSoT 落 `Game.Core/Contracts/**`（ADR-0004 / ADR-0020）
+- 数据存储：仅 `res://`（只读）与 `user://`（读写），拒绝越权路径与绝对路径（ADR-0019）
+- 可观测性：结构化日志 + Sentry Release Health（ADR-0003）
+- 质量门禁：统一由脚本固化与产出 `logs/**`（ADR-0005）
 
-## 3. 存储策略（引用 ADR-0023）
+## 4. 垂直切片验收（可回归、可取证）
 
-### 3.1 领域数据存储
-- **Guild 领域数据**：godot-sqlite（user://game.db）
-  - 表：`Guilds`, `GuildMembers`
-  - 契约：Game.Core/Contracts/Guild/**（SSoT）
-- **玩家 UI 设置**：ConfigFile（user://settings.cfg）
-  - 仅存储 UI 偏好（语言、音量），不存储领域数据
+### 4.1 功能验收（场景/交互）
 
-### 3.2 存储分层原则
-遵循 ADR-0023：
-- DB 专用于领域数据（存档、进度、复杂状态）
-- ConfigFile 专用于 Settings
-- 禁止将 Settings 存入 DB 或将领域数据存入 ConfigFile
+- 新档启动后进入主界面，能选择一个活动开始挂机（采集/制作/战斗至少一种）
+- UI 能观察到：当前活动、产出速率/剩余时间或 tick 进度、技能等级/经验变化
+- 能完成一次“装备提升 -> 战斗收益 -> 满足解锁条件 -> 区域解锁”链路
+- DLC 开关可用：DLC 区域可见且可进入，并触发一次回馈（例如 DLC 材料进入主世界配方）
 
----
+### 4.2 数据与稳定性验收
 
-## 4. 非功能约束（引用 ADR-0005）
+- 存档写入 `user://` 成功，读档后关键状态一致（技能/背包/区域解锁/DLC 状态）
+- 离线收益结算：仅采集/制作生效；离线战斗必须为 0 或显式拒绝（按 PRD 口径）
+- 任何安全拒绝（路径越权/非 HTTPS 外链/离线模式出网）都记录到审计 JSONL（路径规范见 `AGENTS.md` 6.3）
 
-### 4.1 质量门禁
-遵循 **ADR-0005** 定义的质量阈值：
-- **覆盖率门禁**：见 ADR-0005 § 硬编码质量阈值
-  - Lines ≥ 90%
-  - Branches ≥ 85%
-- **测试工具**：
-  - xUnit（Core 领域逻辑）
-  - coverlet（覆盖率收集）
-  - GdUnit4（Godot 场景测试，headless 支持）
-- **执行脚本**：scripts/python/quality_gates.py（见 CH07 § 7.2）
+## 5. 与 Overlay / 任务的对齐（SSoT 回链）
 
-### 4.2 结构性重构原则
-遵循 **ADR-0005** 结构性重构优先原则：
-- 禁止将行级禁用作为长期解决方案
-- 所有行级禁用必须在 Taskmaster 中登记回收任务
-- 每处行级禁用必须附带 `adr_refs`（至少包含 ADR-0005）与 `test_refs`
+- 08 章纵切（本 PRD 的唯一 Overlay 入口）：
+  - `docs/architecture/overlays/PRD-WOWGUAJI-T2/08/_index.md`
+  - `docs/architecture/overlays/PRD-WOWGUAJI-T2/08/08-Feature-Slice-WOWGUAJI-T2.md`
+  - `docs/architecture/overlays/PRD-WOWGUAJI-T2/08/ACCEPTANCE_CHECKLIST.md`
+- 任务视图（Taskmaster / MCP view）：
+  - `.taskmaster/tasks/tasks.json`（Taskmaster 生成）
+  - `.taskmaster/tasks/tasks_back.json`（NG-* 视图）
+  - `.taskmaster/tasks/tasks_gameplay.json`（GM-* 视图）
 
-### 4.3 CI 平台（引用 ADR-0011）
-- 运行器：windows-latest
-- Shell：pwsh（PowerShell）
-- 工作流：ci-windows.yml 或 windows-quality-gate.yml
+## 6. 测试与门禁（引用 ADR-0025 / ADR-0005，不复制阈值）
 
----
+- xUnit：覆盖 Core 规则（tick、离线结算、掉落、区域解锁条件）
+- GdUnit4：覆盖主入口场景加载与关键 Signals 连通（headless 可跑）
+- 脚本门禁：`py -3 scripts/python/quality_gates.py ...` 产出统一落盘到 `logs/**`
 
-## 5. 事件命名策略（引用 ADR-0004）
+Test-Refs 说明：Front-Matter 只引用仓库内真实存在的测试文件路径；若尚未落地测试，保持空列表。
 
-### 5.1 内部领域事件
-- **命名规则**：core.guild.*（简化前缀）
-  - 示例：`core.guild.created`, `core.guild.member.joined`
-- **CloudEvents 1.0 基础**：
-  - 必需字段：`id`, `source`, `type`, `time`
-  - 契约 SSoT：Game.Core/Contracts/Guild/**
-- **适用场景**：
-  - 内部私有事件（公会管理、游戏逻辑）
-  - 不对外发布，不需要跨组织互操作
-
-### 5.2 外部互操作（未来规划）
-如未来需发布 Mod API 或插件系统事件：
-- **迁移目标**：反向 DNS 命名（如 `com.wowguaji.guild.created`）
-- **迁移范围**：仅外部发布事件，内部事件保持简化前缀
-- **文档要求**：在 Overlay/08 中注明迁移计划与适用范围
-
-### 5.3 Base 文档占位符
-Base 文档使用 `${DOMAIN_PREFIX}` 占位符：
-- 示例：`${DOMAIN_PREFIX}.guild.created`
-- Overlay 绑定具体前缀：`core.guild.created`
-
----
-
-## 6. Test-Refs 协议（验收标准第 3 条）
-
-### 6.1 xUnit 单元测试（Core）
-- 规则：新建领域逻辑必须有对应的 xUnit 测试（覆盖核心算法/状态机/DTO 映射）。
-- 约束：Test-Refs 只能指向仓库内真实存在的测试文件路径；不存在的路径不得写入 PRD Front-Matter。
-
-### 6.2 GdUnit4 场景测试（Scene）
-- 规则：涉及场景/Signals 的验收必须有 headless 可跑的场景测试（GdUnit4）。
-- 约束：Test-Refs 只能指向仓库内真实存在的测试文件路径；不存在的路径不得写入 PRD Front-Matter。
-
-### 6.3 Headless Smoke 测试
-- **日志路径**：logs/ci/<date>/smoke/headless.log
-- **判定标记**：`[TEMPLATE_SMOKE_READY]` 或 `[DB] opened`
-- **执行脚本**：scripts/python/smoke_headless.py（见 Task #5）
-
----
-
-## 7. 验收标准
-
-### 7.1 PRD 完整性
-- [x] 存在一份针对 wowguaji 的最小 PRD 片段（本文档）
-- [x] 显式引用 ADR-0018/0004/0005/0023/0011（见上文各章节）
-- [x] 包含输入/输出/状态/存储与非功能约束
-
-### 7.2 Overlay/08 文档合规
-- [ ] 在 overlays/PRD-Guild-Manager/08 下调整功能纵切文档
-- [ ] 严格遵守"引用不复制"规则（仅引用 01/02/03 章口径）
-- [ ] 不在 08 章复制阈值/策略
-
-### 7.3 Test-Refs 关联
-- [ ] 每个 Story 至少关联一条 Test-Ref（xUnit 或 GdUnit4）
-- [ ] 在文档 Front-Matter 中列出（见本文档头部 Test-Refs）
-
-### 7.4 文档审阅
-- [ ] 由架构负责人确认 PRD 与 ADR/Phase 一致性
-- [ ] 链接校验：任务/回链校验脚本通过（task-links-validate）
-
----
-
-## 8. 依赖与后续任务
-
-### 8.1 前置依赖
-- 无（Task #1 是首个任务）
-
-### 8.2 后续任务
-- **Task #2**：公会管理器三层架构与核心类型落地
-  - 实现 Guild/GuildMember 核心域模型
-  - 编写 xUnit 单元测试
-  - 建立 Godot 场景与 UI Glue
-- **Task #5**：Python 版 headless smoke 封装与 strict 模式开关
-- **Task #6**：首个垂直切片的最小 xUnit/GdUnit4/Smoke 流程打通
-
----
-
-## 附录 A：关键文件路径清单
-
-### A.1 ADR 文件
-```
-docs/adr/ADR-0004-event-bus-and-contracts.md
-docs/adr/ADR-0018-godot-runtime-and-distribution.md
-docs/adr/ADR-0005-quality-gates.md
-docs/adr/ADR-0023-settings-ssot-configfile.md
-docs/adr/ADR-0011-windows-only-platform-and-ci.md
-```
-
-### A.2 Guild 契约文件（规划）
-```
-Game.Core/Contracts/Guild/GuildCreated.cs
-Game.Core/Contracts/Guild/GuildMemberJoined.cs
-Game.Core/Contracts/Guild/GuildMemberLeft.cs
-Game.Core/Contracts/Guild/GuildMemberRoleChanged.cs
-Game.Core/Contracts/Guild/GuildDisbanded.cs
-```
-
-### A.3 测试文件（待创建）
-```
-Game.Core.Tests/Domain/GuildCoreTests.cs
-Game.Core.Tests/Domain/GuildMemberTests.cs
-Tests.Godot/tests/Scenes/test_guild_main_scene.gd
-Tests.Godot/tests/Integration/test_guild_workflow.gd
-```
-
-### A.4 Overlay 文档路径
-```
-docs/architecture/overlays/PRD-Guild-Manager/08/_index.md
-docs/architecture/overlays/PRD-Guild-Manager/08/08-Feature-Slice-Guild-Manager.md
-docs/architecture/overlays/PRD-Guild-Manager/08/ACCEPTANCE_CHECKLIST.md
-```
-
----
-
-## 附录 B：CloudEvents 合规性说明
-
-### B.1 简化命名 vs 反向 DNS
-- **当前选择**：简化前缀（`core.guild.*`）
-  - 理由：内部私有事件，不对外发布，无需跨组织互操作
-  - 参考：ADR-0004 Godot 变体口径
-- **CloudEvents 1.0 推荐**：反向 DNS（`com.github.pull_request.opened`）
-  - 适用场景：外部发布事件、跨组织集成、公共 API
-
-### B.2 未来迁移路径（如需）
-- **触发条件**：计划发布 Mod API 或插件系统
-- **迁移范围**：仅外部发布事件使用反向 DNS
-- **保留范围**：内部私有事件继续使用简化前缀
-- **迁移步骤**：
-  1. 在 Game.Core/Contracts/ 新增反向 DNS 事件类型
-  2. 在 Overlay/08 中注明迁移计划与适用范围
-  3. 更新 EventBusAdapter 支持两种命名约定
-  4. 添加 ADR 记录迁移决策
-
----
-
-**文档版本**：1.0.0
-**创建日期**：2025-12-01
-**负责人**：architecture
-**状态**：Active

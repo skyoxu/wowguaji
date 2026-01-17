@@ -55,7 +55,7 @@ def extract_contract_paths(md_path: Path) -> List[str]:
     """Extract contract paths from a markdown file.
 
     Contract references are expected in backticks, e.g.
-    `Game.Core/Contracts/Guild/GuildCreated.cs`.
+    `Game.Core/Contracts/CoreLoop/InventoryItemAdded.cs`.
     Returned paths use forward slashes.
     """
 
