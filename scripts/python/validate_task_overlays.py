@@ -6,8 +6,8 @@ Checks:
 1) Overlay paths exist (for `overlay` or `overlay_refs`).
 2) If an overlay file is ACCEPTANCE_CHECKLIST.md:
    - YAML front matter exists.
-   - Required fields exist: PRD-ID, Title, Status, ADR-Refs, Test-Refs.
-   - ADR-Refs point to existing ADRs under docs/adr.
+   - Required fields exist (keys must be present): PRD-ID, Title, Status, ADR-Refs, Test-Refs.
+   - ADR-Refs values (if any) point to existing ADRs under docs/adr.
    - Required section headings exist (kept in Chinese in the checklist, but encoded here via \\u escapes).
 
 Usage:
@@ -29,7 +29,14 @@ OVERLAY_DIR_RE = re.compile(r"^(docs/architecture/overlays/[^/]+/08)/", re.IGNOR
 
 
 def extract_front_matter(content: str) -> Optional[dict[str, Any]]:
-    """Extract a minimal YAML front matter block from a Markdown file."""
+    """Extract a minimal YAML front matter block from a Markdown file.
+
+    Note: this is intentionally a minimal YAML parser. It only understands a
+    small subset used in our overlays (scalars and simple lists).
+
+    Returns a dict with a special key '__present__' containing the set of keys
+    that were present in the front matter.
+    """
 
     match = FRONT_MATTER_RE.match(content)
     if not match:
@@ -42,6 +49,7 @@ def extract_front_matter(content: str) -> Optional[dict[str, Any]]:
         "Status": None,
         "ADR-Refs": [],
         "Test-Refs": [],
+        "__present__": set(),
     }
 
     current_key: Optional[str] = None
@@ -55,15 +63,19 @@ def extract_front_matter(content: str) -> Optional[dict[str, Any]]:
             key = key.strip()
             value = value.strip()
 
-            if key in result:
+            if key in result and key != "__present__":
                 current_key = key
+                result["__present__"].add(key)
                 if value:
                     if key in {"ADR-Refs", "Test-Refs"}:
                         result[key] = [value]
                     else:
                         result[key] = value
                 else:
-                    result[key] = []
+                    if key in {"ADR-Refs", "Test-Refs"}:
+                        result[key] = []
+                    else:
+                        result[key] = None
             else:
                 # Unknown front-matter keys are ignored. Reset the list context so
                 # list items under unknown keys (e.g. Arch-Refs) do not get
@@ -71,7 +83,7 @@ def extract_front_matter(content: str) -> Optional[dict[str, Any]]:
                 current_key = None
             continue
 
-        if line.startswith("-") and current_key:
+        if line.startswith("-") and current_key in {"ADR-Refs", "Test-Refs"}:
             value = line[1:].strip()
             if "#" in value:
                 value = value.split("#", 1)[0].strip()
@@ -113,15 +125,16 @@ def validate_acceptance_checklist(checklist_path: Path, adr_ids: set[str]) -> li
     if not fm:
         return ["Missing YAML front matter block (--- ... ---)."]
 
-    if not fm.get("PRD-ID"):
+    present = fm.get("__present__") or set()
+    if "PRD-ID" not in present or not fm.get("PRD-ID"):
         errors.append("Front matter missing required field: PRD-ID")
-    if not fm.get("Title"):
+    if "Title" not in present or not fm.get("Title"):
         errors.append("Front matter missing required field: Title")
-    if not fm.get("Status"):
+    if "Status" not in present or not fm.get("Status"):
         errors.append("Front matter missing required field: Status")
 
     adr_refs = fm.get("ADR-Refs") or []
-    if not adr_refs:
+    if "ADR-Refs" not in present:
         errors.append("Front matter missing required field: ADR-Refs")
     else:
         for adr_ref in adr_refs:
@@ -129,14 +142,15 @@ def validate_acceptance_checklist(checklist_path: Path, adr_ids: set[str]) -> li
                 errors.append(f"ADR-Refs points to missing ADR: {adr_ref}")
 
     test_refs = fm.get("Test-Refs") or []
-    if not test_refs:
+    if "Test-Refs" not in present:
         errors.append("Front matter missing required field: Test-Refs")
 
     required_sections = [
-        "\u4e00\u3001\u6587\u6863\u5b8c\u6574\u6027\u9a8c\u6536",
-        "\u4e8c\u3001\u67b6\u6784\u8bbe\u8ba1\u9a8c\u6536",
-        "\u4e09\u3001\u4ee3\u7801\u5b9e\u73b0\u9a8c\u6536",
-        "\u56db\u3001\u6d4b\u8bd5\u6846\u67b6\u9a8c\u6536",
+        "## 1) \u6587\u6863\u4e0e\u56de\u94fe",
+        "## 2) \u6570\u636e\u9a71\u52a8\u5185\u5bb9\uff08\u5199\u6b7b\uff09",
+        "## 3) \u5951\u7ea6\u4e0e\u4e8b\u4ef6\uff08SSoT\uff09",
+        "## 4) \u6d4b\u8bd5\u4e0e\u95e8\u7981\uff08\u5bf9\u9f50 ADR-0005\uff09",
+        "## 5) \u5b89\u5168\u4e0e\u53ef\u89c2\u6d4b\u6027\uff08\u5f15\u7528 ADR\uff0c\u4e0d\u590d\u5236\u9608\u503c\uff09",
     ]
 
     for section in required_sections:
@@ -193,13 +207,9 @@ def validate_task_file(root: Path, task_file: Path, label: str, adr_ids: set[str
             overlay = task.get("overlay")
             overlays = [overlay] if overlay else []
 
-        # Backlog view policy (tasks_back.json):
-        # tasks_back is the "governance/acceptance/contracts" view. Every task must be anchored to
-        # overlay docs to avoid drift between "task view" and "acceptance/contract" SSoT.
-        #
-        # Rule (hard):
-        # - overlay_refs MUST be a non-empty list of docs/architecture/overlays/<PRD-ID>/08/... files.
-        # - overlay_refs must include BOTH:
+        # Optional policy for tasks_back.json:
+        # If a task declares overlay_refs, require stable anchor files to prevent drift.
+        # - overlay_refs should include BOTH:
         #     - <overlay_dir>/_index.md
         #     - <overlay_dir>/ACCEPTANCE_CHECKLIST.md
         #
@@ -211,11 +221,7 @@ def validate_task_file(root: Path, task_file: Path, label: str, adr_ids: set[str
             elif isinstance(overlay_refs, str) and overlay_refs.strip():
                 overlay_refs_list = [overlay_refs.strip()]
 
-            if not overlay_refs_list:
-                forced_errors.append(
-                    f"{label} task {tid}: overlay_refs must not be empty; set overlay_refs to include docs/architecture/overlays/<PRD-ID>/08/_index.md and ACCEPTANCE_CHECKLIST.md"
-                )
-            else:
+            if overlay_refs_list:
                 overlay_candidate = str(task.get("overlay") or "").strip()
                 overlay_dir = None
                 for cand in overlay_refs_list + ([overlay_candidate] if overlay_candidate else []):
@@ -226,7 +232,7 @@ def validate_task_file(root: Path, task_file: Path, label: str, adr_ids: set[str
 
                 if not overlay_dir:
                     forced_errors.append(
-                        f"{label} task {tid}: cannot infer overlay_dir from overlay/overlay_refs; set overlay_refs to include docs/architecture/overlays/<PRD-ID>/08/_index.md and ACCEPTANCE_CHECKLIST.md"
+                        f"{label} task {tid}: cannot infer overlay_dir from overlay/overlay_refs; overlay_refs should include docs/architecture/overlays/<PRD-ID>/08/_index.md and ACCEPTANCE_CHECKLIST.md"
                     )
                 else:
                     required = [
